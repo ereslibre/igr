@@ -16,6 +16,7 @@ def configure(conf):
     conf.check_cfg(package = 'QtCore', args = '--cflags --libs')
     conf.check_cfg(package = 'QtGui', args = '--cflags --libs')
     conf.check_cfg(package = 'QtOpenGL', args = '--cflags --libs')
+    conf.check_cfg(package = 'glu', args = '--cflags --libs')
 
 def build(bld):
-	bld.add_subdirs('esqueleto practica1 practica2 practica3');
+	bld.add_subdirs('esqueleto esqueleto3d practica1 practica2 practica3');
