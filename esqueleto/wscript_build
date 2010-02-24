@@ -3,7 +3,7 @@
 bld.new_task_gen(
       features = 'qt4 cprogram cxx',
       source   = bld.glob('*.cpp'),
-      target   = 'practica1',
+      target   = 'esqueleto',
       include  = '.',
       uselib   = ['QTCORE',
                   'QTGUI',
