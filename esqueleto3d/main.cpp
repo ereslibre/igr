@@ -25,18 +25,9 @@ private:
     GLfloat  m_upX;
     GLfloat  m_upY;
     GLfloat  m_upZ;
-    GLdouble m_ratio;
-    GLdouble m_width;
-    GLdouble m_height;
-    GLdouble m_xLeft;
-    GLdouble m_xRight;
-    GLdouble m_yBot;
-    GLdouble m_yTop;
     GLdouble m_near;
     GLdouble m_far;
     GLfloat  m_posicionLuz0[4];
-
-    GLUquadric *m_cilindro;
 };
 
 Test::Test(QWidget *parent)
@@ -47,7 +38,6 @@ Test::Test(QWidget *parent)
 Test::~Test()
 {
     makeCurrent();
-    gluDeleteQuadric(m_cilindro);
 }
 
 QSize Test::sizeHint() const
@@ -90,44 +80,50 @@ void Test::initializeGL()
 
     m_near = 1;
     m_far = 1000;
-    m_xRight = 10;
-    m_xLeft = -m_xRight;
-    m_yTop = 10;
-    m_yBot = -m_yTop;
-    m_ratio = 1.0;
-
-    m_cilindro = gluNewQuadric();
 }
 
 void Test::paintGL()
 {
-    gluCylinder(m_cilindro, 10, 10, 100, 100, 100);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  glLightfv(GL_LIGHT0,GL_POSITION,m_posicionLuz0);
+
+  glBegin(GL_LINES);
+        glColor4f(1.0,0.0,0.0,1.0);
+        glVertex3d(0,0,0);
+        glVertex3d(10,0,0);
+
+        glColor4f(0.0,1.0,0.0,1.0);
+        glVertex3d(0,0,0);
+        glVertex3d(0,10,0);
+
+        glColor4f(0.0,0.0,1.0,1.0);
+        glVertex3d(0,0,0);
+        glVertex3d(0,0,10);
+  glEnd();
 }
 
 void Test::resizeGL(int width, int height)
 {
-    m_ratio = (GLfloat) width / (GLfloat) height;
-    m_width = width;
-    m_height = height;
+    GLfloat ratio = (GLfloat) width / (GLfloat) height;
 
     GLdouble left;
     GLdouble right;
     GLdouble bottom;
     GLdouble top;
-    if (m_ratio < 1.0) {
+    if (ratio < 1.0) {
         left = -2.0;
         right = 2.0;
-        bottom = -2.0 * (1.0 / m_ratio);
-        top = 2.0 * (1.0 / m_ratio);
+        bottom = -2.0 * (1.0 / ratio);
+        top = 2.0 * (1.0 / ratio);
     } else {
-        left = -2.0 * m_ratio;
-        right = 2.0 * m_ratio;
+        left = -2.0 * ratio;
+        right = 2.0 * ratio;
         bottom = -2.0;
         top = 2.0;
     }
     glClearColor(0, 0, 0, 0);
     glClear(GL_COLOR_BUFFER_BIT);
-    glViewport(0, 0, m_width, m_height);
+    glViewport(0, 0, width, height);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(left, right, bottom, top, m_near, m_far);
