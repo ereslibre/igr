@@ -84,22 +84,22 @@ void Test::initializeGL()
 
 void Test::paintGL()
 {
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  glLightfv(GL_LIGHT0,GL_POSITION,m_posicionLuz0);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glLightfv(GL_LIGHT0,GL_POSITION,m_posicionLuz0);
 
-  glBegin(GL_LINES);
-        glColor4f(1.0,0.0,0.0,1.0);
-        glVertex3d(0,0,0);
-        glVertex3d(10,0,0);
+    glBegin(GL_LINES);
+    glColor4f(1.0,0.0,0.0,1.0);
+    glVertex3d(0,0,0);
+    glVertex3d(10,0,0);
 
-        glColor4f(0.0,1.0,0.0,1.0);
-        glVertex3d(0,0,0);
-        glVertex3d(0,10,0);
+    glColor4f(0.0,1.0,0.0,1.0);
+    glVertex3d(0,0,0);
+    glVertex3d(0,10,0);
 
-        glColor4f(0.0,0.0,1.0,1.0);
-        glVertex3d(0,0,0);
-        glVertex3d(0,0,10);
-  glEnd();
+    glColor4f(0.0,0.0,1.0,1.0);
+    glVertex3d(0,0,0);
+    glVertex3d(0,0,10);
+    glEnd();
 }
 
 void Test::resizeGL(int width, int height)
