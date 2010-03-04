@@ -2,6 +2,7 @@
 #define MALLA_H
 
 #include "cara.h"
+#include "verticenormal.h"
 
 class Malla
 {

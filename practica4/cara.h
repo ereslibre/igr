@@ -3,20 +3,25 @@
 
 #include <QtCore/QList>
 
-#include "verticenormal.h"
+#include "pv3f.h"
 
 class Cara
 {
 public:
-    Cara();
+    Cara(const QList<PV3f> &vertices);
     virtual ~Cara();
 
-    void anadeVertice(const VerticeNormal &verticeNormal);
+    QList<PV3f> listaVertices() const;
 
-    QList<VerticeNormal> listaVertices() const;
+    PV3f normal() const;
 
 private:
-    QList<VerticeNormal> m_vertices;
+    void newell();
+    int suc(int i) const;
+
+private:
+    QList<PV3f> m_vertices;
+    PV3f        m_normal;
 };
 
 #endif
