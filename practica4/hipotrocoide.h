@@ -4,6 +4,7 @@
 #include "pv3f.h"
 
 #include <GL/gl.h>
+#include <GL/glu.h>
 
 class Hipotrocoide
 {
@@ -21,6 +22,8 @@ private:
     int m_a;
     int m_b;
     int m_c;
+
+    GLUquadricObj *m_esfera;
 };
 
 #endif

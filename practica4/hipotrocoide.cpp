@@ -8,14 +8,19 @@ Hipotrocoide::Hipotrocoide()
     , m_b(8)
     , m_c(4)
 {
+    m_esfera = gluNewQuadric();
 }
 
 Hipotrocoide::~Hipotrocoide()
 {
+    gluDeleteQuadric(m_esfera);
 }
 
 void Hipotrocoide::dibuja()
 {
+    gluSphere(m_esfera, 5, 100, 100);
+    gluQuadricDrawStyle(m_esfera, GLU_LINE);
+    return;
     const int numVueltas = (m_b / boost::math::gcd(m_a, m_b)) * 100.0;
     const GLdouble stepSize = 2.0 * M_PI / 100.0;
     GLdouble currStepSize = 0;
@@ -44,9 +49,11 @@ void Hipotrocoide::dibuja()
         // Y = -(a - b)^2 * (cos(t) * b * c * cos(t * (a - b) / b) * a + b^3 + sin(t) * b * c * sin(t * (a - b) / b) * a + c^2 * a - c^2 * b) / b^3
         // Z = 0
         //
+#if 0
         glVertex3f((m_a - m_b) * cos(currStepSize) + m_c * cos(currStepSize * (m_a - m_b) / m_b),
                    0,
                    (m_a - m_b) * sin(currStepSize) - m_c * sin(currStepSize * (m_a - m_b) / m_b));
+#endif
         currStepSize += stepSize;
     }
     glEnd();
