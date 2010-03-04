@@ -4,9 +4,9 @@
 #include <boost/math/common_factor.hpp>
 
 Hipotrocoide::Hipotrocoide()
-    : m_a(7)
-    , m_b(4)
-    , m_c(2)
+    : m_a(14)
+    , m_b(8)
+    , m_c(4)
 {
 }
 
@@ -26,9 +26,48 @@ void Hipotrocoide::dibuja()
     glBegin(GL_LINE_STRIP);
     int numAristas = 0;
     for (int i = 0; i <= numVueltas; ++i) {
-        glVertex2f((m_a - m_b) * cos(currStepSize) + m_c * cos(currStepSize * (m_a - m_b) / m_b),
+        //
+        // C'(t)
+        // X = -(a - b) * sin(t) - c * sin(t * (a - b)) / b) * (a - b) / b
+        // Y = 0
+        // Z = (a - b) * cos(t) + c * cos(t * (a - b)) / b) * (a - b) / b
+        //
+        // T(t) = C'(t) / || C'(t) ||
+        //
+        // C''(t)
+        // X = -(a - b) * cos(t) - c * cos(t * (a - b) / b) * (a - b) ^ 2 / b ^ 2
+        // Y = 0
+        // Z = -(a - b) * sin(t) - c * sin(t * (a - b) / b) * (a - b) ^ 2 / b ^ 2
+        //
+        // C'(t) X C''(t)
+        // X = 0
+        // Y = -(a - b)^2 * (cos(t) * b * c * cos(t * (a - b) / b) * a + b^3 + sin(t) * b * c * sin(t * (a - b) / b) * a + c^2 * a - c^2 * b) / b^3
+        // Z = 0
+        //
+        glVertex3f((m_a - m_b) * cos(currStepSize) + m_c * cos(currStepSize * (m_a - m_b) / m_b),
+                   0,
                    (m_a - m_b) * sin(currStepSize) - m_c * sin(currStepSize * (m_a - m_b) / m_b));
         currStepSize += stepSize;
     }
     glEnd();
+}
+
+PV3f Hipotrocoide::derivada1(GLdouble t) const
+{
+    PV3f res(PV3f::Vector);
+    res.setX(-(m_a - m_b) * sin(t) - m_c * sin(t * (m_a - m_b) / m_b) * (m_a - m_b) / m_b);
+    res.setY(0);
+    res.setZ((m_a - m_b) * cos(t) - m_c * cos(t * (m_a - m_b) / m_b) * (m_a - m_b) / m_b);
+
+    return res;
+}
+
+PV3f Hipotrocoide::derivada2(GLdouble t) const
+{
+    PV3f res(PV3f::Vector);
+    res.setX(-(m_a - m_b) * cos(t) - m_c * cos(t * (m_a - m_b) / m_b) * (m_a - m_b) * (m_a - m_b) / m_b * m_b);
+    res.setY(0);
+    res.setZ(-(m_a - m_b) * sin(t) + m_c * sin(t * (m_a - m_b) / m_b) * (m_a - m_b) * (m_a - m_b) / m_b * m_b);
+
+    return res;
 }

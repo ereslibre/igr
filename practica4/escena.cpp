@@ -103,5 +103,5 @@ void Escena::resizeGL(int width, int height)
     glViewport(0, 0, width, height);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(left, right, bottom, top, m_near, m_far);
+    glOrtho(left * 3.0, right * 3.0, bottom * 3.0, top * 3.0, m_near, m_far);
 }
