@@ -5,9 +5,6 @@
 
 #include <QtOpenGL/QGLWidget>
 
-#define ESCENA_WIDTH  800.0
-#define ESCENA_HEIGHT 500.0
-
 class Escena
     : public QGLWidget
 {
@@ -16,6 +13,7 @@ public:
     ~Escena();
 
 protected:
+    virtual QSize sizeHint() const;
     virtual void initializeGL();
     virtual void paintGL();
     virtual void resizeGL(int width, int height);

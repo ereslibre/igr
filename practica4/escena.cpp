@@ -15,6 +15,11 @@ Escena::~Escena()
     makeCurrent();
 }
 
+QSize Escena::sizeHint() const
+{
+    return QSize(800, 500);
+}
+
 void Escena::initializeGL()
 {
     glClearColor(0.6, 0.7, 0.8, 1.0);
