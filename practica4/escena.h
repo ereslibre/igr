@@ -17,8 +17,10 @@ protected:
     virtual void initializeGL();
     virtual void paintGL();
     virtual void resizeGL(int width, int height);
+    virtual void keyPressEvent(QKeyEvent *event);
 
 private:
+    GLdouble    m_t;
     GLfloat  m_eyeX;
     GLfloat  m_eyeY;
     GLfloat  m_eyeZ;

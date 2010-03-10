@@ -4,6 +4,7 @@
 
 Escena::Escena(QWidget *parent)
     : QGLWidget(parent)
+    , m_t(0)
     , m_hipotrocoide(new Hipotrocoide)
 {
     setFocusPolicy(Qt::StrongFocus);
@@ -76,7 +77,7 @@ void Escena::paintGL()
     glVertex3d(0,0,10);
     glEnd();
 
-    m_hipotrocoide->dibuja();
+    m_hipotrocoide->dibuja(m_t);
 }
 
 void Escena::resizeGL(int width, int height)
@@ -104,4 +105,11 @@ void Escena::resizeGL(int width, int height)
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(left * 3.0, right * 3.0, bottom * 3.0, top * 3.0, m_near, m_far);
+}
+
+void Escena::keyPressEvent(QKeyEvent *event)
+{
+    m_t += 0.01;
+    update();
+    QGLWidget::keyPressEvent(event);
 }
