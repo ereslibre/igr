@@ -38,6 +38,7 @@ public:
     GLdouble mod() const;
 
     void normalizar();
+    PV3f normaliza() const;
 
     PV3f operator*(const PV3f &pv3f) const;
     PV3f &operator*=(const PV3f &pv3f);

@@ -110,9 +110,16 @@ void PV3f::normalizar()
     m_z *= c;
 }
 
+PV3f PV3f::normaliza() const
+{
+    PV3f res(*this);
+    res.normalizar();
+    return res;
+}
+
 PV3f PV3f::operator*(const PV3f &pv3f) const
 {
-    PV3f res;
+    PV3f res(Vector);
     if (m_tipo == Vector && pv3f.m_tipo == Vector) {
         res.setX(-(m_y * pv3f.m_z - m_z * pv3f.m_y));
         res.setY(m_x * pv3f.m_z - m_z * pv3f.m_x);
@@ -137,7 +144,7 @@ PV3f &PV3f::operator*=(const PV3f &pv3f)
 
 PV3f PV3f::operator*(GLdouble x) const
 {
-    PV3f res;
+    PV3f res(Vector);
     if (m_tipo == Vector) {
         res.m_tipo = Vector;
         res.m_x = m_x * x;

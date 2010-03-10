@@ -13,6 +13,7 @@ def configure(conf):
     if conf.env['COMPILER_CXX'] == []:
         conf.fatal('Un compilador de C++ es requerido. Por favor, instálalo y vuelve a intentarlo')
     conf.find_program('pkg-config')
+    conf.env['CXXFLAGS'] += ['-g']
     conf.check_cfg(package = 'QtCore', args = '--cflags --libs')
     conf.check_cfg(package = 'QtGui', args = '--cflags --libs')
     conf.check_cfg(package = 'QtOpenGL', args = '--cflags --libs')

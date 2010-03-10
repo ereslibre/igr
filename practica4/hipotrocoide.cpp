@@ -1,5 +1,8 @@
 #include "hipotrocoide.h"
+#include "lapiz.h"
+#include "frenet.h"
 
+#include <QtCore/QList>
 #include <math.h>
 #include <boost/math/common_factor.hpp>
 
@@ -8,19 +11,14 @@ Hipotrocoide::Hipotrocoide()
     , m_b(8)
     , m_c(4)
 {
-    m_esfera = gluNewQuadric();
 }
 
 Hipotrocoide::~Hipotrocoide()
 {
-    gluDeleteQuadric(m_esfera);
 }
 
 void Hipotrocoide::dibuja()
 {
-    gluSphere(m_esfera, 5, 100, 100);
-    gluQuadricDrawStyle(m_esfera, GLU_LINE);
-    return;
     const int numVueltas = (m_b / boost::math::gcd(m_a, m_b)) * 100.0;
     const GLdouble stepSize = 2.0 * M_PI / 100.0;
     GLdouble currStepSize = 0;
@@ -31,50 +29,35 @@ void Hipotrocoide::dibuja()
     glBegin(GL_LINE_STRIP);
     int numAristas = 0;
     for (int i = 0; i <= numVueltas; ++i) {
-        //
-        // C'(t)
-        // X = -(a - b) * sin(t) - c * sin(t * (a - b)) / b) * (a - b) / b
-        // Y = 0
-        // Z = (a - b) * cos(t) + c * cos(t * (a - b)) / b) * (a - b) / b
-        //
-        // T(t) = C'(t) / || C'(t) ||
-        //
-        // C''(t)
-        // X = -(a - b) * cos(t) - c * cos(t * (a - b) / b) * (a - b) ^ 2 / b ^ 2
-        // Y = 0
-        // Z = -(a - b) * sin(t) - c * sin(t * (a - b) / b) * (a - b) ^ 2 / b ^ 2
-        //
-        // C'(t) X C''(t)
-        // X = 0
-        // Y = -(a - b)^2 * (cos(t) * b * c * cos(t * (a - b) / b) * a + b^3 + sin(t) * b * c * sin(t * (a - b) / b) * a + c^2 * a - c^2 * b) / b^3
-        // Z = 0
-        //
-#if 0
+#if 1
         glVertex3f((m_a - m_b) * cos(currStepSize) + m_c * cos(currStepSize * (m_a - m_b) / m_b),
                    0,
                    (m_a - m_b) * sin(currStepSize) - m_c * sin(currStepSize * (m_a - m_b) / m_b));
 #endif
-        currStepSize += stepSize;
+
+	currStepSize += stepSize;
     }
     glEnd();
-}
+        QList<PV3f> listaPuntos;
+ 	Lapiz lapiz;
+ 	lapiz.setPos(PV3f(0, 0, 0, PV3f::Punto));
+ 	lapiz.avanzar(0.5, Lapiz::NoDejarRastro);
+ 	lapiz.girar(M_PI / 2.0);
+ 	lapiz.avanzar(0.5, Lapiz::NoDejarRastro);
+ 	for (int i = 0; i < 4; ++i) {
+ 	  listaPuntos << lapiz.getPos();
+ 	  lapiz.girar(M_PI / 2.0);
+ 	  lapiz.avanzar(1, Lapiz::NoDejarRastro);
+ 	}
 
-PV3f Hipotrocoide::derivada1(GLdouble t) const
-{
-    PV3f res(PV3f::Vector);
-    res.setX(-(m_a - m_b) * sin(t) - m_c * sin(t * (m_a - m_b) / m_b) * (m_a - m_b) / m_b);
-    res.setY(0);
-    res.setZ((m_a - m_b) * cos(t) - m_c * cos(t * (m_a - m_b) / m_b) * (m_a - m_b) / m_b);
-
-    return res;
-}
-
-PV3f Hipotrocoide::derivada2(GLdouble t) const
-{
-    PV3f res(PV3f::Vector);
-    res.setX(-(m_a - m_b) * cos(t) - m_c * cos(t * (m_a - m_b) / m_b) * (m_a - m_b) * (m_a - m_b) / m_b * m_b);
-    res.setY(0);
-    res.setZ(-(m_a - m_b) * sin(t) + m_c * sin(t * (m_a - m_b) / m_b) * (m_a - m_b) * (m_a - m_b) / m_b * m_b);
-
-    return res;
+	currStepSize = 0;
+	glBegin(GL_POINTS);
+	for (int i = 0; i <= numVueltas; ++i) {
+	  QList<PV3f> res = Frenet::marco(listaPuntos, currStepSize, m_a, m_b, m_c);
+	  foreach (const PV3f &p, res) {
+	    glVertex3d(p.getX(), p.getY(), p.getZ());
+	  }
+	  currStepSize += stepSize;
+	}
+	glEnd();
 }
