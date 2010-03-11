@@ -104,7 +104,7 @@ void PV3f::normalizar()
     if (m_x <= 1.0 && m_y <= 1.0 && m_z <= 1.0) {
         return;
     }
-    const GLdouble c = 1 / sqrt(m_x * m_x + m_y * m_y + m_z * m_z);
+    const GLdouble c = 1.0 / sqrt(m_x * m_x + m_y * m_y + m_z * m_z);
     m_x *= c;
     m_y *= c;
     m_z *= c;
@@ -121,14 +121,14 @@ PV3f PV3f::operator*(const PV3f &pv3f) const
 {
     PV3f res;
     if (m_tipo == Vector && pv3f.m_tipo == Vector) {
-        res.setX(-(m_y * pv3f.m_z - m_z * pv3f.m_y));
-        res.setY(m_x * pv3f.m_z - m_z * pv3f.m_x);
-        res.setZ(-(m_x * pv3f.m_y - m_y * pv3f.m_x));
+        res.setX((m_y * pv3f.m_z - m_z * pv3f.m_y));
+        res.setY(-(m_x * pv3f.m_z - m_z * pv3f.m_x));
+        res.setZ((m_x * pv3f.m_y - m_y * pv3f.m_x));
         res.m_tipo = Vector;
     } else if (m_tipo == Punto && pv3f.m_tipo == Vector) {
-        res.setX(-(m_y * pv3f.m_z - m_z * pv3f.m_y));
-        res.setY(m_x * pv3f.m_z - m_z * pv3f.m_x);
-        res.setZ(-(m_x * pv3f.m_y - m_y * pv3f.m_x));
+        res.setX((m_y * pv3f.m_z - m_z * pv3f.m_y));
+        res.setY(-(m_x * pv3f.m_z - m_z * pv3f.m_x));
+        res.setZ((m_x * pv3f.m_y - m_y * pv3f.m_x));
         res.m_tipo = Punto;
     } else {
         qDebug() << "!!! cuenta con PV3f ilegal en operator*(PV3f)";
@@ -139,9 +139,9 @@ PV3f PV3f::operator*(const PV3f &pv3f) const
 PV3f &PV3f::operator*=(const PV3f &pv3f)
 {
     if (m_tipo == Vector && pv3f.m_tipo == Vector) {
-        m_x = -(m_y * pv3f.m_z - m_z * pv3f.m_y);
-        m_y = m_x * pv3f.m_z - m_z * pv3f.m_x;
-        m_z = -(m_x * pv3f.m_y - m_y * pv3f.m_x);
+        m_x = m_y * pv3f.m_z - m_z * pv3f.m_y;
+        m_y = -(m_x * pv3f.m_z - m_z * pv3f.m_x);
+        m_z = m_x * pv3f.m_y - m_y * pv3f.m_x;
     } else {
         qDebug() << "!!! cuenta con PV3f ilegal en operator*(PV3f)";
     }
@@ -150,7 +150,7 @@ PV3f &PV3f::operator*=(const PV3f &pv3f)
 
 PV3f PV3f::operator*(GLdouble x) const
 {
-    PV3f res(Vector);
+    PV3f res;
     if (m_tipo == Vector) {
         res.m_tipo = Vector;
         res.m_x = m_x * x;

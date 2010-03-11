@@ -13,16 +13,6 @@ public:
     virtual ~Hipotrocoide();
 
     void dibuja(GLdouble t);
-
-private:
-    PV3f derivada1(GLdouble t) const;
-    PV3f derivada2(GLdouble t) const;
-    
-
-private:
-    int m_a;
-    int m_b;
-    int m_c;
 };
 
 #endif

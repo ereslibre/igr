@@ -109,7 +109,7 @@ void Escena::resizeGL(int width, int height)
 
 void Escena::keyPressEvent(QKeyEvent *event)
 {
-    m_t += 0.01;
+    m_t += 100.0;
     update();
     QGLWidget::keyPressEvent(event);
 }
