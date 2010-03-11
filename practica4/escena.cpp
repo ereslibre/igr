@@ -113,11 +113,51 @@ void Escena::resizeGL(int width, int height)
 
 void Escena::keyPressEvent(QKeyEvent *event)
 {
-    if (event->key() == Qt::Key_Right) {
-        m_t += 0.1;
-    } else if (event->key() == Qt::Key_Left) {
-        m_t -= 0.1;
+    bool doUpdate = true;
+    bool doMoveCamera = true;
+    switch (event->key()) {
+        case Qt::Key_Right:
+            m_t += 0.1;
+            doMoveCamera = false;
+            break;
+        case Qt::Key_Left:
+            m_t -= 0.1;
+            doMoveCamera = false;
+            break;
+        case Qt::Key_A:
+            m_eyeX -= 5.0;
+            break;
+        case Qt::Key_S:
+            m_eyeY -= 5.0;
+            break;
+        case Qt::Key_D:
+            m_eyeX += 5.0;
+            break;
+        case Qt::Key_Q:
+            m_eyeZ += 5.0;
+            break;
+        case Qt::Key_W:
+            m_eyeY += 5.0;
+            break;
+        case Qt::Key_E:
+            m_eyeZ -= 5.0;
+            break;
+        default:
+            QGLWidget::keyPressEvent(event);
+            doUpdate = false;
+            doMoveCamera = false;
+            break;
     }
-    update();
-    QGLWidget::keyPressEvent(event);
+    if (doMoveCamera) {
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+        gluLookAt(m_eyeX, m_eyeY, m_eyeZ, m_lookX, m_lookY, m_lookZ, m_upX, m_upY, m_upZ);
+    }
+    if (doUpdate) {
+        update();
+    }
+}
+
+void Escena::mueveCamara(GLdouble x, GLdouble y, GLdouble z)
+{
 }

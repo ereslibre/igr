@@ -20,6 +20,9 @@ protected:
     virtual void keyPressEvent(QKeyEvent *event);
 
 private:
+    void mueveCamara(GLdouble x, GLdouble y, GLdouble z);
+
+private:
     GLdouble    m_t;
     GLfloat  m_eyeX;
     GLfloat  m_eyeY;
