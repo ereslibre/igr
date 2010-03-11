@@ -126,22 +126,22 @@ void Escena::keyPressEvent(QKeyEvent *event)
             doMoveCamera = false;
             break;
         case Qt::Key_A:
-            m_eyeX -= 200.0;
+            m_eyeX -= 20.0;
             break;
         case Qt::Key_S:
-            m_eyeY -= 200.0;
+            m_eyeY -= 20.0;
             break;
         case Qt::Key_D:
-            m_eyeX += 200.0;
+            m_eyeX += 20.0;
             break;
         case Qt::Key_Q:
-            m_eyeZ += 200.0;
+            m_eyeZ += 20.0;
             break;
         case Qt::Key_W:
-            m_eyeY += 200.0;
+            m_eyeY += 20.0;
             break;
         case Qt::Key_E:
-            m_eyeZ -= 200.0;
+            m_eyeZ -= 20.0;
             break;
         default:
             QGLWidget::keyPressEvent(event);
