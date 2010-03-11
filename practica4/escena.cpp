@@ -1,6 +1,7 @@
 #include "escena.h"
 
 #include <math.h>
+#include <QtGui/QKeyEvent>
 
 Escena::Escena(QWidget *parent)
     : QGLWidget(parent)
@@ -44,10 +45,14 @@ void Escena::initializeGL()
     glEnable(GL_NORMALIZE);
     glShadeModel(GL_SMOOTH);
 
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     m_eyeX = m_eyeY = m_eyeZ = 100.0;
     m_lookX = m_lookY = m_lookZ = 0.0;
-    m_upX = m_upZ = 0;
+    m_upX = 0;
     m_upY = 1;
+    m_upZ = 0;
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -67,7 +72,7 @@ void Escena::paintGL()
     glVertex3d(0,0,0);
     glVertex3d(10,0,0);
 
-    glColor4f(0.0,1.0,0.0,1.0);
+    glColor4f(0.0,1.0,0.0,1.0);m_t
     glVertex3d(0,0,0);
     glVertex3d(0,10,0);
 
@@ -104,4 +109,49 @@ void Escena::resizeGL(int width, int height)
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(left * 3.0, right * 3.0, bottom * 3.0, top * 3.0, m_near, m_far);
+}
+
+void Escena::keyPressEvent(QKeyEvent *event)
+{
+    bool doUpdate = true;
+    bool doMoveCamera = true;
+    switch (event->key()) {
+        case Qt::Key_Right:
+            doMoveCamera = false;
+            break;
+        case Qt::Key_Left:
+            doMoveCamera = false;
+            break;
+        case Qt::Key_A:
+            m_eyeX -= 20.0;
+            break;
+        case Qt::Key_S:
+            m_eyeY -= 20.0;
+            break;
+        case Qt::Key_D:
+            m_eyeX += 20.0;
+            break;
+        case Qt::Key_Q:
+            m_eyeZ += 20.0;
+            break;
+        case Qt::Key_W:
+            m_eyeY += 20.0;
+            break;
+        case Qt::Key_E:
+            m_eyeZ -= 20.0;
+            break;
+        default:
+            QGLWidget::keyPressEvent(event);
+            doUpdate = false;
+            doMoveCamera = false;
+            break;
+    }
+    if (doMoveCamera) {
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+        gluLookAt(m_eyeX, m_eyeY, m_eyeZ, m_lookX, m_lookY, m_lookZ, m_upX, m_upY, m_upZ);
+    }
+    if (doUpdate) {
+        update();
+    }
 }

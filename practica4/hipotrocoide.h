@@ -17,7 +17,6 @@ public:
 private:
     PV3f derivada1(GLdouble t) const;
     PV3f derivada2(GLdouble t) const;
-    
 
 private:
     int m_a;
