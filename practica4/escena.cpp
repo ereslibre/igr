@@ -72,7 +72,7 @@ void Escena::paintGL()
     glVertex3d(0,0,0);
     glVertex3d(10,0,0);
 
-    glColor4f(0.0,1.0,0.0,1.0);m_t
+    glColor4f(0.0,1.0,0.0,1.0);
     glVertex3d(0,0,0);
     glVertex3d(0,10,0);
 

@@ -34,39 +34,35 @@ void Hipotrocoide::dibuja()
     glEnd();
 
     QList<PV3f> listaPuntos;
+    const GLdouble numDivisiones = 200;
+    const GLdouble radio = 0.5;
+    const GLdouble paso = 2.0 * M_PI / numDivisiones;
+    GLdouble pasoActual = 0;
+    for (int i = 0; i < numDivisiones; ++i) {
+        listaPuntos << PV3f(radio * cos(pasoActual), radio * sin(pasoActual), 0, PV3f::Punto);
+        pasoActual += paso;
+    }
 
-// -    //BEGIN: dibuja cuerpo
-// -    currStepSize = 0;
-// -    glBegin(GL_QUAD_STRIP);
-// -    QList<PV3f> ant;
-// -    bool invalido = true;
-// -    int caras[] = {0, 1, 3, 5};
-// -    glColor4f(0, 1.0f, 0, 0.7f);
-// -    for (int i = 0; i < 4000; ++i) {
-// -        QList<PV3f> res = Frenet::marco(listaPuntos, currStepSize, 0.3);
-// -        if (!invalido) {
-// -            for (int i = 0; i < 4; ++i) {
-// -                glVertex3d(res[caras[i]].getX(), res[caras[i]].getY(), res[caras[i]].getZ());
-// -                glVertex3d(ant[caras[i]].getX(), ant[caras[i]].getY(), ant[caras[i]].getZ());
-// -            }
-// -            glVertex3d(res[caras[0]].getX(), res[caras[0]].getY(), res[caras[0]].getZ());
-// -            glVertex3d(ant[caras[0]].getX(), ant[caras[0]].getY(), ant[caras[0]].getZ());
-// -        } else {
-// -            invalido = false;
-// -        }
-// -        ant = res;
-// -        currStepSize += 0.01;
-// -    }
-// -    glEnd();
-// -    //END: dibuja cuerpo
-    
     currStepSize = 0;
-    glBegin(GL_POINTS);
+    QList<PV3f> ant;
+    glColor4f(0, 1.0f, 0, 0.5f);
+    glBegin(GL_QUAD_STRIP);
+    bool invalido = true;
     for (int i = 0; i <= numVueltas; ++i) {
-        QList<PV3f> res = Frenet::marco(listaPuntos, currStepSize, m_a, m_b, m_c, currStepSize);
-        foreach (const PV3f &p, res) {
-            glVertex3d(p.getX(), p.getY(), p.getZ());
+        QList<PV3f> res = Frenet::marco(listaPuntos, m_a, m_b, m_c, currStepSize);
+        int j = 0;
+        if (!invalido) {
+            foreach (const PV3f &p, res) {
+                glVertex3d(res[j].getX(), res[j].getY(), res[j].getZ());
+                glVertex3d(ant[j].getX(), ant[j].getY(), ant[j].getZ());
+                ++j;
+            }
+            glVertex3d(res[0].getX(), res[0].getY(), res[0].getZ());
+            glVertex3d(ant[0].getX(), ant[0].getY(), ant[0].getZ());
+        } else {
+            invalido = false;
         }
+        ant = res;
         currStepSize += stepSize;
     }
     glEnd();
