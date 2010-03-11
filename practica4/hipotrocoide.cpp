@@ -2,6 +2,7 @@
 #include "lapiz.h"
 #include "frenet.h"
 
+#include <QtCore/QDebug>
 #include <QtCore/QList>
 #include <math.h>
 #include <boost/math/common_factor.hpp>

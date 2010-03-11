@@ -155,3 +155,4 @@ void Escena::keyPressEvent(QKeyEvent *event)
         update();
     }
 }
+

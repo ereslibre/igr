@@ -20,6 +20,7 @@ protected:
     virtual void keyPressEvent(QKeyEvent *event);
 
 private:
+
     GLdouble m_eyeX;
     GLdouble m_eyeY;
     GLdouble m_eyeZ;

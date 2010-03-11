@@ -19,20 +19,18 @@ QList<PV3f> Frenet::marco(const QList<PV3f> &listaPuntos, GLdouble a, GLdouble b
 PV3f Frenet::derivada1(GLdouble a, GLdouble b, GLdouble c, GLdouble t)
 {
     PV3f res(PV3f::Vector);
-    res.setX(-(a - b) * sin(t) - c * sin(t * (a - b) / b) * (a - b) / b);
-    res.setY(0);
-    res.setZ((a - b) * cos(t) - c * cos(t * (a - b) / b) * (a - b) / b);
-
+    res.setX(-sin(t));
+    res.setY(cos(t));
+    res.setZ(b);
     return res;
 }
 
 PV3f Frenet::derivada2(GLdouble a, GLdouble b, GLdouble c, GLdouble t)
 {
     PV3f res(PV3f::Vector);
-    res.setX(-(a - b) * cos(t) - c * cos(t * (a - b) / b) * ((a - b) * (a - b) / b * b));
-    res.setY(0);
-    res.setZ(-(a - b) * sin(t) + c * sin(t * (a - b) / b) * ((a - b) * (a - b) / b * b));
-
+    res.setX(-cos(t));
+    res.setY(-sin(t));
+    res.setZ(0);
     return res;
 }
 
