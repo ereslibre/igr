@@ -31,20 +31,18 @@ void Hipotrocoide::dibuja(GLdouble t)
  
     GLdouble currStepSize = 0;
     glBegin(GL_POINTS);
-    for (int i = 0; i < 1000; ++i) {
-        glVertex3d(cos(currStepSize), sin(currStepSize), currStepSize);
+    for (int i = 0; i < 10000; ++i) {
+        glVertex3d(cos(currStepSize), sin(currStepSize), currStepSize / 2.0);
         currStepSize += 0.01;
     }
     glEnd();
 
-    currStepSize = 0;
+    currStepSize = t;
     glBegin(GL_LINES);
-    for (int i = 0; i < 100; ++i) {
-        QList<PV3f> res = Frenet::marco(listaPuntos, currStepSize, 0.5);
-        foreach (const PV3f &p, res) {
-            glVertex3d(p.getX(), p.getY(), p.getZ());
-        }
-        currStepSize += 0.1;
+    QList<PV3f> res = Frenet::marco(listaPuntos, currStepSize, 0.5);
+    foreach (const PV3f &p, res) {
+        glVertex3d(p.getX(), p.getY(), p.getZ());
     }
+    currStepSize += 0.1;
     glEnd();
 }

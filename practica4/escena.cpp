@@ -1,6 +1,7 @@
 #include "escena.h"
 
 #include <math.h>
+#include <QtGui/QKeyEvent>
 
 Escena::Escena(QWidget *parent)
     : QGLWidget(parent)
@@ -109,7 +110,11 @@ void Escena::resizeGL(int width, int height)
 
 void Escena::keyPressEvent(QKeyEvent *event)
 {
-    m_t += 100.0;
+    if (event->key() == Qt::Key_Right) {
+        m_t += 0.1;
+    } else if (event->key() == Qt::Key_Left) {
+        m_t -= 0.1;
+    }
     update();
     QGLWidget::keyPressEvent(event);
 }
