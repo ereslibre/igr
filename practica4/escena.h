@@ -24,15 +24,15 @@ private:
 
 private:
     GLdouble    m_t;
-    GLfloat  m_eyeX;
-    GLfloat  m_eyeY;
-    GLfloat  m_eyeZ;
-    GLfloat  m_lookX;
-    GLfloat  m_lookY;
-    GLfloat  m_lookZ;
-    GLfloat  m_upX;
-    GLfloat  m_upY;
-    GLfloat  m_upZ;
+    GLdouble  m_eyeX;
+    GLdouble  m_eyeY;
+    GLdouble  m_eyeZ;
+    GLdouble  m_lookX;
+    GLdouble  m_lookY;
+    GLdouble  m_lookZ;
+    GLdouble  m_upX;
+    GLdouble  m_upY;
+    GLdouble  m_upZ;
     GLdouble m_near;
     GLdouble m_far;
     GLfloat  m_posicionLuz0[4];

@@ -43,7 +43,7 @@ void Hipotrocoide::dibuja(GLdouble t)
     GLdouble currStepSize = -20;
     glBegin(GL_POINTS);
     for (int i = 0; i < 4000; ++i) {
-        glVertex3d(cos(currStepSize), sin(currStepSize), currStepSize / 2.0);
+        glVertex3d(cos(currStepSize), sin(currStepSize), currStepSize * 0.3);
         currStepSize += 0.01;
     }
     glEnd();
@@ -57,7 +57,7 @@ void Hipotrocoide::dibuja(GLdouble t)
     int caras[] = {0, 1, 3, 5};
     glColor4f(0, 1.0f, 0, 0.7f);
     for (int i = 0; i < 4000; ++i) {
-        QList<PV3f> res = Frenet::marco(listaPuntos, currStepSize, 0.5);
+        QList<PV3f> res = Frenet::marco(listaPuntos, currStepSize, 0.3);
         if (!invalido) {
             for (int i = 0; i < 4; ++i) {
                 glVertex3d(res[caras[i]].getX(), res[caras[i]].getY(), res[caras[i]].getZ());
@@ -77,7 +77,7 @@ void Hipotrocoide::dibuja(GLdouble t)
     //BEGIN: dibuja marcador (se mueve con las flechas <- y ->, y es de radio mayor para verlo mejor)
     currStepSize = t;
     glBegin(GL_LINES);
-    QList<PV3f> res = Frenet::marco(listaPuntosMarcador, currStepSize, 0.5);
+    QList<PV3f> res = Frenet::marco(listaPuntosMarcador, currStepSize, 0.3);
     glColor3f(1.0f, 1.0f, 1.0f);
     foreach (const PV3f &p, res) {
         glVertex3d(p.getX(), p.getY(), p.getZ());

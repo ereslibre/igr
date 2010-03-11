@@ -46,10 +46,14 @@ void Escena::initializeGL()
     glEnable(GL_NORMALIZE);
     glShadeModel(GL_SMOOTH);
 
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     m_eyeX = m_eyeY = m_eyeZ = 100.0;
     m_lookX = m_lookY = m_lookZ = 0.0;
-    m_upX = m_upZ = 0;
+    m_upX = 0;
     m_upY = 1;
+    m_upZ = 0;
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -57,9 +61,6 @@ void Escena::initializeGL()
 
     m_near = 1;
     m_far = 1000;
-
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 void Escena::paintGL()
@@ -125,22 +126,22 @@ void Escena::keyPressEvent(QKeyEvent *event)
             doMoveCamera = false;
             break;
         case Qt::Key_A:
-            m_eyeX -= 5.0;
+            m_eyeX -= 200.0;
             break;
         case Qt::Key_S:
-            m_eyeY -= 5.0;
+            m_eyeY -= 200.0;
             break;
         case Qt::Key_D:
-            m_eyeX += 5.0;
+            m_eyeX += 200.0;
             break;
         case Qt::Key_Q:
-            m_eyeZ += 5.0;
+            m_eyeZ += 200.0;
             break;
         case Qt::Key_W:
-            m_eyeY += 5.0;
+            m_eyeY += 200.0;
             break;
         case Qt::Key_E:
-            m_eyeZ -= 5.0;
+            m_eyeZ -= 200.0;
             break;
         default:
             QGLWidget::keyPressEvent(event);
