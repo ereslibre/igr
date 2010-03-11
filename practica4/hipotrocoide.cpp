@@ -29,9 +29,9 @@ void Hipotrocoide::dibuja(GLdouble t)
     listaPuntos << PV3f(1, -1, 0);
     listaPuntos << PV3f(1, 1, 0);
  
-    GLdouble currStepSize = 0;
+    GLdouble currStepSize = -20;
     glBegin(GL_POINTS);
-    for (int i = 0; i < 10000; ++i) {
+    for (int i = 0; i < 4000; ++i) {
         glVertex3d(cos(currStepSize), sin(currStepSize), currStepSize / 2.0);
         currStepSize += 0.01;
     }
