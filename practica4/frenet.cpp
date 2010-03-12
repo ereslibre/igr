@@ -13,7 +13,7 @@ QList<PV3f> Frenet::marco(const QList<PV3f> &listaPuntos, GLdouble a, GLdouble b
     const PV3f vb = ((dpc * ddpc) * pow((dpc * ddpc).mod(), -1.0)).normaliza();
     const PV3f vn = (((dpc * ddpc) * dpc) * pow(((dpc * ddpc) * dpc).mod(), -1.0)).normaliza();
 
-    return multMatriz(listaPuntos, vn, vb, vt, a, b, c, t);
+    return multMatriz(listaPuntos, vt, vn, vb, a, b, c, t);
 }
 
 PV3f Frenet::derivada1(GLdouble a, GLdouble b, GLdouble c, GLdouble t)
