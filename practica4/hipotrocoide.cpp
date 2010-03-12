@@ -18,7 +18,7 @@ Hipotrocoide::~Hipotrocoide()
 {
 }
 
-void Hipotrocoide::dibuja()
+void Hipotrocoide::dibuja(GLdouble t)
 {
     const int numVueltas = (m_b / boost::math::gcd(m_a, m_b)) * 100.0;
     const GLdouble stepSize = 2.0 * M_PI / 100.0;
@@ -36,11 +36,19 @@ void Hipotrocoide::dibuja()
 
     QList<PV3f> listaPuntos;
     const GLdouble numDivisiones = 200;
-    const GLdouble radio = 0.5;
+    GLdouble radio = 0.5;
     const GLdouble paso = 2.0 * M_PI / numDivisiones;
     GLdouble pasoActual = 0;
     for (int i = 0; i < numDivisiones; ++i) {
         listaPuntos << PV3f(radio * cos(pasoActual), radio * sin(pasoActual), 0, PV3f::Punto);
+        pasoActual += paso;
+    }
+
+    QList<PV3f> listaPuntosCursor;
+    radio += 0.2;
+    pasoActual = 0;
+    for (int i = 0; i < numDivisiones; ++i) {
+        listaPuntosCursor << PV3f(radio * cos(pasoActual), radio * sin(pasoActual), 0, PV3f::Punto);
         pasoActual += paso;
     }
 
@@ -67,4 +75,14 @@ void Hipotrocoide::dibuja()
         currStepSize += stepSize;
     }
     glEnd();
+
+    //BEGIN: dibuja cursor
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glBegin(GL_LINE_STRIP);
+    QList<PV3f> res = Frenet::marco(listaPuntosCursor, m_a, m_b, m_c, t);
+    foreach (const PV3f &p, res) {
+        glVertex3d(p.getX(), p.getY(), p.getZ());
+    }
+    glEnd();
+    //END: dibuja cursor
 }
