@@ -13,24 +13,24 @@ QList<PV3f> Frenet::marco(const QList<PV3f> &listaPuntos, GLdouble a, GLdouble b
     const PV3f vb = ((dpc * ddpc) * pow((dpc * ddpc).mod(), -1.0)).normaliza();
     const PV3f vn = (((dpc * ddpc) * dpc) * pow(((dpc * ddpc) * dpc).mod(), -1.0)).normaliza();
 
-    return multMatriz(listaPuntos, vt, vn, vb, a, b, c, t);
+    return multMatriz(listaPuntos, vn, vb, vt, a, b, c, t);
 }
 
 PV3f Frenet::derivada1(GLdouble a, GLdouble b, GLdouble c, GLdouble t)
 {
     PV3f res(PV3f::Vector);
-    res.setX(-sin(t));
-    res.setY(cos(t));
-    res.setZ(b);
+    res.setX(-(a - b) * sin(t) - c * sin(t * (a - b) / b) * (a - b) / b);
+    res.setY(0);
+    res.setZ((a - b) * cos(t) - c * cos(t * (a - b) / b) * (a - b) / b);
     return res;
 }
 
 PV3f Frenet::derivada2(GLdouble a, GLdouble b, GLdouble c, GLdouble t)
 {
     PV3f res(PV3f::Vector);
-    res.setX(-cos(t));
-    res.setY(-sin(t));
-    res.setZ(0);
+    res.setX(-(a - b) * cos(t) - c * cos(t * (a - b) / b) * ((a - b) * (a - b) / (b * b)));
+    res.setY(0);
+    res.setZ(-(a - b) * sin(t) + c * sin(t * (a - b) / b) * ((a - b) * (a - b) / (b * b)));
     return res;
 }
 
