@@ -10,14 +10,18 @@ Cara::~Cara()
 {
 }
 
-QList<PV3f> Cara::listaVertices() const
+void Cara::dibuja(DrawType drawType) const
 {
-    return m_vertices;
-}
-
-PV3f Cara::normal() const
-{
-    return m_normal;
+    if (drawType  == Wireframe) {
+        glBegin(GL_LINES);
+    } else {
+        glBegin(GL_QUADS);
+    }
+    foreach (const PV3f &p, m_vertices) {
+        glNormal3d(m_normal.getX(), m_normal.getY(), m_normal.getZ());
+        glVertex3d(p.getX(), p.getY(), p.getZ());
+    }
+    glEnd();
 }
 
 int Cara::suc(int i) const

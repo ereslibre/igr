@@ -8,12 +8,15 @@
 class Cara
 {
 public:
+    enum DrawType {
+        Wireframe = 0,
+        Solid
+    };
+
     Cara(const QList<PV3f> &vertices);
     virtual ~Cara();
 
-    QList<PV3f> listaVertices() const;
-
-    PV3f normal() const;
+    void dibuja(DrawType drawType) const;
 
 private:
     void newell();

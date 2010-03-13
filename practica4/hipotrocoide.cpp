@@ -1,5 +1,6 @@
 #include "hipotrocoide.h"
 #include "lapiz.h"
+#include "cara.h"
 #include "frenet.h"
 
 #include <QtCore/QDebug>
@@ -35,7 +36,7 @@ void Hipotrocoide::dibuja(GLdouble t, bool wireframe)
     glEnd();
 
     QList<PV3f> listaPuntos;
-    const GLdouble numDivisiones = 30;
+    const GLdouble numDivisiones = 20;
     GLdouble radio = 0.5;
     const GLdouble paso = 2.0 * M_PI / numDivisiones;
     GLdouble pasoActual = 0;
@@ -54,31 +55,38 @@ void Hipotrocoide::dibuja(GLdouble t, bool wireframe)
 
     currStepSize = 0;
     QList<PV3f> ant;
-    glColor4f(0, 1.0f, 0, 0.5f);
-    if (wireframe) {
-        glBegin(GL_LINES);
-    } else {
-        glBegin(GL_QUAD_STRIP);
-    }
+    glColor3f(0, 0, 1.0f);
     bool invalido = true;
+    QList<Cara> listaCaras;
     for (int i = 0; i <= numVueltas; ++i) {
         QList<PV3f> res = Frenet::marco(listaPuntos, m_a, m_b, m_c, currStepSize);
-        int j = 0;
         if (!invalido) {
-            foreach (const PV3f &p, res) {
-                glVertex3d(res[j].getX(), res[j].getY(), res[j].getZ());
-                glVertex3d(ant[j].getX(), ant[j].getY(), ant[j].getZ());
-                ++j;
+            for (int j = 0; j < res.size(); ++j) {
+                const int sig = (j + 1) % res.size();
+                QList<PV3f> vertices;
+                const PV3f p1(ant[j].getX(), ant[j].getY(), ant[j].getZ());
+                const PV3f p2(ant[sig].getX(), ant[sig].getY(), ant[sig].getZ());
+                const PV3f p3(res[sig].getX(), res[sig].getY(), res[sig].getZ());
+                const PV3f p4(res[j].getX(), res[j].getY(), res[j].getZ());
+                vertices << p4 << p3 << p2 << p1;
+                listaCaras << Cara(vertices);
             }
-            glVertex3d(res[0].getX(), res[0].getY(), res[0].getZ());
-            glVertex3d(ant[0].getX(), ant[0].getY(), ant[0].getZ());
         } else {
             invalido = false;
         }
         ant = res;
         currStepSize += stepSize;
     }
-    glEnd();
+
+    Cara::DrawType drawType;
+    if (wireframe) {
+        drawType = Cara::Wireframe;
+    } else {
+        drawType = Cara::Solid;
+    }
+    foreach(const Cara &c, listaCaras) {
+        c.dibuja(drawType);
+    }
 
     //BEGIN: dibuja cursor
     glColor3f(1.0f, 1.0f, 1.0f);
@@ -87,6 +95,7 @@ void Hipotrocoide::dibuja(GLdouble t, bool wireframe)
     foreach (const PV3f &p, res) {
         glVertex3d(p.getX(), p.getY(), p.getZ());
     }
+    glVertex3d(res[0].getX(), res[0].getY(), res[0].getZ());
     glEnd();
     //END: dibuja cursor
 }
