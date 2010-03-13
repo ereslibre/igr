@@ -6,6 +6,7 @@
 Escena::Escena(QWidget *parent)
     : QGLWidget(parent)
     , m_t(0)
+    , m_wireframe(false)
     , m_hipotrocoide(new Hipotrocoide)
 {
     setFocusPolicy(Qt::StrongFocus);
@@ -82,7 +83,7 @@ void Escena::paintGL()
     glVertex3d(0,0,10);
     glEnd();
 
-    m_hipotrocoide->dibuja(m_t);
+    m_hipotrocoide->dibuja(m_t, m_wireframe);
 }
 
 void Escena::resizeGL(int width, int height)
@@ -121,6 +122,10 @@ void Escena::keyPressEvent(QKeyEvent *event)
             doMoveCamera = false;
             break;
         case Qt::Key_Left:
+            doMoveCamera = false;
+            break;
+        case Qt::Key_T:
+            m_wireframe = !m_wireframe;
             doMoveCamera = false;
             break;
         case Qt::Key_A:

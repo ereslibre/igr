@@ -12,7 +12,7 @@ public:
     Hipotrocoide();
     virtual ~Hipotrocoide();
 
-    void dibuja(GLdouble t);
+    void dibuja(GLdouble t, bool wireframe);
 
 private:
     PV3f derivada1(GLdouble t) const;

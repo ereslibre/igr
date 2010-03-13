@@ -18,7 +18,7 @@ Hipotrocoide::~Hipotrocoide()
 {
 }
 
-void Hipotrocoide::dibuja(GLdouble t)
+void Hipotrocoide::dibuja(GLdouble t, bool wireframe)
 {
     const int numVueltas = (m_b / boost::math::gcd(m_a, m_b)) * 100.0;
     const GLdouble stepSize = 2.0 * M_PI / 100.0;
@@ -35,7 +35,7 @@ void Hipotrocoide::dibuja(GLdouble t)
     glEnd();
 
     QList<PV3f> listaPuntos;
-    const GLdouble numDivisiones = 200;
+    const GLdouble numDivisiones = 30;
     GLdouble radio = 0.5;
     const GLdouble paso = 2.0 * M_PI / numDivisiones;
     GLdouble pasoActual = 0;
@@ -55,7 +55,11 @@ void Hipotrocoide::dibuja(GLdouble t)
     currStepSize = 0;
     QList<PV3f> ant;
     glColor4f(0, 1.0f, 0, 0.5f);
-    glBegin(GL_QUAD_STRIP);
+    if (wireframe) {
+        glBegin(GL_LINES);
+    } else {
+        glBegin(GL_QUAD_STRIP);
+    }
     bool invalido = true;
     for (int i = 0; i <= numVueltas; ++i) {
         QList<PV3f> res = Frenet::marco(listaPuntos, m_a, m_b, m_c, currStepSize);
