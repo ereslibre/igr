@@ -9,9 +9,11 @@
 #include <boost/math/common_factor.hpp>
 
 Hipotrocoide::Hipotrocoide()
-    : m_a(14)
-    , m_b(8)
-    , m_c(4)
+    : m_a(7)
+    , m_b(4)
+    , m_c(2)
+    , m_np(20)
+    , m_nq(100)
 {
 }
 
@@ -21,8 +23,8 @@ Hipotrocoide::~Hipotrocoide()
 
 void Hipotrocoide::dibuja(GLdouble t, bool wireframe)
 {
-    const int numVueltas = (m_b / boost::math::gcd(m_a, m_b)) * 100.0;
-    const GLdouble stepSize = 2.0 * M_PI / 100.0;
+    const int numVueltas = (m_b / boost::math::gcd(m_a, m_b)) * ((GLdouble) m_nq);
+    const GLdouble stepSize = 2.0 * M_PI / ((GLdouble) m_nq);
     GLdouble currStepSize = 0;
     glColor3f(1.0, 1.0, 1.0);
 
@@ -36,11 +38,10 @@ void Hipotrocoide::dibuja(GLdouble t, bool wireframe)
     glEnd();
 
     QList<PV3f> listaPuntos;
-    const GLdouble numDivisiones = 20;
     GLdouble radio = 0.5;
-    const GLdouble paso = 2.0 * M_PI / numDivisiones;
+    const GLdouble paso = 2.0 * M_PI / ((GLdouble) m_np);
     GLdouble pasoActual = 0;
-    for (int i = 0; i < numDivisiones; ++i) {
+    for (int i = 0; i < m_np; ++i) {
         listaPuntos << PV3f(radio * cos(pasoActual), radio * sin(pasoActual), 0, PV3f::Punto);
         pasoActual += paso;
     }
@@ -48,7 +49,7 @@ void Hipotrocoide::dibuja(GLdouble t, bool wireframe)
     QList<PV3f> listaPuntosCursor;
     radio += 0.2;
     pasoActual = 0;
-    for (int i = 0; i < numDivisiones; ++i) {
+    for (int i = 0; i < m_np; ++i) {
         listaPuntosCursor << PV3f(radio * cos(pasoActual), radio * sin(pasoActual), 0, PV3f::Punto);
         pasoActual += paso;
     }
@@ -98,4 +99,29 @@ void Hipotrocoide::dibuja(GLdouble t, bool wireframe)
     glVertex3d(res[0].getX(), res[0].getY(), res[0].getZ());
     glEnd();
     //END: dibuja cursor
+}
+
+void Hipotrocoide::setA(int value)
+{
+    m_a = value;
+}
+
+void Hipotrocoide::setB(int value)
+{
+    m_b = value;
+}
+
+void Hipotrocoide::setC(int value)
+{
+    m_c = value;
+}
+
+void Hipotrocoide::setNP(int value)
+{
+    m_np = value;
+}
+
+void Hipotrocoide::setNQ(int value)
+{
+    m_nq = value;
 }

@@ -8,9 +8,18 @@
 class Escena
     : public QGLWidget
 {
+    Q_OBJECT
+
 public:
     Escena(QWidget *parent = 0);
     ~Escena();
+
+public Q_SLOTS:
+    void aChanged(int value);
+    void bChanged(int value);
+    void cChanged(int value);
+    void npChanged(int value);
+    void nqChanged(int value);
 
 protected:
     virtual QSize sizeHint() const;

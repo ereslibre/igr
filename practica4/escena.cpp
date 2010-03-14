@@ -18,6 +18,36 @@ Escena::~Escena()
     makeCurrent();
 }
 
+void Escena::aChanged(int value)
+{
+    m_hipotrocoide->setA(value);
+    update();
+}
+
+void Escena::bChanged(int value)
+{
+    m_hipotrocoide->setB(value);
+    update();
+}
+
+void Escena::cChanged(int value)
+{
+    m_hipotrocoide->setC(value);
+    update();
+}
+
+void Escena::npChanged(int value)
+{
+    m_hipotrocoide->setNP(value);
+    update();
+}
+
+void Escena::nqChanged(int value)
+{
+    m_hipotrocoide->setNQ(value);
+    update();
+}
+
 QSize Escena::sizeHint() const
 {
     return QSize(800, 500);
@@ -168,3 +198,4 @@ void Escena::keyPressEvent(QKeyEvent *event)
     }
 }
 
+#include "escena.moc"
