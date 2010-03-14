@@ -36,8 +36,8 @@ void Cara::newell()
     GLdouble nz = 0;
     for (int i = 0; i < m_vertices.count(); ++i) {
         const GLdouble x = m_vertices[i].getX();
-        const GLdouble y = m_vertices[i].getX();
-        const GLdouble z = m_vertices[i].getX();
+        const GLdouble y = m_vertices[i].getY();
+        const GLdouble z = m_vertices[i].getZ();
         const GLdouble sucx = m_vertices[suc(i)].getX();
         const GLdouble sucy = m_vertices[suc(i)].getY();
         const GLdouble sucz = m_vertices[suc(i)].getZ();
