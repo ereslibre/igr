@@ -8,7 +8,7 @@
 class Frenet
 {
 public:
-  static QList<PV3f> marco(const QList<PV3f> &listaPuntos, GLdouble a, GLdouble b, GLdouble c, GLdouble t, int mF[16]);
+  static QList<PV3f> marco(const QList<PV3f> &listaPuntos, GLdouble a, GLdouble b, GLdouble c, GLdouble t, GLdouble mF[16]);
 
 private:
     static PV3f derivada1(GLdouble a, GLdouble b, GLdouble c, GLdouble t);
