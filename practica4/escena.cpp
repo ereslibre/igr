@@ -9,6 +9,7 @@ Escena::Escena(QWidget *parent)
     , m_rotateX(0)
     , m_rotateY(0)
     , m_rotateZ(0)
+    , m_transparencia(false)
     , m_hipotrocoide(new Hipotrocoide)
 {
     setFocusPolicy(Qt::StrongFocus);
@@ -103,20 +104,20 @@ void Escena::paintGL()
     glMatrixMode(GL_MODELVIEW);
 
     glBegin(GL_LINES);
-    glColor4f(1.0,0.0,0.0,1.0);
-    glVertex3d(0,0,0);
-    glVertex3d(10,0,0);
+    glColor4f(1.0, 0.0, 0.0, 1.0);
+    glVertex3d(0, 0, 0);
+    glVertex3d(10, 0, 0);
 
-    glColor4f(0.0,1.0,0.0,1.0);
-    glVertex3d(0,0,0);
-    glVertex3d(0,10,0);
+    glColor4f(0.0, 1.0, 0.0, 1.0);
+    glVertex3d(0, 0, 0);
+    glVertex3d(0, 10, 0);
 
-    glColor4f(0.0,0.0,1.0,1.0);
-    glVertex3d(0,0,0);
-    glVertex3d(0,0,10);
+    glColor4f(0.0, 0.0, 1.0, 1.0);
+    glVertex3d(0, 0, 0);
+    glVertex3d(0, 0, 10);
     glEnd();
 
-    m_hipotrocoide->dibuja(m_t, m_rotateX, m_rotateY, m_rotateZ);
+    m_hipotrocoide->dibuja(m_t, m_rotateX, m_rotateY, m_rotateZ, m_transparencia);
 }
 
 void Escena::resizeGL(int width, int height)
@@ -174,6 +175,9 @@ void Escena::keyPressEvent(QKeyEvent *event)
         case Qt::Key_Q:
             break;
         case Qt::Key_W:
+            break;
+        case Qt::Key_Y:
+            m_transparencia = !m_transparencia;
             break;
         case Qt::Key_O:
             m_t -= 0.1;

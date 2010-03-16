@@ -15,7 +15,7 @@ public:
     Hipotrocoide();
     virtual ~Hipotrocoide();
 
-    void dibuja(GLdouble t, GLdouble rotateX, GLdouble rotateY, GLdouble rotateZ);
+    void dibuja(GLdouble t, GLdouble rotateX, GLdouble rotateY, GLdouble rotateZ, bool transparencia);
     void recalcular();
 
     void setWireframe(bool wireframe);
