@@ -12,7 +12,7 @@ Cara::~Cara()
 
 void Cara::dibuja(DrawType drawType) const
 {
-    if (drawType  == Wireframe) {
+    if (drawType == Wireframe) {
         glBegin(GL_LINES);
     } else {
         glBegin(GL_QUADS);
