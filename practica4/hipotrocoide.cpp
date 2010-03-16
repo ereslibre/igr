@@ -12,7 +12,7 @@ Hipotrocoide::Hipotrocoide()
     , m_c(2)
     , m_np(20)
     , m_nq(100)
-    , m_coche(new Coche)
+    , m_coche(new Coche)  
 {
     recalcular();
 }
@@ -50,7 +50,7 @@ void Hipotrocoide::dibuja(GLdouble t, GLdouble rotateX, GLdouble rotateY, GLdoub
     //BEGIN: dibuja cursor
     glColor3f(1.0f, 1.0f, 1.0f);
     glBegin(GL_LINE_STRIP);
-    QList<PV3f> res = Frenet::marco(m_puntosCursor, m_a, m_b, m_c, t);
+    QList<PV3f> res = Frenet::marco(m_puntosCursor, m_a, m_b, m_c, t, m_mFrenet);
     foreach (const PV3f &p, res) {
         glVertex3d(p.getX(), p.getY(), p.getZ());
     }
@@ -59,7 +59,9 @@ void Hipotrocoide::dibuja(GLdouble t, GLdouble rotateX, GLdouble rotateY, GLdoub
     //END: dibuja cursor
     
     //BEGIN: dibuja coche
+    glPushMatrix();
     m_coche->dibuja(0.25);
+    glPopMatrix();
     //END: dibuja coche 
     glPopMatrix();
 }
@@ -94,7 +96,7 @@ void Hipotrocoide::recalcular()
     glColor3f(0, 0, 1.0f);
     bool invalido = true;
     for (int i = 0; i <= numVueltas; ++i) {
-        QList<PV3f> res = Frenet::marco(listaPuntos, m_a, m_b, m_c, currStepSize);
+      QList<PV3f> res = Frenet::marco(listaPuntos, m_a, m_b, m_c, currStepSize, m_mFrenet);
         if (!invalido) {
             for (int j = 0; j < res.size(); ++j) {
                 const int sig = (j + 1) % res.size();
@@ -158,3 +160,4 @@ void Hipotrocoide::setNQ(int value)
     m_nq = value;
     recalcular();
 }
+

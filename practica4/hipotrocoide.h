@@ -39,6 +39,7 @@ private:
     int m_c;
     int m_np;
     int m_nq;
+    int m_mFrenet[16];
     Coche *m_coche;
     QList<Cara> m_listaCaras;
     QList<PV3f> m_puntosCursor;
