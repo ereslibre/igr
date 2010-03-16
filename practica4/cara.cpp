@@ -1,5 +1,9 @@
 #include "cara.h"
 
+Cara::Cara()
+{
+}
+
 Cara::Cara(const QList<PV3f> &vertices)
     : m_vertices(vertices)
 {
@@ -22,6 +26,11 @@ void Cara::dibuja(DrawType drawType) const
         glVertex3d(p.getX(), p.getY(), p.getZ());
     }
     glEnd();
+}
+
+QList<PV3f> Cara::vertices() const
+{
+    return m_vertices;
 }
 
 int Cara::suc(int i) const

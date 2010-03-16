@@ -69,7 +69,11 @@ void Hipotrocoide::dibuja(GLdouble t, bool wireframe)
                 const PV3f p2(ant[sig].getX(), ant[sig].getY(), ant[sig].getZ());
                 const PV3f p3(res[sig].getX(), res[sig].getY(), res[sig].getZ());
                 const PV3f p4(res[j].getX(), res[j].getY(), res[j].getZ());
-                vertices << p1 << p2 << p3 << p4;
+                if (wireframe) {
+                    vertices << p1 << p4 << p2 << p3 << p1 << p2 << p3 << p4;
+                } else {
+                    vertices << p1 << p2 << p3 << p4;
+                }
                 listaCaras << Cara(vertices);
             }
         } else {
@@ -85,7 +89,8 @@ void Hipotrocoide::dibuja(GLdouble t, bool wireframe)
     } else {
         drawType = Cara::Solid;
     }
-    foreach(const Cara &c, listaCaras) {
+
+    foreach (const Cara &c, listaCaras) {
         c.dibuja(drawType);
     }
 

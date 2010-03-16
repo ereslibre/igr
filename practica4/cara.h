@@ -13,10 +13,13 @@ public:
         Solid
     };
 
+    Cara();
     Cara(const QList<PV3f> &vertices);
     virtual ~Cara();
 
     void dibuja(DrawType drawType) const;
+
+    QList<PV3f> vertices() const;
 
 private:
     void newell();
