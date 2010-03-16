@@ -13,7 +13,6 @@ public:
         Solid
     };
 
-    Cara();
     Cara(const QList<PV3f> &vertices);
     virtual ~Cara();
 

@@ -1,9 +1,5 @@
 #include "cara.h"
 
-Cara::Cara()
-{
-}
-
 Cara::Cara(const QList<PV3f> &vertices)
     : m_vertices(vertices)
 {
