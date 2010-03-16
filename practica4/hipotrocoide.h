@@ -2,6 +2,9 @@
 #define HIPOTROCOIDE_H
 
 #include "pv3f.h"
+#include "cara.h"
+
+#include <QtCore/QList>
 
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -12,7 +15,11 @@ public:
     Hipotrocoide();
     virtual ~Hipotrocoide();
 
-    void dibuja(GLdouble t, bool wireframe);
+    void dibuja(GLdouble t);
+    void recalcular();
+
+    void setWireframe(bool wireframe);
+    bool wireframe() const;
 
     void setA(int value);
     void setB(int value);
@@ -25,11 +32,14 @@ private:
     PV3f derivada2(GLdouble t) const;
 
 private:
+    bool m_wireframe;
     int m_a;
     int m_b;
     int m_c;
     int m_np;
     int m_nq;
+    QList<Cara> m_listaCaras;
+    QList<PV3f> m_puntosCursor;
 };
 
 #endif

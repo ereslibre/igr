@@ -30,7 +30,6 @@ protected:
 
 private:
     GLdouble m_t;
-    bool     m_wireframe;
     GLdouble m_eyeX;
     GLdouble m_eyeY;
     GLdouble m_eyeZ;
