@@ -145,35 +145,25 @@ void Escena::resizeGL(int width, int height)
 void Escena::keyPressEvent(QKeyEvent *event)
 {
     bool doUpdate = true;
-    bool doMoveCamera = true;
     switch (event->key()) {
         case Qt::Key_Right:
-            doMoveCamera = false;
             break;
         case Qt::Key_Left:
-            doMoveCamera = false;
+            break;
+        case Qt::Key_Up:
+            break;
+        case Qt::Key_Down:
             break;
         case Qt::Key_T:
             m_hipotrocoide->setWireframe(!m_hipotrocoide->wireframe());
-            doMoveCamera = false;
             break;
         case Qt::Key_A:
-            m_eyeX -= 20.0;
             break;
-        case Qt::Key_S:
-            m_eyeY -= 20.0;
-            break;
-        case Qt::Key_D:
-            m_eyeX += 20.0;
+        case Qt::Key_Z:
             break;
         case Qt::Key_Q:
-            m_eyeZ += 20.0;
             break;
         case Qt::Key_W:
-            m_eyeY += 20.0;
-            break;
-        case Qt::Key_E:
-            m_eyeZ -= 20.0;
             break;
         case Qt::Key_O:
             m_t -= 0.1;
@@ -184,13 +174,7 @@ void Escena::keyPressEvent(QKeyEvent *event)
         default:
             QGLWidget::keyPressEvent(event);
             doUpdate = false;
-            doMoveCamera = false;
             break;
-    }
-    if (doMoveCamera) {
-        glMatrixMode(GL_MODELVIEW);
-        glLoadIdentity();
-        gluLookAt(m_eyeX, m_eyeY, m_eyeZ, m_lookX, m_lookY, m_lookZ, m_upX, m_upY, m_upZ);
     }
     if (doUpdate) {
         update();
