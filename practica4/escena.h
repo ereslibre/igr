@@ -42,6 +42,9 @@ private:
     GLdouble m_near;
     GLdouble m_far;
     GLfloat  m_posicionLuz0[4];
+    GLdouble m_rotateX;
+    GLdouble m_rotateY;
+    GLdouble m_rotateZ;
 
     Hipotrocoide *m_hipotrocoide;
 };

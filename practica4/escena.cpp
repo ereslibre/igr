@@ -6,6 +6,9 @@
 Escena::Escena(QWidget *parent)
     : QGLWidget(parent)
     , m_t(0)
+    , m_rotateX(0)
+    , m_rotateY(0)
+    , m_rotateZ(0)
     , m_hipotrocoide(new Hipotrocoide)
 {
     setFocusPolicy(Qt::StrongFocus);
@@ -112,7 +115,7 @@ void Escena::paintGL()
     glVertex3d(0,0,10);
     glEnd();
 
-    m_hipotrocoide->dibuja(m_t);
+    m_hipotrocoide->dibuja(m_t, m_rotateX, m_rotateY, m_rotateZ);
 }
 
 void Escena::resizeGL(int width, int height)
@@ -147,19 +150,25 @@ void Escena::keyPressEvent(QKeyEvent *event)
     bool doUpdate = true;
     switch (event->key()) {
         case Qt::Key_Right:
+            m_rotateZ += 10;
             break;
         case Qt::Key_Left:
+            m_rotateZ -= 10;
             break;
         case Qt::Key_Up:
+            m_rotateX += 10;
             break;
         case Qt::Key_Down:
+            m_rotateX -= 10;
             break;
         case Qt::Key_T:
             m_hipotrocoide->setWireframe(!m_hipotrocoide->wireframe());
             break;
         case Qt::Key_A:
+            m_rotateY += 10;
             break;
         case Qt::Key_Z:
+            m_rotateY -= 10;
             break;
         case Qt::Key_Q:
             break;

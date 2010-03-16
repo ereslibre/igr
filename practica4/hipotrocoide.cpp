@@ -20,8 +20,14 @@ Hipotrocoide::~Hipotrocoide()
 {
 }
 
-void Hipotrocoide::dibuja(GLdouble t)
+void Hipotrocoide::dibuja(GLdouble t, GLdouble rotateX, GLdouble rotateY, GLdouble rotateZ)
 {
+    glPushMatrix();
+
+    glRotated(rotateX, 1.0, 0, 0);
+    glRotated(rotateY, 0, 1.0, 0);
+    glRotated(rotateZ, 0, 0, 1.0);
+
     Cara::DrawType drawType;
     if (m_wireframe) {
         drawType = Cara::Wireframe;
@@ -43,6 +49,8 @@ void Hipotrocoide::dibuja(GLdouble t)
     glVertex3d(res[0].getX(), res[0].getY(), res[0].getZ());
     glEnd();
     //END: dibuja cursor
+
+    glPopMatrix();
 }
 
 void Hipotrocoide::recalcular()
