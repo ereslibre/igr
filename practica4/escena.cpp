@@ -100,6 +100,7 @@ void Escena::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLightfv(GL_LIGHT0,GL_POSITION,m_posicionLuz0);
+    glMatrixMode(GL_MODELVIEW);
 
     glBegin(GL_LINES);
     glColor4f(1.0,0.0,0.0,1.0);
