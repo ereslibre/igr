@@ -10,7 +10,7 @@ Escena::Escena(QWidget *parent)
     , m_rotateY(0)
     , m_rotateZ(0)
     , m_transparencia(false)
-    , m_hipotrocoide(new Hipotrocoide)
+    , m_hipotrocoide(new Hipotrocoide) 
 {
     setFocusPolicy(Qt::StrongFocus);
     setMouseTracking(true);

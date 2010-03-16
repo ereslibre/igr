@@ -12,12 +12,14 @@ Hipotrocoide::Hipotrocoide()
     , m_c(2)
     , m_np(20)
     , m_nq(100)
+    , m_coche(new Coche)
 {
     recalcular();
 }
 
 Hipotrocoide::~Hipotrocoide()
 {
+    delete m_coche;
 }
 
 void Hipotrocoide::dibuja(GLdouble t, GLdouble rotateX, GLdouble rotateY, GLdouble rotateZ, bool transparencia)
@@ -55,7 +57,10 @@ void Hipotrocoide::dibuja(GLdouble t, GLdouble rotateX, GLdouble rotateY, GLdoub
     glVertex3d(res[0].getX(), res[0].getY(), res[0].getZ());
     glEnd();
     //END: dibuja cursor
-
+    
+    //BEGIN: dibuja coche
+    m_coche->dibuja(0.25);
+    //END: dibuja coche 
     glPopMatrix();
 }
 

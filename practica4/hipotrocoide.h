@@ -3,6 +3,7 @@
 
 #include "pv3f.h"
 #include "cara.h"
+#include "coche.h"
 
 #include <QtCore/QList>
 
@@ -38,6 +39,7 @@ private:
     int m_c;
     int m_np;
     int m_nq;
+    Coche *m_coche;
     QList<Cara> m_listaCaras;
     QList<PV3f> m_puntosCursor;
 };
