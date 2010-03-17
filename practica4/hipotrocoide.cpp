@@ -7,9 +7,9 @@
 
 Hipotrocoide::Hipotrocoide()
     : m_wireframe(false)
-    , m_a(7)
-    , m_b(4)
-    , m_c(2)
+    , m_a(14)
+    , m_b(8)
+    , m_c(4)
     , m_np(20)
     , m_nq(100)
 {
@@ -58,7 +58,7 @@ void Hipotrocoide::recalcular()
     GLdouble currStepSize = 0;
 
     QList<PV3f> listaPuntos;
-    GLdouble radio = 0.5;
+    GLdouble radio = 1;
     const GLdouble paso = 2.0 * M_PI / ((GLdouble) m_np);
     GLdouble pasoActual = 0;
     for (int i = 0; i < m_np; ++i) {

@@ -127,7 +127,7 @@ void Escena::paintGL()
     glRotated(m_rotateZ, 0, 0, 1.0);
 
     m_hipotrocoide->dibuja(m_t, m_arandel);
-    m_coche->dibuja(0.25);
+    m_coche->dibuja(0.5);
 
     glPopMatrix();
 }

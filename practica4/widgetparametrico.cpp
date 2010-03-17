@@ -15,11 +15,11 @@ WidgetParametrico::WidgetParametrico(QWidget *parent)
     QSpinBox *nq = new QSpinBox(this);
 
     a->setRange(1, 1000);
-    a->setValue(7);
+    a->setValue(14);
     b->setRange(1, 1000);
-    b->setValue(4);
+    b->setValue(8);
     c->setRange(1, 1000);
-    c->setValue(2);
+    c->setValue(4);
     np->setRange(1, 1000);
     np->setValue(20);
     nq->setRange(1, 1000);
