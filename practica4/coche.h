@@ -15,7 +15,6 @@ public:
     void dibuja(GLdouble scale);
 
 private:
-    void dibujaCubo(double x, double y, double z);
     void dibujaRect(GLdouble x, GLdouble y, GLdouble z,GLdouble scale);
     PV3f derivada1(GLdouble t) const;
     PV3f derivada2(GLdouble t) const;
