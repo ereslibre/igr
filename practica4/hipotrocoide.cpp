@@ -60,7 +60,6 @@ void Hipotrocoide::dibuja(GLdouble t, GLdouble rotateX, GLdouble rotateY, GLdoub
     
     //BEGIN: dibuja coche
     glPushMatrix();
-    glLoadIdentity();
     glMultMatrixd(m_mFrenet);
     m_coche->dibuja(0.25);
     glPopMatrix();
