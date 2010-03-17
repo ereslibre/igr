@@ -22,7 +22,7 @@ Hipotrocoide::~Hipotrocoide()
     delete m_coche;
 }
 
-void Hipotrocoide::dibuja(GLdouble t, GLdouble rotateX, GLdouble rotateY, GLdouble rotateZ)
+void Hipotrocoide::dibuja(GLdouble t, GLdouble rotateX, GLdouble rotateY, GLdouble rotateZ, bool arandel)
 {
     glPushMatrix();
 
@@ -41,15 +41,18 @@ void Hipotrocoide::dibuja(GLdouble t, GLdouble rotateX, GLdouble rotateY, GLdoub
         c.dibuja(drawType);
     }
 
-    //BEGIN: dibuja cursor
-    glColor3f(1.0f, 1.0f, 1.0f);
-    glBegin(GL_LINE_STRIP);
     QList<PV3f> res = Frenet::marco(m_puntosCursor, m_a, m_b, m_c, t, m_mFrenet);
-    foreach (const PV3f &p, res) {
-        glVertex3d(p.getX(), p.getY(), p.getZ());
+
+    //BEGIN: dibuja cursor
+    if (arandel) {
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glBegin(GL_LINE_STRIP);
+        foreach (const PV3f &p, res) {
+            glVertex3d(p.getX(), p.getY(), p.getZ());
+        }
+        glVertex3d(res[0].getX(), res[0].getY(), res[0].getZ());
+        glEnd();
     }
-    glVertex3d(res[0].getX(), res[0].getY(), res[0].getZ());
-    glEnd();
     //END: dibuja cursor
     
     //BEGIN: dibuja coche
