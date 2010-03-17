@@ -22,6 +22,8 @@ public:
     void setWireframe(bool wireframe);
     bool wireframe() const;
 
+    Coche *coche() const;
+
     void setA(int value);
     void setB(int value);
     void setC(int value);

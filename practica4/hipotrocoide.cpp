@@ -127,6 +127,11 @@ bool Hipotrocoide::wireframe() const
     return m_wireframe;
 }
 
+Coche *Hipotrocoide::coche() const
+{
+    return m_coche;
+}
+
 void Hipotrocoide::setA(int value)
 {
     m_a = value;

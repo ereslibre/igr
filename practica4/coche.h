@@ -12,6 +12,9 @@ public:
     Coche();
     virtual ~Coche();
 
+    void avanza();
+    void retrocede();
+
     void dibuja(GLdouble scale);
 
 private:
@@ -28,6 +31,7 @@ private:
     GLUquadric *m_rue2;
     GLUquadric *m_rue3;
     GLUquadric *m_rue4;
+    int         m_angulo;
 };
 
 #endif

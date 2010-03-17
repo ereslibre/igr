@@ -176,10 +176,12 @@ void Escena::keyPressEvent(QKeyEvent *event)
         case Qt::Key_W:
             break;
         case Qt::Key_O:
-            m_t -= 0.1;
+            m_t -= 0.05;
+            m_hipotrocoide->coche()->retrocede();
             break;
         case Qt::Key_P:
-            m_t += 0.1;
+            m_t += 0.05;
+            m_hipotrocoide->coche()->avanza();
             break;
         default:
             QGLWidget::keyPressEvent(event);

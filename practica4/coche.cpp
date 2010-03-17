@@ -8,6 +8,7 @@
 #include <boost/math/common_factor.hpp>
 
 Coche::Coche()
+    : m_angulo(0)
 {
     m_dis1 = gluNewQuadric();
     m_dis2 = gluNewQuadric();
@@ -31,8 +32,21 @@ Coche::~Coche()
     gluDeleteQuadric(m_rue4);
 }
 
+void Coche::avanza()
+{
+    m_angulo += 10;
+}
+
+void Coche::retrocede()
+{
+    m_angulo -= 10;
+}
+
 void Coche::dibuja(GLdouble scale)
 {
+    glPushMatrix();
+    glRotatef(180, 1, 0, 0);
+
     // Rectángulo inferior
     glPushMatrix();
     glColor3f(0.0f,1.0f,0.0f);
@@ -49,11 +63,13 @@ void Coche::dibuja(GLdouble scale)
     glPushMatrix();
     glColor3f(1.0, 1.0, 0.0);
     glRotatef(-90.0f, 0.0f, 1.0f, 0.0f);
+
     // Hay que trasladar la rueda, también hay que tener en cuenta 
     // el grosor de la llanta.
     glTranslatef(scale/2,-scale/2,scale/2+0.2*scale);
     gluQuadricDrawStyle(m_rue1,GLU_FILL);
     gluCylinder(m_rue1, scale/3, scale/3, 0.2, 30, 30);
+
     // Tapacubos 1
     glTranslatef(0.0f, 0.0f, 0.2f);
     gluQuadricDrawStyle(m_dis1,GLU_FILL);
@@ -94,6 +110,8 @@ void Coche::dibuja(GLdouble scale)
     glTranslatef(0.0f, 0.0f, 0.2f);
     gluQuadricDrawStyle(m_dis4,GLU_FILL);
     gluDisk(m_dis4, 0, scale/3, 30, 30);  
+    glPopMatrix();
+
     glPopMatrix();
 }
 
