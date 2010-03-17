@@ -46,6 +46,7 @@ private:
     GLdouble m_rotateY;
     GLdouble m_rotateZ;
     bool     m_arandel;
+    Coche    *m_coche;
 
     Hipotrocoide *m_hipotrocoide;
 };

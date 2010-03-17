@@ -12,24 +12,16 @@ Hipotrocoide::Hipotrocoide()
     , m_c(2)
     , m_np(20)
     , m_nq(100)
-    , m_coche(new Coche)  
 {
     recalcular();
 }
 
 Hipotrocoide::~Hipotrocoide()
 {
-    delete m_coche;
 }
 
-void Hipotrocoide::dibuja(GLdouble t, GLdouble rotateX, GLdouble rotateY, GLdouble rotateZ, bool arandel)
+void Hipotrocoide::dibuja(GLdouble t, bool arandel)
 {
-    glPushMatrix();
-
-    glRotated(rotateX, 1.0, 0, 0);
-    glRotated(rotateY, 0, 1.0, 0);
-    glRotated(rotateZ, 0, 0, 1.0);
-
     Cara::DrawType drawType;
     if (m_wireframe) {
         drawType = Cara::Wireframe;
@@ -54,15 +46,6 @@ void Hipotrocoide::dibuja(GLdouble t, GLdouble rotateX, GLdouble rotateY, GLdoub
         glEnd();
     }
     //END: dibuja cursor
-    
-    //BEGIN: dibuja coche
-    glPushMatrix();
-    glMultMatrixd(m_mFrenet);
-    m_coche->dibuja(0.25);
-    glPopMatrix();
-    //END: dibuja coche 
-
-    glPopMatrix();
 }
 
 void Hipotrocoide::recalcular()
@@ -130,9 +113,9 @@ bool Hipotrocoide::wireframe() const
     return m_wireframe;
 }
 
-Coche *Hipotrocoide::coche() const
+const GLdouble *Hipotrocoide::frenet() const
 {
-    return m_coche;
+    return m_mFrenet;
 }
 
 void Hipotrocoide::setA(int value)

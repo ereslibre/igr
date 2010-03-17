@@ -12,6 +12,8 @@ Escena::Escena(QWidget *parent)
     , m_arandel(true)
     , m_hipotrocoide(new Hipotrocoide) 
 {
+    m_coche = new Coche(m_hipotrocoide);
+
     setFocusPolicy(Qt::StrongFocus);
     setMouseTracking(true);
 }
@@ -19,6 +21,7 @@ Escena::Escena(QWidget *parent)
 Escena::~Escena()
 {
     makeCurrent();
+    delete m_coche;
 }
 
 void Escena::aChanged(int value)
@@ -117,7 +120,16 @@ void Escena::paintGL()
     glVertex3d(0, 0, 10);
     glEnd();
 
-    m_hipotrocoide->dibuja(m_t, m_rotateX, m_rotateY, m_rotateZ, m_arandel);
+    glPushMatrix();
+
+    glRotated(m_rotateX, 1.0, 0, 0);
+    glRotated(m_rotateY, 0, 1.0, 0);
+    glRotated(m_rotateZ, 0, 0, 1.0);
+
+    m_hipotrocoide->dibuja(m_t, m_arandel);
+    m_coche->dibuja(0.25);
+
+    glPopMatrix();
 }
 
 void Escena::resizeGL(int width, int height)
@@ -177,11 +189,11 @@ void Escena::keyPressEvent(QKeyEvent *event)
             break;
         case Qt::Key_O:
             m_t -= 0.05;
-            m_hipotrocoide->coche()->retrocede();
+            m_coche->retrocede();
             break;
         case Qt::Key_P:
             m_t += 0.05;
-            m_hipotrocoide->coche()->avanza();
+            m_coche->avanza();
             break;
         default:
             QGLWidget::keyPressEvent(event);

@@ -16,13 +16,13 @@ public:
     Hipotrocoide();
     virtual ~Hipotrocoide();
 
-    void dibuja(GLdouble t, GLdouble rotateX, GLdouble rotateY, GLdouble rotateZ, bool arandel);
+    void dibuja(GLdouble t, bool arandel);
     void recalcular();
 
     void setWireframe(bool wireframe);
     bool wireframe() const;
 
-    Coche *coche() const;
+    const GLdouble *frenet() const;
 
     void setA(int value);
     void setB(int value);
@@ -42,7 +42,6 @@ private:
     int m_np;
     int m_nq;
     GLdouble m_mFrenet[16];
-    Coche *m_coche;
     QList<Cara> m_listaCaras;
     QList<PV3f> m_puntosCursor;
 };

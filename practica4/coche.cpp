@@ -1,14 +1,16 @@
 #include "coche.h"
 #include "lapiz.h"
 #include "frenet.h"
+#include "hipotrocoide.h"
 
 #include <QtCore/QDebug>
 #include <QtCore/QList>
 #include <math.h>
 #include <boost/math/common_factor.hpp>
 
-Coche::Coche()
+Coche::Coche(Hipotrocoide *hipotrocoide)
     : m_angulo(0)
+    , m_hipotrocoide(hipotrocoide)
 {
     m_dis1 = gluNewQuadric();
     m_dis2 = gluNewQuadric();
@@ -44,6 +46,9 @@ void Coche::retrocede()
 
 void Coche::dibuja(GLdouble scale)
 {
+    glPushMatrix();
+    glMultMatrixd(m_hipotrocoide->frenet());
+
     glPushMatrix();
     glRotatef(180, 1, 0, 0);
 
@@ -112,6 +117,7 @@ void Coche::dibuja(GLdouble scale)
     gluDisk(m_dis4, 0, scale/3, 30, 30);  
     glPopMatrix();
 
+    glPopMatrix();
     glPopMatrix();
 }
 
