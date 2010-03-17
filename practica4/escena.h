@@ -45,7 +45,6 @@ private:
     GLdouble m_rotateX;
     GLdouble m_rotateY;
     GLdouble m_rotateZ;
-    bool     m_transparencia;
 
     Hipotrocoide *m_hipotrocoide;
 };

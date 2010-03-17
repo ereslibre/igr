@@ -22,14 +22,8 @@ Hipotrocoide::~Hipotrocoide()
     delete m_coche;
 }
 
-void Hipotrocoide::dibuja(GLdouble t, GLdouble rotateX, GLdouble rotateY, GLdouble rotateZ, bool transparencia)
+void Hipotrocoide::dibuja(GLdouble t, GLdouble rotateX, GLdouble rotateY, GLdouble rotateZ)
 {
-    if (transparencia) {
-        glColor4f(0, 0, 1.0f, 0.5f);
-    } else {
-        glColor4f(0, 0, 1.0f, 1.0f);
-    }
-
     glPushMatrix();
 
     glRotated(rotateX, 1.0, 0, 0);

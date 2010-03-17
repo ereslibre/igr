@@ -14,22 +14,22 @@ QList<PV3f> Frenet::marco(const QList<PV3f> &listaPuntos, GLdouble a, GLdouble b
     const PV3f vn = (((dpc * ddpc) * dpc) * pow(((dpc * ddpc) * dpc).mod(), -1.0)).normaliza();
 
     mF[0] = vn.getX();
-    mF[1] = vn.getY();
+    mF[1] = -vn.getY();
     mF[2] = vn.getZ();
     mF[3] = 0.0;
 
     mF[4] = vb.getX();
-    mF[5] = vb.getY();
+    mF[5] = -vb.getY();
     mF[6] = vb.getZ();
     mF[7] = 0.0;
 
     mF[8]  = vt.getX();
-    mF[9]  = vt.getY();
+    mF[9]  = -vt.getY();
     mF[10] = vt.getZ();
     mF[11] = 0.0;
 
     mF[12] = pc.getX();
-    mF[13] = pc.getY();
+    mF[13] = -pc.getY();
     mF[14] = pc.getZ();
     mF[15] = 1.0;
 
@@ -58,8 +58,6 @@ QList<PV3f> Frenet::multMatriz(const QList<PV3f> &listaPuntos, const PV3f &vn, c
 {
     QList<PV3f> res;
     foreach (const PV3f &p, listaPuntos) {
-        //NOTE: Es NECESARIO sumar a la función ORIGINAL de la curva la matriz que hemos obtenido
-        //      Ver: http://en.wikipedia.org/wiki/Frenet%E2%80%93Serret_formulas#Ribbons_and_Tubes
         res << PV3f((a - b) * cos(t) + c * cos(t * (a - b) / b), 0,
                     (a - b) * sin(t) - c * sin(t * (a - b) / b)) +
                PV3f(vn.dot(p), vb.dot(p), vt.dot(p), PV3f::Vector);
