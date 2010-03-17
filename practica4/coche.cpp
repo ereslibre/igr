@@ -96,9 +96,6 @@ void Coche::dibuja(GLdouble scale)
     gluDisk(m_dis4, 0, scale/3, 30, 30);  
     glPopMatrix();
 }
-void Coche::dibujaCubo(double x, double y, double z)
-{
-}
 
 void Coche::dibujaRect(GLdouble x, GLdouble y, GLdouble z, GLdouble scale)
 {
