@@ -65,6 +65,7 @@ void Hipotrocoide::dibuja(GLdouble t, GLdouble rotateX, GLdouble rotateY, GLdoub
     m_coche->dibuja(0.25);
     glPopMatrix();
     //END: dibuja coche 
+
     glPopMatrix();
 }
 
