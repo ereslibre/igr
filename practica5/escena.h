@@ -6,6 +6,8 @@
 
 #include <QtOpenGL/QGLWidget>
 
+class Tablero;
+
 class Escena
     : public QGLWidget
 {
@@ -21,21 +23,10 @@ protected:
     virtual void keyPressEvent(QKeyEvent *event);
 
 private:
-    GLdouble    m_eyeX;
-    GLdouble    m_eyeY;
-    GLdouble    m_eyeZ;
-    GLdouble    m_lookX;
-    GLdouble    m_lookY;
-    GLdouble    m_lookZ;
-    GLdouble    m_upX;
-    GLdouble    m_upY;
-    GLdouble    m_upZ;
-    GLdouble    m_near;
-    GLdouble    m_far;
     GLfloat     m_posicionLuz0[4];
-    GLdouble    m_rotateX;
-    GLdouble    m_rotateY;
-    GLdouble    m_rotateZ;
+
+    Tablero    *m_tablero;
+    Camara     *m_camara;
 
     GLUquadric *m_obstaculoOpaco;
 };

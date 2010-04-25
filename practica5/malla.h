@@ -12,6 +12,8 @@ public:
     Malla();
     virtual ~Malla();
 
+    virtual void dibuja();
+
     void anadeCara(const Cara &cara);
     void anadeVertice(const VerticeNormal &verticeNormal);
 

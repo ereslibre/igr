@@ -6,8 +6,8 @@ Camara::Camara(PV3f eye, PV3f look, PV3f up, Vista vista)
     , m_right(400)
     , m_top(400)
     , m_bottom(-400)
-    , m_near(10)
-    , m_far(100)
+    , m_near(1)
+    , m_far(1000)
     , m_vista(vista)
     , m_angulo(0)
     , m_proporcion(1)
@@ -15,23 +15,24 @@ Camara::Camara(PV3f eye, PV3f look, PV3f up, Vista vista)
     , m_look(look)
     , m_up(up)
 {
-    m_n = (eye-look).normaliza();
-    m_u = (up*m_n).normaliza();
-    m_v = m_n*m_u;
+    m_n = (eye - look).normaliza();
+    m_u = (up * m_n).normaliza();
+    m_v = m_n * m_u;
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     gluLookAt(m_eye.getX() ,m_eye.getY() ,m_eye.getZ(),
-	      m_look.getX(),m_look.getY(),m_look.getZ(),
-	      m_up.getX()  ,m_up.getY()  ,m_up.getZ());
+              m_look.getX(),m_look.getY(),m_look.getZ(),
+              m_up.getX()  ,m_up.getY()  ,m_up.getZ());
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(m_left,m_right,m_bottom,m_top,m_near,m_far);
-    if(m_vista == Frustum)
+    if (m_vista == Frustum) {
       glFrustum(m_left,m_right,m_bottom,m_top,m_near,m_far);
-    else
+    } else {
       gluPerspective(m_angulo,m_proporcion,m_near,m_far);
+    }
 }
 
 Camara::~Camara()
@@ -57,9 +58,9 @@ void Camara::setModelViewMatrix()
     matrix[10]= m_n.getZ();
     matrix[11]= 0;
 
-    matrix[12]= m_u.dot(m_eye * -1);
-    matrix[13]= m_v.dot(m_eye * -1);
-    matrix[14]= m_n.dot(m_eye * -1);
+    matrix[12]= (m_u * -1).dot(m_eye);
+    matrix[13]= (m_v * -1).dot(m_eye);
+    matrix[14]= (m_n * -1).dot(m_eye);
     matrix[15]= 1;
     glLoadMatrixd(matrix);
 }

@@ -1,13 +1,13 @@
 #include "escena.h"
+#include "tablero.h"
 
 #include <math.h>
 #include <QtGui/QKeyEvent>
 
 Escena::Escena(QWidget *parent)
     : QGLWidget(parent)
-    , m_rotateX(0)
-    , m_rotateY(0)
-    , m_rotateZ(0)
+    , m_tablero(new Tablero(5, 20, 5, 20, 1, 2))
+    , m_camara(new Camara(PV3f(1000.0, 1000.0, 1000.0), PV3f(0, 0, 0), PV3f(0, 1, 0, PV3f::Vector), Camara::Perspectiva))
 {
     setFocusPolicy(Qt::StrongFocus);
     setMouseTracking(true);
@@ -20,6 +20,8 @@ Escena::~Escena()
     makeCurrent();
 
     gluDeleteQuadric(m_obstaculoOpaco);
+    delete m_tablero;
+    delete m_camara;
 }
 
 QSize Escena::sizeHint() const
@@ -54,18 +56,8 @@ void Escena::initializeGL()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    m_eyeX = m_eyeY = m_eyeZ = 100.0;
-    m_lookX = m_lookY = m_lookZ = 0.0;
-    m_upX = 0;
-    m_upY = 1;
-    m_upZ = 0;
-
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    gluLookAt(m_eyeX, m_eyeY, m_eyeZ, m_lookX, m_lookY, m_lookZ, m_upX, m_upY, m_upZ);
-
-    m_near = 1;
-    m_far = 1000;
 }
 
 void Escena::paintGL()
@@ -90,9 +82,7 @@ void Escena::paintGL()
 
     glPushMatrix();
 
-    glRotated(m_rotateX, 1.0, 0, 0);
-    glRotated(m_rotateY, 0, 1.0, 0);
-    glRotated(m_rotateZ, 0, 0, 1.0);
+    m_tablero->dibuja();
 
     glPopMatrix();
 }
@@ -121,13 +111,18 @@ void Escena::resizeGL(int width, int height)
     glViewport(0, 0, width, height);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(left * 3.0, right * 3.0, bottom * 3.0, top * 3.0, m_near, m_far);
 }
 
 void Escena::keyPressEvent(QKeyEvent *event)
 {
     bool doUpdate = true;
     switch (event->key()) {
+        case Qt::Key_Left:
+            m_camara->roll(-M_PI / 20.0);
+            break;
+        case Qt::Key_Right:
+            m_camara->roll(M_PI / 20.0);
+            break;
         default:
             QGLWidget::keyPressEvent(event);
             doUpdate = false;

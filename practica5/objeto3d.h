@@ -3,10 +3,19 @@
 
 #include <GL/gl.h>
 
+#include "tmatrizafin.h"
+
 class Objeto3D
 {
 public:
     struct Color {
+        Color()
+            : r(0)
+            , g(0)
+            , b(0)
+        {
+        }
+
         GLdouble r;
         GLdouble g;
         GLdouble b;
@@ -15,15 +24,16 @@ public:
     Objeto3D();
     virtual ~Objeto3D();
 
-    void setMatrix(GLdouble **matrix);
-    GLdouble **matrix() const;
+    virtual void dibuja() = 0;
+
+    TMatrizAfin &matrix();
 
     void setColor(Color color);
     Color color() const;
 
 private:
-    GLdouble m_matrix[16];
-    Color    m_color;
+    TMatrizAfin m_matrix;
+    Color       m_color;
     
 };
 

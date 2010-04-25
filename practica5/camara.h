@@ -9,9 +9,14 @@
 class Camara
 {
  public:
-   enum Vista{Frustum=0,Perspectiva};
+   enum Vista {
+       Frustum = 0,
+       Perspectiva
+   };
+
    Camara(PV3f eye, PV3f look, PV3f up, Vista vista);
    virtual ~Camara();
+
    void setModelViewMatrix();
    void roll(GLdouble angulo);
    void pitch(GLdouble angulo);
@@ -30,13 +35,13 @@ class Camara
    GLdouble m_angulo;
    GLdouble m_proporcion;
 
-   PV3f     m_eye;  //Punto
-   PV3f     m_look; //Punto
-   PV3f     m_up;   //Vector
+   PV3f m_eye;  //Punto
+   PV3f m_look; //Punto
+   PV3f m_up;   //Vector
 
-   PV3f     m_u;    //Vector
-   PV3f     m_v;    //Vector
-   PV3f     m_n;    //Vector
+   PV3f m_u;    //Vector
+   PV3f m_v;    //Vector
+   PV3f m_n;    //Vector
 };
 
 #endif

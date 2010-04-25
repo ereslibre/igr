@@ -8,18 +8,17 @@ Objeto3D::~Objeto3D()
 {
 }
 
-void Objeto3D::setMatrix(GLdouble** matrix)
+TMatrizAfin &Objeto3D::matrix()
 {
-}
-
-GLdouble** Objeto3D::matrix() const
-{
+    return m_matrix;
 }
 
 void Objeto3D::setColor(Objeto3D::Color color)
 {
+    this->m_color = color;
 }
 
 Objeto3D::Color Objeto3D::color() const
 {
+    return m_color;
 }

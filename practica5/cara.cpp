@@ -13,13 +13,17 @@ Cara::~Cara()
 void Cara::dibuja(DrawType drawType) const
 {
     if (drawType == Wireframe) {
-        glBegin(GL_LINES);
+        glBegin(GL_LINE_STRIP);
     } else {
         glBegin(GL_QUADS);
     }
     foreach (const PV3f &p, m_vertices) {
         glNormal3d(m_normal.getX(), m_normal.getY(), m_normal.getZ());
-        glVertex3d(p.getX(), p.getY(), p.getZ());
+        if (drawType == Wireframe) {
+            glVertex3d(p.getX() * 1.01, p.getY() * 1.01, p.getZ() * 1.01);
+        } else {
+            glVertex3d(p.getX(), p.getY(), p.getZ());
+        }
     }
     glEnd();
 }
