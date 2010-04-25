@@ -1,4 +1,5 @@
 #include "hipotrocoide.h"
+#include "hipotrocoide.h"
 #include "lapiz.h"
 #include "frenet.h"
 

@@ -1,6 +1,7 @@
 #include "malla.h"
 
 Malla::Malla()
+    : Objeto3D()
 {
 }
 

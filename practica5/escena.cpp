@@ -5,53 +5,21 @@
 
 Escena::Escena(QWidget *parent)
     : QGLWidget(parent)
-    , m_t(0)
     , m_rotateX(0)
     , m_rotateY(0)
     , m_rotateZ(0)
-    , m_arandel(true)
-    , m_hipotrocoide(new Hipotrocoide) 
 {
-    m_coche = new Coche(m_hipotrocoide);
-
     setFocusPolicy(Qt::StrongFocus);
     setMouseTracking(true);
+
+    m_obstaculoOpaco = gluNewQuadric();
 }
 
 Escena::~Escena()
 {
     makeCurrent();
-    delete m_coche;
-}
 
-void Escena::aChanged(int value)
-{
-    m_hipotrocoide->setA(value);
-    update();
-}
-
-void Escena::bChanged(int value)
-{
-    m_hipotrocoide->setB(value);
-    update();
-}
-
-void Escena::cChanged(int value)
-{
-    m_hipotrocoide->setC(value);
-    update();
-}
-
-void Escena::npChanged(int value)
-{
-    m_hipotrocoide->setNP(value);
-    update();
-}
-
-void Escena::nqChanged(int value)
-{
-    m_hipotrocoide->setNQ(value);
-    update();
+    gluDeleteQuadric(m_obstaculoOpaco);
 }
 
 QSize Escena::sizeHint() const
@@ -126,9 +94,6 @@ void Escena::paintGL()
     glRotated(m_rotateY, 0, 1.0, 0);
     glRotated(m_rotateZ, 0, 0, 1.0);
 
-    //m_hipotrocoide->dibuja(m_t, m_arandel);
-    m_coche->dibuja(0.5);
-
     glPopMatrix();
 }
 
@@ -163,38 +128,6 @@ void Escena::keyPressEvent(QKeyEvent *event)
 {
     bool doUpdate = true;
     switch (event->key()) {
-        case Qt::Key_Right:
-            m_rotateZ += 10;
-            break;
-        case Qt::Key_Left:
-            m_rotateZ -= 10;
-            break;
-        case Qt::Key_Up:
-            m_rotateX += 10;
-            break;
-        case Qt::Key_Down:
-            m_rotateX -= 10;
-            break;
-        case Qt::Key_T:
-            m_hipotrocoide->setWireframe(!m_hipotrocoide->wireframe());
-            break;
-        case Qt::Key_A:
-            m_rotateY += 10;
-            break;
-        case Qt::Key_Z:
-            m_rotateY -= 10;
-            break;
-        case Qt::Key_G:
-            m_arandel = !m_arandel;
-            break;
-        case Qt::Key_O:
-            m_t -= 0.05;
-            m_coche->retrocede();
-            break;
-        case Qt::Key_P:
-            m_t += 0.05;
-            m_coche->avanza();
-            break;
         default:
             QGLWidget::keyPressEvent(event);
             doUpdate = false;
@@ -204,5 +137,3 @@ void Escena::keyPressEvent(QKeyEvent *event)
         update();
     }
 }
-
-#include "escena.moc"

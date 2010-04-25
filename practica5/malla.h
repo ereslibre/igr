@@ -1,10 +1,12 @@
 #ifndef MALLA_H
 #define MALLA_H
 
+#include "objeto3d.h"
 #include "cara.h"
 #include "verticenormal.h"
 
 class Malla
+    : public Objeto3D
 {
 public:
     Malla();

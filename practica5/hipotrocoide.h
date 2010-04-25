@@ -1,6 +1,7 @@
 #ifndef HIPOTROCOIDE_H
 #define HIPOTROCOIDE_H
 
+#include "malla.h"
 #include "pv3f.h"
 #include "cara.h"
 #include "coche.h"
@@ -11,6 +12,7 @@
 #include <GL/glu.h>
 
 class Hipotrocoide
+    : public Malla
 {
 public:
     Hipotrocoide();

@@ -4,24 +4,14 @@
 #include "hipotrocoide.h"
 #include "camara.h"
 
-
 #include <QtOpenGL/QGLWidget>
 
 class Escena
     : public QGLWidget
 {
-    Q_OBJECT
-
 public:
     Escena(QWidget *parent = 0);
     ~Escena();
-
-public Q_SLOTS:
-    void aChanged(int value);
-    void bChanged(int value);
-    void cChanged(int value);
-    void npChanged(int value);
-    void nqChanged(int value);
 
 protected:
     virtual QSize sizeHint() const;
@@ -31,26 +21,23 @@ protected:
     virtual void keyPressEvent(QKeyEvent *event);
 
 private:
-    GLdouble m_t;
-    GLdouble m_eyeX;
-    GLdouble m_eyeY;
-    GLdouble m_eyeZ;
-    GLdouble m_lookX;
-    GLdouble m_lookY;
-    GLdouble m_lookZ;
-    GLdouble m_upX;
-    GLdouble m_upY;
-    GLdouble m_upZ;
-    GLdouble m_near;
-    GLdouble m_far;
-    GLfloat  m_posicionLuz0[4];
-    GLdouble m_rotateX;
-    GLdouble m_rotateY;
-    GLdouble m_rotateZ;
-    bool     m_arandel;
-    Coche    *m_coche;
+    GLdouble    m_eyeX;
+    GLdouble    m_eyeY;
+    GLdouble    m_eyeZ;
+    GLdouble    m_lookX;
+    GLdouble    m_lookY;
+    GLdouble    m_lookZ;
+    GLdouble    m_upX;
+    GLdouble    m_upY;
+    GLdouble    m_upZ;
+    GLdouble    m_near;
+    GLdouble    m_far;
+    GLfloat     m_posicionLuz0[4];
+    GLdouble    m_rotateX;
+    GLdouble    m_rotateY;
+    GLdouble    m_rotateZ;
 
-    Hipotrocoide *m_hipotrocoide;
+    GLUquadric *m_obstaculoOpaco;
 };
 
 #endif
