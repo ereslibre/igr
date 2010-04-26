@@ -1,6 +1,7 @@
 #include "objeto3d.h"
 
 Objeto3D::Objeto3D()
+    : m_matriz(TMatrizAfin())
 {
 }
 
@@ -8,9 +9,9 @@ Objeto3D::~Objeto3D()
 {
 }
 
-TMatrizAfin &Objeto3D::matrix()
+TMatrizAfin &Objeto3D::matriz()
 {
-    return m_matrix;
+    return m_matriz;
 }
 
 void Objeto3D::setColor(Objeto3D::Color color)

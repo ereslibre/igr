@@ -27,8 +27,6 @@ private:
 
     Tablero    *m_tablero;
     Camara     *m_camara;
-
-    GLUquadric *m_obstaculoOpaco;
 };
 
 #endif

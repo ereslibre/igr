@@ -12,7 +12,7 @@ Malla::~Malla()
 void Malla::dibuja()
 {
     glPushMatrix();
-    //glMultMatrixd(matrix());
+    glMultMatrixd(matriz().getMatrizAfin());
     foreach (const Cara &c, m_caras) {
         glColor3f(1.0, 1.0, 1.0);
         c.dibuja(Cara::Solid);

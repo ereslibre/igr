@@ -26,13 +26,13 @@ public:
 
     virtual void dibuja() = 0;
 
-    TMatrizAfin &matrix();
+    TMatrizAfin &matriz();
 
     void setColor(Color color);
     Color color() const;
 
 private:
-    TMatrizAfin m_matrix;
+    TMatrizAfin m_matriz;
     Color       m_color;
     
 };

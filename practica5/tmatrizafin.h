@@ -20,13 +20,13 @@ public:
     void escalar(const PV3f &vec);
     void escalar(double x, double y, double z);
 
-    double *getMatrizAfin();
+    GLdouble *getMatrizAfin();
 
     void postMultiplicar(double mm[16]);
     PV3f multiplicarVector(const PV3f &v);
 
 private:
-    double m[16];
+    GLdouble m_matriz[16];
 };
 
 #endif // TMATRIZAFIN_H

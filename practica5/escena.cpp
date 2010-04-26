@@ -11,15 +11,12 @@ Escena::Escena(QWidget *parent)
 {
     setFocusPolicy(Qt::StrongFocus);
     setMouseTracking(true);
-
-    m_obstaculoOpaco = gluNewQuadric();
 }
 
 Escena::~Escena()
 {
     makeCurrent();
 
-    gluDeleteQuadric(m_obstaculoOpaco);
     delete m_tablero;
     delete m_camara;
 }
@@ -57,6 +54,7 @@ void Escena::initializeGL()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     m_tablero = new Tablero(5, 20, 5, 20, 1, 2);
+    m_tablero->matriz().trasladar(1, 1, 1);
     m_camara = new Camara(PV3f(10.0, 10.0, 10.0), PV3f(0, 0, 0), PV3f(0, 1, 0, PV3f::Vector), Camara::Perspectiva);
 }
 
