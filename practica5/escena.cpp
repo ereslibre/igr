@@ -6,8 +6,8 @@
 
 Escena::Escena(QWidget *parent)
     : QGLWidget(parent)
-    , m_tablero(new Tablero(5, 20, 5, 20, 1, 2))
-    , m_camara(new Camara(PV3f(1000.0, 1000.0, 1000.0), PV3f(0, 0, 0), PV3f(0, 1, 0, PV3f::Vector), Camara::Perspectiva))
+    , m_tablero(0)
+    , m_camara(0)
 {
     setFocusPolicy(Qt::StrongFocus);
     setMouseTracking(true);
@@ -56,8 +56,8 @@ void Escena::initializeGL()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
+    m_tablero = new Tablero(5, 20, 5, 20, 1, 2);
+    m_camara = new Camara(PV3f(10.0, 10.0, 10.0), PV3f(0, 0, 0), PV3f(0, 1, 0, PV3f::Vector), Camara::Perspectiva);
 }
 
 void Escena::paintGL()
@@ -109,8 +109,8 @@ void Escena::resizeGL(int width, int height)
     glClearColor(0, 0, 0, 0);
     glClear(GL_COLOR_BUFFER_BIT);
     glViewport(0, 0, width, height);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
+
+    m_camara->actualizaCamara(left, right, bottom, top);
 }
 
 void Escena::keyPressEvent(QKeyEvent *event)
@@ -118,10 +118,10 @@ void Escena::keyPressEvent(QKeyEvent *event)
     bool doUpdate = true;
     switch (event->key()) {
         case Qt::Key_Left:
-            m_camara->roll(-M_PI / 20.0);
+            m_camara->pitch(-M_PI / 20.0);
             break;
         case Qt::Key_Right:
-            m_camara->roll(M_PI / 20.0);
+            m_camara->pitch(M_PI / 20.0);
             break;
         default:
             QGLWidget::keyPressEvent(event);

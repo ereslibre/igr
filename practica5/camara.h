@@ -10,12 +10,15 @@ class Camara
 {
  public:
    enum Vista {
-       Frustum = 0,
-       Perspectiva
+       Ortogonal = 0,
+       Perspectiva,
+       Oblicua
    };
 
    Camara(PV3f eye, PV3f look, PV3f up, Vista vista);
    virtual ~Camara();
+
+   void actualizaCamara(GLdouble left, GLdouble right, GLdouble bottom, GLdouble top);
 
    void setModelViewMatrix();
    void roll(GLdouble angulo);

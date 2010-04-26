@@ -2,14 +2,8 @@
 #include <math.h>
 
 Camara::Camara(PV3f eye, PV3f look, PV3f up, Vista vista)
-    : m_left(-400)
-    , m_right(400)
-    , m_top(400)
-    , m_bottom(-400)
-    , m_near(1)
-    , m_far(1000)
-    , m_vista(vista)
-    , m_angulo(0)
+    : m_vista(vista)
+    , m_angulo(90)
     , m_proporcion(1)
     , m_eye(eye)
     , m_look(look)
@@ -24,19 +18,25 @@ Camara::Camara(PV3f eye, PV3f look, PV3f up, Vista vista)
     gluLookAt(m_eye.getX() ,m_eye.getY() ,m_eye.getZ(),
               m_look.getX(),m_look.getY(),m_look.getZ(),
               m_up.getX()  ,m_up.getY()  ,m_up.getZ());
-
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(m_left,m_right,m_bottom,m_top,m_near,m_far);
-    if (m_vista == Frustum) {
-      glFrustum(m_left,m_right,m_bottom,m_top,m_near,m_far);
-    } else {
-      gluPerspective(m_angulo,m_proporcion,m_near,m_far);
-    }
 }
 
 Camara::~Camara()
 {
+}
+
+void Camara::actualizaCamara(GLdouble left, GLdouble right, GLdouble bottom, GLdouble top)
+{
+    m_left = left;
+    m_right = right;
+    m_bottom = bottom;
+    m_top = top;
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    if (m_vista == Ortogonal) {
+        glOrtho(left, right, bottom, top, 1, 1000);
+    } else {
+        gluPerspective(m_angulo, m_proporcion, 1, 1000);
+    }
 }
 
 void Camara::setModelViewMatrix()
@@ -58,9 +58,10 @@ void Camara::setModelViewMatrix()
     matrix[10]= m_n.getZ();
     matrix[11]= 0;
 
-    matrix[12]= (m_u * -1).dot(m_eye);
-    matrix[13]= (m_v * -1).dot(m_eye);
-    matrix[14]= (m_n * -1).dot(m_eye);
+    const PV3f negEye(-m_eye.getX(), -m_eye.getY(), -m_eye.getZ());
+    matrix[12]= m_u.dot(negEye);
+    matrix[13]= m_v.dot(negEye);
+    matrix[14]= m_n.dot(negEye);
     matrix[15]= 1;
     glLoadMatrixd(matrix);
 }
