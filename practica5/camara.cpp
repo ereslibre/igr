@@ -18,6 +18,8 @@ Camara::Camara(PV3f eye, PV3f look, PV3f up, Vista vista)
     gluLookAt(m_eye.getX() ,m_eye.getY() ,m_eye.getZ(),
               m_look.getX(),m_look.getY(),m_look.getZ(),
               m_up.getX()  ,m_up.getY()  ,m_up.getZ());
+
+    setModelViewMatrix();
 }
 
 Camara::~Camara()
@@ -37,6 +39,31 @@ void Camara::actualizaCamara(GLdouble left, GLdouble right, GLdouble bottom, GLd
     } else {
         gluPerspective(m_angulo, m_proporcion, 1, 1000);
     }
+}
+
+void Camara::desplazar(Sentido sentido)
+{
+    switch (sentido) {
+        case Izquierda:
+            m_eye.setX(m_eye.getX() - 1);
+            break;
+        case Derecha:
+            m_eye.setX(m_eye.getX() + 1);
+            break;
+        case Adelante:
+            m_eye.setZ(m_eye.getZ() - 1);
+            break;
+        case Atras:
+            m_eye.setZ(m_eye.getZ() + 1);
+            break;
+        case Arriba:
+            m_eye.setY(m_eye.getY() + 1);
+            break;
+        case Abajo:
+            m_eye.setY(m_eye.getY() - 1);
+            break;
+    }
+    setModelViewMatrix();
 }
 
 void Camara::setModelViewMatrix()
@@ -63,25 +90,29 @@ void Camara::setModelViewMatrix()
     matrix[13]= m_v.dot(negEye);
     matrix[14]= m_n.dot(negEye);
     matrix[15]= 1;
+
     glLoadMatrixd(matrix);
 }
 
 void Camara::roll(GLdouble angulo)
 {
+    const PV3f u(m_u);
     m_u = m_u * cos(angulo) + m_v * sin(angulo);
-    m_v = m_u * -sin(angulo) + m_v * cos(angulo);
+    m_v = u * -sin(angulo) + m_v * cos(angulo);
     setModelViewMatrix();
 }
 
 void Camara::pitch(GLdouble angulo)
 {
+    const PV3f n(m_n);
     m_n = m_n * cos(angulo) + m_v * sin(angulo);
-    m_v = m_n * -sin(angulo) + m_v * cos(angulo);
+    m_v = n * -sin(angulo) + m_v * cos(angulo);
     setModelViewMatrix();
 }
 void Camara::yaw(GLdouble angulo)
 {
+    const PV3f n(m_n);
     m_n = m_n * cos(angulo) + m_u * sin(angulo);
-    m_u = m_n * -sin(angulo) + m_u * cos(angulo);
+    m_u = n * -sin(angulo) + m_u * cos(angulo);
     setModelViewMatrix();
 }

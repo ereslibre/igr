@@ -118,10 +118,40 @@ void Escena::keyPressEvent(QKeyEvent *event)
     bool doUpdate = true;
     switch (event->key()) {
         case Qt::Key_Left:
-            m_camara->pitch(-M_PI / 20.0);
+            m_camara->desplazar(Camara::Izquierda);
             break;
         case Qt::Key_Right:
+            m_camara->desplazar(Camara::Derecha);
+            break;
+        case Qt::Key_Up:
+            m_camara->desplazar(Camara::Adelante);
+            break;
+        case Qt::Key_Down:
+            m_camara->desplazar(Camara::Atras);
+            break;
+        case Qt::Key_Comma:
+            m_camara->desplazar(Camara::Arriba);
+            break;
+        case Qt::Key_Period:
+            m_camara->desplazar(Camara::Abajo);
+            break;
+        case Qt::Key_A:
+            m_camara->yaw(-M_PI / 20.0);
+            break;
+        case Qt::Key_D:
+            m_camara->yaw(M_PI / 20.0);
+            break;
+        case Qt::Key_W:
+            m_camara->pitch(-M_PI / 20.0);
+            break;
+        case Qt::Key_S:
             m_camara->pitch(M_PI / 20.0);
+            break;
+        case Qt::Key_Q:
+            m_camara->roll(-M_PI / 20.0);
+            break;
+        case Qt::Key_E:
+            m_camara->roll(M_PI / 20.0);
             break;
         default:
             QGLWidget::keyPressEvent(event);
