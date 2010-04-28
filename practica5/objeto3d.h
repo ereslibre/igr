@@ -15,6 +15,14 @@ public:
             , b(0)
         {
         }
+      
+        Color(GLdouble red, GLdouble green, GLdouble blue)
+	    : r(red)
+	    , g(green)
+	    , b(blue)
+        {
+	}
+
 
         GLdouble r;
         GLdouble g;

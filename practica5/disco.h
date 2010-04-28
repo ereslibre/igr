@@ -7,7 +7,7 @@ class Disco
     : public ObjetoCuadrico
 {
 public:
-  Disco(GLdouble rInterno, GLdouble rExterno, int nLados, int nAnillos);
+  Disco(GLdouble rInterno, GLdouble rExterno, int nLados, int nAnillos, Color color);
   virtual ~Disco();
 
   virtual void dibuja();

@@ -6,9 +6,18 @@
 class Cilindro
     : public ObjetoCuadrico
 {
-public:
-    Cilindro();
-    virtual ~Cilindro();
+ public:
+  Cilindro(GLdouble rBase, GLdouble rCima, GLdouble altura, int nLados, int nParalelos, Color color);
+  virtual ~Cilindro();
+
+  virtual void dibuja();
+
+ private:
+  GLdouble m_rBase;
+  GLdouble m_rCima;
+  GLdouble m_altura;
+  int m_nLados;
+  int m_nParalelos;
 };
 
 #endif // CILINDRO_H

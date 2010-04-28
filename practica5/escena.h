@@ -7,6 +7,9 @@
 #include <QtOpenGL/QGLWidget>
 
 class Tablero;
+class Disco;
+class Esfera;
+class Cilindro;
 
 class Escena
     : public QGLWidget
@@ -27,6 +30,9 @@ private:
 
     Tablero    *m_tablero;
     Camara     *m_camara;
+    Disco      *m_disco;
+    Esfera     *m_esfera;
+    Cilindro   *m_cilindro;
 };
 
 #endif
