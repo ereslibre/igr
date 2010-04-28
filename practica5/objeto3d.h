@@ -31,7 +31,7 @@ public:
     void setColor(Color color);
     Color color() const;
 
-private:
+protected:
     TMatrizAfin m_matriz;
     Color       m_color;
     

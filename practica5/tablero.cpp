@@ -21,13 +21,13 @@ Tablero::Tablero(double largo, int numPartesLargo,
             QList<PV3f> vertices;
             vertices << PV3f(j * tamAncho, 0, i * tamLargo);
             anadeVertice(VerticeNormal(PV3f(j * tamAncho, 0, i * tamLargo), PV3f(0, -1, 0)));
-            vertices << PV3f(j * tamAncho, 0, i * tamLargo + tamLargo);
-            anadeVertice(VerticeNormal(PV3f(j * tamAncho, 0, i * tamLargo + tamLargo), PV3f(0, -1, 0)));
-            vertices << PV3f(j * tamAncho + tamAncho, 0, i * tamLargo + tamLargo);
-            anadeVertice(VerticeNormal(PV3f(j * tamAncho + tamAncho, 0, i * tamLargo + tamLargo), PV3f(0, -1, 0)));
             vertices << PV3f(j * tamAncho + tamAncho, 0, i * tamLargo);
             anadeVertice(VerticeNormal(PV3f(j * tamAncho + tamAncho, 0, i * tamLargo), PV3f(0, -1, 0)));     
-            anadeCara(Cara(vertices));
+            vertices << PV3f(j * tamAncho + tamAncho, 0, i * tamLargo + tamLargo);
+            anadeVertice(VerticeNormal(PV3f(j * tamAncho + tamAncho, 0, i * tamLargo + tamLargo), PV3f(0, -1, 0)));
+	    vertices << PV3f(j * tamAncho, 0, i * tamLargo + tamLargo);
+            anadeVertice(VerticeNormal(PV3f(j * tamAncho, 0, i * tamLargo + tamLargo), PV3f(0, -1, 0)));
+	    anadeCara(Cara(vertices));
         }
     }
 
@@ -85,12 +85,12 @@ Tablero::Tablero(double largo, int numPartesLargo,
             QList<PV3f> vertices;
             vertices << PV3f(j * tamAncho, i * tamGrueso, 0);
             anadeVertice(VerticeNormal(PV3f(j * tamAncho, i * tamGrueso, 0), PV3f(0, 0, -1)));
-            vertices << PV3f(j * tamAncho + tamAncho, i * tamGrueso, 0);
-            anadeVertice(VerticeNormal(PV3f(j * tamAncho + tamAncho, i * tamGrueso, 0), PV3f(0, 0, -1)));
+            vertices << PV3f(j * tamAncho, i * tamGrueso + tamGrueso, 0);
+            anadeVertice(VerticeNormal(PV3f(j * tamAncho, i * tamGrueso + tamGrueso, 0), PV3f(0, 0, -1)));           
             vertices << PV3f(j * tamAncho + tamAncho, i * tamGrueso + tamGrueso, 0);
             anadeVertice(VerticeNormal(PV3f(j * tamAncho + tamAncho, i * tamGrueso + tamGrueso, 0), PV3f(0, 0, -1)));
-            vertices << PV3f(j * tamAncho, i * tamGrueso + tamGrueso, 0);
-            anadeVertice(VerticeNormal(PV3f(j * tamAncho, i * tamGrueso + tamGrueso, 0), PV3f(0, 0, -1)));
+	    vertices << PV3f(j * tamAncho + tamAncho, i * tamGrueso, 0);
+            anadeVertice(VerticeNormal(PV3f(j * tamAncho + tamAncho, i * tamGrueso, 0), PV3f(0, 0, -1)));
             anadeCara(vertices);
         }
     }

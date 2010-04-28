@@ -36,8 +36,16 @@ void Camara::actualizaCamara(GLdouble left, GLdouble right, GLdouble bottom, GLd
     glLoadIdentity();
     if (m_vista == Ortogonal) {
         glOrtho(left, right, bottom, top, 1, 1000);
-    } else {
+    } else if(m_vista == Perspectiva) {
         gluPerspective(m_angulo, m_proporcion, 1, 1000);
+    } else {
+        glOrtho(left, right, bottom, top, 1, 1000);
+	GLdouble matrix[16];
+	matrix[0] = 1; matrix[4] = 0; matrix[8] = 0; /* -X/Z */ matrix[12] = 0; 
+	matrix[1] = 0; matrix[5] = 1; matrix[9] = 0; /* -Y/Z */ matrix[13] = 0;
+	matrix[2] = 0; matrix[6] = 0; matrix[10]= 1;           matrix[14] = 0;
+	matrix[3] = 0; matrix[7] = 0; matrix[11]= 0;            matrix[15] = 1;
+	  
     }
 }
 

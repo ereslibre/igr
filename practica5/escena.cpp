@@ -54,7 +54,9 @@ void Escena::initializeGL()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     m_tablero = new Tablero(5, 20, 5, 20, 1, 2);
+    // m_tablero->matriz().rotar(-90, 1, 0, 0);
     m_tablero->matriz().trasladar(1, 1, 1);
+    //m_tablero->matriz().escalar(1, 20, 1);    
     m_camara = new Camara(PV3f(10.0, 10.0, 10.0), PV3f(0, 0, 0), PV3f(0, 1, 0, PV3f::Vector), Camara::Perspectiva);
 }
 

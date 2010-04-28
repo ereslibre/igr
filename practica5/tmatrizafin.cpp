@@ -35,40 +35,53 @@ void TMatrizAfin::cargarIdentidad()
 
 void TMatrizAfin::trasladar(double x, double y, double z)
 {
+    GLdouble afin[16];
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
     glLoadIdentity();
     glTranslated(x, y, z);
-    GLdouble matriz[16];
-    GLdouble afin[16];
-    glGetDoublev(GL_MODELVIEW, matriz);
-    glGetDoublev(GL_MODELVIEW, afin);
+    glGetDoublev(GL_MODELVIEW_MATRIX, afin);
     glPopMatrix();
     postMultiplicar(afin);
 }
 
 void TMatrizAfin::trasladar(const PV3f& vec)
 {
+    trasladar(vec.getX(), vec.getY(), vec.getZ());
 }
 
 void TMatrizAfin::rotar(double ang, double x, double y, double z)
 {
-
+    GLdouble afin[16];
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glLoadIdentity();
+    glRotated(ang, x, y, z);
+    glGetDoublev(GL_MODELVIEW_MATRIX, afin);
+    glPopMatrix();
+    postMultiplicar(afin);
 }
 
 void TMatrizAfin::rotar(double ang, const PV3f& vec)
 {
-
+    rotar(ang, vec.getX(), vec.getY(), vec.getZ());
 }
 
 void TMatrizAfin::escalar(double x, double y, double z)
 {
-
+    GLdouble afin[16];
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glLoadIdentity();
+    glScaled(x, y, z);
+    glGetDoublev(GL_MODELVIEW_MATRIX, afin);
+    glPopMatrix();
+    postMultiplicar(afin);
 }
 
 void TMatrizAfin::escalar(const PV3f& vec)
 {
-
+    escalar(vec.getX(), vec.getY(), vec.getZ());
 }
 
 GLdouble *TMatrizAfin::getMatrizAfin()
@@ -78,7 +91,7 @@ GLdouble *TMatrizAfin::getMatrizAfin()
 
 void TMatrizAfin::postMultiplicar(GLdouble mm[16])
 {
-    GLdouble aux[16];
+  /*GLdouble aux[16];
 
     aux[0] = m_matriz[0] * mm[0] + m_matriz[4] * mm[1] + m_matriz[8] * mm[2] + m_matriz[12] * mm[3];
     aux[4] = m_matriz[0] * mm[4] + m_matriz[4] * mm[5] + m_matriz[8] * mm[6] + m_matriz[12] * mm[7];
@@ -102,7 +115,12 @@ void TMatrizAfin::postMultiplicar(GLdouble mm[16])
 
     for (int i = 0; i < 16; ++i) {
         m_matriz[i] = aux[i];
-    }
+	}*/
+  glPushMatrix();
+  glLoadMatrixd(m_matriz);
+  glMultMatrixd(mm);
+  glGetDoublev(GL_MODELVIEW_MATRIX, m_matriz);
+  glPopMatrix();
 }
 
 PV3f TMatrizAfin::multiplicarVector(const PV3f& v)
