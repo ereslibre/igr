@@ -1,6 +1,11 @@
 #include "cilindro.h"
 
-Cilindro::Cilindro(GLdouble rBase, GLdouble rCima, GLdouble altura, int nLados, int nParalelos, Color color)
+Cilindro::Cilindro(GLdouble rBase, 
+		   GLdouble rCima, 
+		   GLdouble altura, 
+		   int nLados, 
+		   int nParalelos, 
+		   Color color)
   : ObjetoCuadrico()
   , m_rBase(rBase)
   , m_rCima(rCima)
@@ -15,13 +20,18 @@ Cilindro::~Cilindro()
 {
 }
 
-void Cilindro::dibuja()
+void Cilindro::dibuja(Modo modo)
 {
   glPushMatrix();
   glMultMatrixd(m_matriz.getMatrizAfin());
   glColor3f(m_color.r, m_color.g, m_color.b);
-  // Aqui debe de ir un if-then para el wireframe
-  gluQuadricDrawStyle(m_obj, GLU_FILL);
+  
+  if (modo == Solido){
+    gluQuadricDrawStyle(m_obj, GLU_FILL);
+  } else {
+    gluQuadricDrawStyle(m_obj, GLU_LINE);
+  }
+
   gluCylinder(m_obj, m_rBase, m_rCima, m_altura, m_nLados, m_nParalelos);
   glPopMatrix();
 }

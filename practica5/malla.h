@@ -12,7 +12,7 @@ public:
     Malla();
     virtual ~Malla();
 
-    virtual void dibuja();
+    virtual void dibuja(Modo modo);
 
     void anadeCara(const Cara &cara);
     void anadeVertice(const VerticeNormal &verticeNormal);

@@ -9,15 +9,17 @@ Malla::~Malla()
 {
 }
 
-void Malla::dibuja()
+void Malla::dibuja(Modo modo)
 {
     glPushMatrix();
     glMultMatrixd(matriz().getMatrizAfin());
     foreach (const Cara &c, m_caras) {
-        glColor3f(1.0, 1.0, 1.0);
-        c.dibuja(Cara::Solid);
-        glColor3f(0, 0, 1.0);
-        c.dibuja(Cara::Wireframe);
+      glColor3f(m_color.r, m_color.g, m_color.b);
+        if (modo == Solido){
+	  c.dibuja(Cara::Solid);
+	} else {
+	  c.dibuja(Cara::Wireframe);
+	}
     }
     glPopMatrix();
 }

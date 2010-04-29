@@ -2,7 +2,8 @@
 
 Tablero::Tablero(double largo, int numPartesLargo,
                  double ancho, int numPartesAncho,
-                 double grueso, int numPartesGrueso)
+                 double grueso, int numPartesGrueso,
+		 Color color)
     : Malla()
     , m_largo(largo)
     , m_numPartesLargo(numPartesLargo)
@@ -14,6 +15,7 @@ Tablero::Tablero(double largo, int numPartesLargo,
     const GLdouble tamLargo = largo / (GLdouble) numPartesLargo;
     const GLdouble tamAncho = ancho / (GLdouble) numPartesAncho;
     const GLdouble tamGrueso = grueso / (GLdouble) numPartesGrueso;
+    setColor(color);
 
     // Cara inferior
     for (int i = 0; i < numPartesLargo; ++i) {

@@ -7,10 +7,15 @@ class Cilindro
     : public ObjetoCuadrico
 {
  public:
-  Cilindro(GLdouble rBase, GLdouble rCima, GLdouble altura, int nLados, int nParalelos, Color color);
+  Cilindro(GLdouble rBase, 
+	   GLdouble rCima, 
+	   GLdouble altura, 
+	   int nLados, 
+	   int nParalelos, 
+	   Color color);
   virtual ~Cilindro();
 
-  virtual void dibuja();
+  virtual void dibuja(Modo modo);
 
  private:
   GLdouble m_rBase;

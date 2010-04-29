@@ -29,10 +29,15 @@ public:
         GLdouble b;
     };
 
+    enum Modo {
+        Solido = 0,
+	Wireframe
+    };
+
     Objeto3D();
     virtual ~Objeto3D();
 
-    virtual void dibuja() = 0;
+    virtual void dibuja(Modo modo) = 0;
 
     TMatrizAfin &matriz();
 

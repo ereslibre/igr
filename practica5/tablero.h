@@ -9,7 +9,8 @@ class Tablero
 public:
     Tablero(double largo, int numPartesLargo,
             double ancho, int numPartesAncho,
-            double grueso, int numPartesGrueso);
+            double grueso, int numPartesGrueso,
+	    Color color);
     virtual ~Tablero();
 
 private:

@@ -7,10 +7,13 @@ class Esfera
     : public ObjetoCuadrico
 {
  public:
-  Esfera(GLdouble radio, int nMeridianos, int nParalelos, Color color);
+  Esfera(GLdouble radio, 
+	 int nMeridianos,
+	 int nParalelos,
+	 Color color);
   virtual ~Esfera();
   
-  virtual void dibuja();
+  virtual void dibuja(Modo modo);
 
  private:
   GLdouble m_radio;
