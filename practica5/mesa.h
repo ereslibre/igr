@@ -6,9 +6,13 @@
 class Mesa
     : public ObjetoCompuesto3D
 {
-public:
+ public:
     Mesa();
     virtual ~Mesa();
+        
+ private:
+    Objeto3D *m_cilindro;
+    Objeto3D *m_tablero;
 };
 
 #endif // MESA_H

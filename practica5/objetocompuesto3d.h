@@ -11,8 +11,10 @@ class ObjetoCompuesto3D
 public:
     ObjetoCompuesto3D();
     virtual ~ObjetoCompuesto3D();
+    
+    virtual void dibuja(Modo modo);
 
-private:
+protected:
     QList<Objeto3D*> m_listaObjetos;
 };
 

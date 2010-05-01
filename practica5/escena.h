@@ -6,10 +6,7 @@
 
 #include <QtOpenGL/QGLWidget>
 
-class Tablero;
-class Disco;
-class Esfera;
-class Cilindro;
+class Mesa;
 
 class Escena
     : public QGLWidget
@@ -28,11 +25,8 @@ protected:
 private:
     GLfloat     m_posicionLuz0[4];
 
-    Tablero    *m_tablero;
     Camara     *m_camara;
-    Disco      *m_disco;
-    Esfera     *m_esfera;
-    Cilindro   *m_cilindro;
+    Mesa       *m_mesa;
 };
 
 #endif
