@@ -38,6 +38,7 @@ public:
     virtual ~Objeto3D();
 
     virtual void dibuja(Modo modo) = 0;
+    virtual void interactua();
 
     TMatrizAfin &matriz();
 

@@ -6,7 +6,7 @@
 
 #include <QtOpenGL/QGLWidget>
 
-class Mesa;
+class Puerta;
 
 class Escena
     : public QGLWidget
@@ -26,7 +26,7 @@ private:
     GLfloat     m_posicionLuz0[4];
 
     Camara     *m_camara;
-    Mesa       *m_mesa;
+    Puerta     *m_puerta;
 };
 
 #endif

@@ -1,6 +1,6 @@
 #include "escena.h"
 #include "objeto3d.h"
-#include "mesa.h"
+#include "puerta.h"
 
 #include <math.h>
 #include <QtGui/QKeyEvent>
@@ -18,7 +18,7 @@ Escena::~Escena()
     makeCurrent();
 
     delete m_camara;
-    delete m_mesa;
+    delete m_puerta;
 }
 
 QSize Escena::sizeHint() const
@@ -62,7 +62,7 @@ void Escena::initializeGL()
     // m_esfera = new Esfera(3, 50, 50, Objeto3D::Color(0.2, 0.5, 0.7));
     //m_esfera->matriz().trasladar(0, 0, 3);
     // m_cilindro = new Cilindro(3, 3, 3, 100, 100, Objeto3D::Color(0.1, 0.8, 0.8));
-    m_mesa = new Mesa();
+    m_puerta = new Puerta();
 }
 
 void Escena::paintGL()
@@ -87,7 +87,7 @@ void Escena::paintGL()
 
     glPushMatrix();
     
-    m_mesa->dibuja(Objeto3D::Solido);
+    m_puerta->dibuja(Objeto3D::Solido);
 
     glPopMatrix();
 }
@@ -141,10 +141,10 @@ void Escena::keyPressEvent(QKeyEvent *event)
             m_camara->desplazar(Camara::Abajo);
             break;
         case Qt::Key_A:
-            m_camara->yaw(-M_PI / 20.0);
+            m_camara->yaw(M_PI / 20.0);
             break;
         case Qt::Key_D:
-            m_camara->yaw(M_PI / 20.0);
+            m_camara->yaw(-M_PI / 20.0);
             break;
         case Qt::Key_W:
             m_camara->pitch(-M_PI / 20.0);
@@ -153,10 +153,10 @@ void Escena::keyPressEvent(QKeyEvent *event)
             m_camara->pitch(M_PI / 20.0);
             break;
         case Qt::Key_Q:
-            m_camara->roll(-M_PI / 20.0);
+            m_camara->roll(M_PI / 20.0);
             break;
         case Qt::Key_E:
-            m_camara->roll(M_PI / 20.0);
+            m_camara->roll(-M_PI / 20.0);
             break;
         default:
             QGLWidget::keyPressEvent(event);

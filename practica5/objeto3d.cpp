@@ -23,3 +23,7 @@ Objeto3D::Color Objeto3D::color() const
 {
     return m_color;
 }
+
+void Objeto3D::interactua()
+{
+}

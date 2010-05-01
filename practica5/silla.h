@@ -6,9 +6,17 @@
 class Silla
     : public ObjetoCompuesto3D
 {
-public:
+ public:
     Silla();
     virtual ~Silla();
+
+ private:
+    Objeto3D *m_pata1;
+    Objeto3D *m_pata2;
+    Objeto3D *m_pata3;
+    Objeto3D *m_pata4;
+    Objeto3D *m_asiento;
+    Objeto3D *m_respaldo;
 };
 
 #endif // SILLA_H
