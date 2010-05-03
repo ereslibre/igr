@@ -6,9 +6,15 @@
 class Lampara
     : public ObjetoCuadrico
 {
-public:
+ public:
     Lampara();
     virtual ~Lampara();
+
+    virtual void dibuja(Modo modo);
+
+ private:
+    Objeto3D *m_tulipa;
+    Objeto3D *m_soporte;
 };
 
 #endif // LAMPARA_H

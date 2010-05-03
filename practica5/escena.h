@@ -1,13 +1,11 @@
 #ifndef ESCENA_H
 #define ESCENA_H
 
-#include "hipotrocoide.h"
 #include "camara.h"
 
 #include <QtOpenGL/QGLWidget>
 
-class Puerta;
-
+class Copa;
 class Escena
     : public QGLWidget
 {
@@ -26,7 +24,7 @@ private:
     GLfloat     m_posicionLuz0[4];
 
     Camara     *m_camara;
-    Puerta     *m_puerta;
+    Copa       *m_copa;
 };
 
 #endif

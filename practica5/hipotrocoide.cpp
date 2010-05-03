@@ -14,7 +14,7 @@ Hipotrocoide::Hipotrocoide()
     , m_np(20)
     , m_nq(100)
 {
-    recalcular();
+  //recalcular();
 }
 
 Hipotrocoide::~Hipotrocoide()
@@ -30,9 +30,9 @@ void Hipotrocoide::dibuja(GLdouble t, bool arandel)
         drawType = Cara::Solid;
     }
 
-    foreach (const Cara &c, m_listaCaras) {
-        c.dibuja(drawType);
-    }
+    //foreach (const Cara &c, m_listaCaras) {
+    //    c.dibuja(drawType);
+    //}
 
     QList<PV3f> res = Frenet::marco(m_puntosCursor, m_a, m_b, m_c, t, m_mFrenet);
 
@@ -76,7 +76,7 @@ void Hipotrocoide::recalcular()
 
     currStepSize = 0;
     QList<PV3f> ant;
-    glColor3f(0, 0, 1.0f);
+    //glColor3f(1, 0, 0.0f);
     bool invalido = true;
     for (int i = 0; i <= numVueltas; ++i) {
       QList<PV3f> res = Frenet::marco(listaPuntos, m_a, m_b, m_c, currStepSize, m_mFrenet);
@@ -89,11 +89,12 @@ void Hipotrocoide::recalcular()
                 const PV3f p3(res[sig].getX(), res[sig].getY(), res[sig].getZ());
                 const PV3f p4(res[j].getX(), res[j].getY(), res[j].getZ());
                 if (m_wireframe) {
-                    vertices << p1 << p4 << p2 << p3 << p1 << p2 << p3 << p4;
+		  vertices << p1 << p4 << p2 << p3 << p1 << p2 << p3 << p4;
                 } else {
-                    vertices << p1 << p2 << p3 << p4;
+                  vertices << p1 << p2 << p3 << p4;
                 }
-                m_listaCaras << Cara(vertices);
+		anadeCara(Cara(vertices));
+                /*m_listaCaras << Cara(vertices);*/
             }
         } else {
             invalido = false;
@@ -149,3 +150,14 @@ void Hipotrocoide::setNQ(int value)
     recalcular();
 }
 
+void Hipotrocoide::dibuja(Modo modo)
+{
+  setColor(Color(0.65, 0.41, 0.25));
+  if (modo == Solido){
+    recalcular();
+    Malla::dibuja(modo);
+  } else {
+    recalcular();
+    Malla::dibuja(modo);
+  }
+}

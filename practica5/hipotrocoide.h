@@ -18,6 +18,7 @@ public:
     Hipotrocoide();
     virtual ~Hipotrocoide();
 
+    virtual void dibuja(Modo modo);
     void dibuja(GLdouble t, bool arandel);
     void recalcular();
 

@@ -1,6 +1,7 @@
 #include "escena.h"
 #include "objeto3d.h"
-#include "puerta.h"
+
+#include "copa.h"
 
 #include <math.h>
 #include <QtGui/QKeyEvent>
@@ -18,7 +19,7 @@ Escena::~Escena()
     makeCurrent();
 
     delete m_camara;
-    delete m_puerta;
+    delete m_copa;
 }
 
 QSize Escena::sizeHint() const
@@ -62,7 +63,7 @@ void Escena::initializeGL()
     // m_esfera = new Esfera(3, 50, 50, Objeto3D::Color(0.2, 0.5, 0.7));
     //m_esfera->matriz().trasladar(0, 0, 3);
     // m_cilindro = new Cilindro(3, 3, 3, 100, 100, Objeto3D::Color(0.1, 0.8, 0.8));
-    m_puerta = new Puerta();
+    m_copa = new Copa();
 }
 
 void Escena::paintGL()
@@ -86,9 +87,7 @@ void Escena::paintGL()
     glEnd();
 
     glPushMatrix();
-    
-    m_puerta->dibuja(Objeto3D::Solido);
-
+    m_copa->dibuja(Objeto3D::Solido);
     glPopMatrix();
 }
 

@@ -6,9 +6,14 @@
 class Plato
     : public ObjetoCuadrico
 {
-public:
+ public:
     Plato();
     virtual ~Plato();
+
+    virtual void dibuja(Modo modo);
+
+ private:
+    Objeto3D *m_plato;
 };
 
 #endif // PLATO_H
