@@ -15,5 +15,8 @@ Plato::~Plato()
 
 void Plato::dibuja(Modo modo)
 {
+  glPushMatrix();
+  glMultMatrixd(m_matriz.getMatrizAfin());  
   m_plato->dibuja(modo);
+  glPopMatrix();
 }

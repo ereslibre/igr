@@ -2,10 +2,10 @@
 #define ESCENA_H
 
 #include "camara.h"
+#include "objeto3d.h"
 
 #include <QtOpenGL/QGLWidget>
 
-class Copa;
 class Escena
     : public QGLWidget
 {
@@ -24,7 +24,7 @@ private:
     GLfloat     m_posicionLuz0[4];
 
     Camara     *m_camara;
-    Copa       *m_copa;
+    Objeto3D       *m_muebles;
 };
 
 #endif

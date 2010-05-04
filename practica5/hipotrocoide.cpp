@@ -11,8 +11,8 @@ Hipotrocoide::Hipotrocoide()
     , m_a(14)
     , m_b(8)
     , m_c(4)
-    , m_np(20)
-    , m_nq(100)
+    , m_np(6)
+    , m_nq(20)
 {
   //recalcular();
 }
