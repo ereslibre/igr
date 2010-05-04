@@ -12,17 +12,17 @@ public:
 
     void cargarIdentidad();
     void trasladar(const PV3f &vec);
-    void trasladar(double x, double y, double z);
+    void trasladar(GLdouble x, GLdouble y, GLdouble z);
 
-    void rotar(double ang, const PV3f &vec);
-    void rotar(double ang, double x, double y, double z);
+    void rotar(GLdouble ang, const PV3f &vec);
+    void rotar(GLdouble ang, GLdouble x, GLdouble y, GLdouble z);
 
     void escalar(const PV3f &vec);
-    void escalar(double x, double y, double z);
+    void escalar(GLdouble x, GLdouble y, GLdouble z);
 
     GLdouble *getMatrizAfin();
 
-    void postMultiplicar(double mm[16]);
+    void postMultiplicar(GLdouble mm[16]);
     PV3f multiplicarVector(const PV3f &v);
 
 private:

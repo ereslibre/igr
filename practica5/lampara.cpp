@@ -7,11 +7,9 @@ Lampara::Lampara()
   // Cilindro que forma la tulipa de la lampara
   m_tulipa = new Cilindro(1, 2, 1, 50, 50, Color(0.2, 1, 0.2));
   m_tulipa->matriz().rotar(90, 1, 0, 0);
-  m_tulipa->matriz().trasladar(0, 0, -1);
   // Disco que forma el soporte de la lampara
   m_soporte = new Disco(0, 1, 50, 10, Color(0.2, 1, 0.2));
   m_soporte->matriz().rotar(-90, 1, 0, 0);
-  m_soporte->matriz().trasladar(0, 0, 1);
 }
 
 Lampara::~Lampara()
@@ -22,6 +20,9 @@ Lampara::~Lampara()
 
 void Lampara::dibuja(Modo modo)
 {
+  glPushMatrix();
+  glMultMatrixd(m_matriz.getMatrizAfin());
   m_tulipa->dibuja(modo);
   m_soporte->dibuja(modo);
+  glPopMatrix();
 }

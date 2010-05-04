@@ -24,7 +24,7 @@ private:
     GLfloat     m_posicionLuz0[4];
 
     Camara     *m_camara;
-    Objeto3D       *m_muebles;
+    Objeto3D   *m_duplex;
 };
 
 #endif

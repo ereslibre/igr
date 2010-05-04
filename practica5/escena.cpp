@@ -1,5 +1,5 @@
 #include "escena.h"
-#include "muebles.h"
+#include "duplex.h"
 
 #include <math.h>
 #include <QtGui/QKeyEvent>
@@ -17,7 +17,7 @@ Escena::~Escena()
     makeCurrent();
 
     delete m_camara;
-    delete m_muebles;
+    delete m_duplex;
 }
 
 QSize Escena::sizeHint() const
@@ -52,16 +52,8 @@ void Escena::initializeGL()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    //m_tablero = new Tablero(5, 20, 5, 20, 1, 2, Objeto3D::Color(1.0, 1.0, 1.0));
-    //m_tablero->matriz().rotar(-90, 1, 0, 0);
-    //m_tablero->matriz().trasladar(1, 1, 1);
-    //m_tablero->matriz().escalar(1, 20, 1);
-    //m_disco = new Disco(0, 3, 100, 50, Objeto3D::Color(0.2, 0.5, 0.7));
     m_camara = new Camara(PV3f(10.0, 10.0, 10.0), PV3f(0, 0, 0), PV3f(0, 1, 0, PV3f::Vector), Camara::Perspectiva);
-    // m_esfera = new Esfera(3, 50, 50, Objeto3D::Color(0.2, 0.5, 0.7));
-    //m_esfera->matriz().trasladar(0, 0, 3);
-    // m_cilindro = new Cilindro(3, 3, 3, 100, 100, Objeto3D::Color(0.1, 0.8, 0.8));
-    m_muebles = new Muebles();
+    m_duplex = new Duplex();
 }
 
 void Escena::paintGL()
@@ -85,7 +77,7 @@ void Escena::paintGL()
     glEnd();
 
     glPushMatrix();
-    m_muebles->dibuja(Objeto3D::Solido);
+    m_duplex->dibuja(Objeto3D::Solido);
     glPopMatrix();
 }
 

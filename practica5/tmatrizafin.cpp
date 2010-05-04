@@ -33,7 +33,7 @@ void TMatrizAfin::cargarIdentidad()
     m_matriz[15] = 1;
 }
 
-void TMatrizAfin::trasladar(double x, double y, double z)
+void TMatrizAfin::trasladar(GLdouble x, GLdouble y, GLdouble z)
 {
     GLdouble afin[16];
     glMatrixMode(GL_MODELVIEW);
@@ -50,7 +50,7 @@ void TMatrizAfin::trasladar(const PV3f& vec)
     trasladar(vec.getX(), vec.getY(), vec.getZ());
 }
 
-void TMatrizAfin::rotar(double ang, double x, double y, double z)
+void TMatrizAfin::rotar(GLdouble ang, GLdouble x, GLdouble y, GLdouble z)
 {
     GLdouble afin[16];
     glMatrixMode(GL_MODELVIEW);
@@ -62,12 +62,12 @@ void TMatrizAfin::rotar(double ang, double x, double y, double z)
     postMultiplicar(afin);
 }
 
-void TMatrizAfin::rotar(double ang, const PV3f& vec)
+void TMatrizAfin::rotar(GLdouble ang, const PV3f& vec)
 {
     rotar(ang, vec.getX(), vec.getY(), vec.getZ());
 }
 
-void TMatrizAfin::escalar(double x, double y, double z)
+void TMatrizAfin::escalar(GLdouble x, GLdouble y, GLdouble z)
 {
     GLdouble afin[16];
     glMatrixMode(GL_MODELVIEW);
