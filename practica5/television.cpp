@@ -25,20 +25,16 @@ Television::~Television()
 
 void Television::interactua()
 {
+    Color color;
     if (!m_encendida) {
-        m_encendida = true;
-        Objeto3D *pantalla = m_listaObjetos[1];
-        m_listaObjetos[1] = new Tablero(2, 20, 0.2, 20, 1.2, 20, Color(0.3, 0.3, 1));
-        m_listaObjetos[1]->matriz().trasladar(0.1, 0.5, -1);
-        m_pantalla = m_listaObjetos[1];
-        delete pantalla;
-
+        color = Color(0.3, 0.3, 1);
     } else {
-        m_encendida = false;
-        Objeto3D *pantalla = m_listaObjetos[1];
-        m_listaObjetos[1] = new Tablero(2, 20, 0.2, 20, 1.2, 20, Color(0.5, 0.5, 0.5));
-        m_listaObjetos[1]->matriz().trasladar(0.1, 0.5, -1);
-        m_pantalla = m_listaObjetos[1];
-        delete pantalla;
+        color = Color(0.5, 0.5, 0.5);
     }
+    m_encendida = !m_encendida;
+    Objeto3D *pantalla = m_listaObjetos[1];
+    m_listaObjetos[1] = new Tablero(2, 20, 0.2, 20, 1.2, 20, color);
+    m_listaObjetos[1]->matriz().trasladar(0.1, 0.5, -1);
+    m_pantalla = m_listaObjetos[1];
+    delete pantalla;
 }
