@@ -23,7 +23,7 @@ Escena::~Escena()
 
 QSize Escena::sizeHint() const
 {
-    return QSize(800, 500);
+    return QSize(800, 600);
 }
 
 void Escena::initializeGL()
