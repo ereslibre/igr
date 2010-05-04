@@ -17,11 +17,11 @@ public:
         }
       
         Color(GLdouble red, GLdouble green, GLdouble blue)
-	    : r(red)
-	    , g(green)
-	    , b(blue)
+            : r(red)
+            , g(green)
+            , b(blue)
         {
-	}
+        }
 
 
         GLdouble r;
@@ -31,7 +31,7 @@ public:
 
     enum Modo {
         Solido = 0,
-	Wireframe
+        Wireframe
     };
 
     Objeto3D();

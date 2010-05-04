@@ -1,4 +1,5 @@
 #include "escena.h"
+#include "camara.h"
 #include "duplex.h"
 
 #include <math.h>
@@ -148,11 +149,11 @@ void Escena::keyPressEvent(QKeyEvent *event)
             m_camara->roll(-M_PI / 20.0);
             break;
         case Qt::Key_Space:
-	  ((Duplex*) m_duplex)->abreCierra();
-	  break;
-        case Qt::Key_Backspace:
-	  ((Duplex*) m_duplex)->enciendeApaga();
-	  break;
+            m_duplex->abreCierra();
+            break;
+        case Qt::Key_Return:
+            m_duplex->enciendeApaga();
+            break;
         default:
             QGLWidget::keyPressEvent(event);
             doUpdate = false;

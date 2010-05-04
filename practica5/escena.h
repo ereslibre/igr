@@ -1,10 +1,10 @@
 #ifndef ESCENA_H
 #define ESCENA_H
 
-#include "camara.h"
-#include "objeto3d.h"
-
 #include <QtOpenGL/QGLWidget>
+
+class Camara;
+class Duplex;
 
 class Escena
     : public QGLWidget
@@ -21,10 +21,9 @@ protected:
     virtual void keyPressEvent(QKeyEvent *event);
 
 private:
-    GLfloat     m_posicionLuz0[4];
-
-    Camara     *m_camara;
-    Objeto3D   *m_duplex;
+    GLfloat m_posicionLuz0[4];
+    Camara *m_camara;
+    Duplex *m_duplex;
 };
 
 #endif
