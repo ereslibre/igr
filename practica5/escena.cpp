@@ -147,6 +147,12 @@ void Escena::keyPressEvent(QKeyEvent *event)
         case Qt::Key_E:
             m_camara->roll(-M_PI / 20.0);
             break;
+        case Qt::Key_Space:
+	  ((Duplex*) m_duplex)->abreCierra();
+	  break;
+        case Qt::Key_Backspace:
+	  ((Duplex*) m_duplex)->enciendeApaga();
+	  break;
         default:
             QGLWidget::keyPressEvent(event);
             doUpdate = false;
