@@ -422,7 +422,7 @@ void Escena::camaraEsquina1()
     if (!m_camara2) {
         m_camara2 = m_camara;
     }
-    m_camara = new Camara(PV3f(14.0, 8.0, 5.0), PV3f(-14.0, 0, -5), PV3f(0, 1, 0, PV3f::Vector), Camara::Ortogonal);
+    m_camara = new Camara(PV3f(14.0, 8.0, 5.0), PV3f(-14.0, 0, -5), PV3f(0, 1, 0, PV3f::Vector), Camara::Perspectiva);
 }
 
 void Escena::camaraFrontal1()
@@ -431,7 +431,7 @@ void Escena::camaraFrontal1()
     if (!m_camara2) {
         m_camara2 = m_camara;
     }
-    m_camara = new Camara(PV3f(0, 5.0, 18.0), PV3f(0, 5, 0), PV3f(0, 1, 0, PV3f::Vector), Camara::Ortogonal);
+    m_camara = new Camara(PV3f(0, 5.0, 18.0), PV3f(0, 5, 0), PV3f(0, 1, 0, PV3f::Vector), Camara::Perspectiva);
 }
 
 void Escena::camaraLateral1()
@@ -440,7 +440,7 @@ void Escena::camaraLateral1()
     if (!m_camara2) {
         m_camara2 = m_camara;
     }
-    m_camara = new Camara(PV3f(16, 5.0, 0), PV3f(0, 5, 0), PV3f(0, 1, 0, PV3f::Vector), Camara::Ortogonal);
+    m_camara = new Camara(PV3f(22, 5.0, 0), PV3f(0, 5, 0), PV3f(0, 1, 0, PV3f::Vector), Camara::Perspectiva);
 }
 
 void Escena::camaraCenital1()
@@ -449,7 +449,7 @@ void Escena::camaraCenital1()
     if (!m_camara2) {
         m_camara2 = m_camara;
     }
-    m_camara = new Camara(PV3f(0, 5.0, 0), PV3f(0, 0, 0), PV3f(1, 0, 0, PV3f::Vector), Camara::Ortogonal);
+    m_camara = new Camara(PV3f(0, 9.0, 0), PV3f(0, 0, 0), PV3f(1, 0, 0, PV3f::Vector), Camara::Perspectiva);
 }
 
 void Escena::camaraEsquina2()
@@ -458,7 +458,7 @@ void Escena::camaraEsquina2()
     if (!m_camara2) {
         m_camara2 = m_camara;
     }
-    m_camara = new Camara(PV3f(14.0, 22.0, 5.0), PV3f(-14.0, 12, -5), PV3f(0, 1, 0, PV3f::Vector), Camara::Ortogonal);
+    m_camara = new Camara(PV3f(14.0, 22.0, 5.0), PV3f(-14.0, 12, -5), PV3f(0, 1, 0, PV3f::Vector), Camara::Perspectiva);
 }
 
 void Escena::camaraFrontal2()
@@ -467,7 +467,7 @@ void Escena::camaraFrontal2()
     if (!m_camara2) {
         m_camara2 = m_camara;
     }
-    m_camara = new Camara(PV3f(0, 16.0, 18.0), PV3f(0, 16, 0), PV3f(0, 1, 0, PV3f::Vector), Camara::Ortogonal);
+    m_camara = new Camara(PV3f(0, 16.0, 18.0), PV3f(0, 16, 0), PV3f(0, 1, 0, PV3f::Vector), Camara::Perspectiva);
 }
 
 void Escena::camaraLateral2()
@@ -476,7 +476,7 @@ void Escena::camaraLateral2()
     if (!m_camara2) {
         m_camara2 = m_camara;
     }
-    m_camara = new Camara(PV3f(16, 16.0, 0), PV3f(0, 16, 0), PV3f(0, 1, 0, PV3f::Vector), Camara::Ortogonal);
+    m_camara = new Camara(PV3f(22, 16.0, 0), PV3f(0, 16, 0), PV3f(0, 1, 0, PV3f::Vector), Camara::Perspectiva);
 }
 
 void Escena::camaraCenital2()
@@ -489,7 +489,7 @@ void Escena::camaraCenital2()
     if (!m_camara2) {
         m_camara2 = m_camara;
     }
-    m_camara = new Camara(PV3f(0, 16.0, 0), PV3f(0, 0, 0), PV3f(1, 0, 0, PV3f::Vector), Camara::Ortogonal);
+    m_camara = new Camara(PV3f(0, 25, 0), PV3f(0, 0, 0), PV3f(1, 0, 0, PV3f::Vector), Camara::Perspectiva);
 }
 
 #include "escena.moc"
