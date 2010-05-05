@@ -115,22 +115,27 @@ void Duplex::trasladaMueble(GLdouble x, GLdouble y, GLdouble z)
 {
     m_muebles->matriz().trasladar(x, y, z);
 }
+
 void Duplex::trasladaLampara(GLdouble x, GLdouble y, GLdouble z)
 {
     m_lampara->matriz().trasladar(x, y, z);
 }
+
 void Duplex::escalaMueble(GLdouble x, GLdouble y, GLdouble z)
 {
     m_muebles->matriz().escalar(x, y, z);
 }
+
 void Duplex::escalaLampara(GLdouble x, GLdouble y, GLdouble z)
 {
     m_lampara->matriz().escalar(x, y, z);
 }
+
 void Duplex::rotaMueble(GLdouble angulo, GLdouble x, GLdouble y, GLdouble z)
 {
     m_muebles->matriz().rotar(angulo, x, y, z);
 }
+
 void Duplex::rotaLampara(GLdouble angulo, GLdouble x, GLdouble y, GLdouble z)
 {
     m_lampara->matriz().rotar(angulo, x, y, z);

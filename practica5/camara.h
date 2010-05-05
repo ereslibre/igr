@@ -27,7 +27,8 @@ class Camara
    Camara(PV3f eye, PV3f look, PV3f up, Vista vista);
    virtual ~Camara();
 
-   void actualizaCamara(GLdouble left, GLdouble right, GLdouble bottom, GLdouble top);
+   void recargaCamara();
+   void actualizaCamara();
    void desplazar(Sentido sentido);
 
    void setModelViewMatrix();
@@ -36,10 +37,6 @@ class Camara
    void yaw(GLdouble angulo);
 
  private:
-   GLdouble m_left;
-   GLdouble m_right;
-   GLdouble m_top;
-   GLdouble m_bottom;
    GLdouble m_near;
    GLdouble m_far;
 
