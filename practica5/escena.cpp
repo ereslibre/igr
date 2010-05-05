@@ -14,8 +14,6 @@ Escena::Escena(QWidget *parent)
     , m_camara(0)
     , m_camara2(0)
     , m_esCamaraLibre(true)
-    , m_manipularNinguno(new QAction("Ninguno", this))
-    , m_manipularCamara(new QAction("Camara", this))
     , m_manipularMuebles(new QAction("Muebles", this))
     , m_manipularLampara(new QAction("Lampara", this))
     , m_camaraLibre(new QAction("Libre", this))
@@ -45,15 +43,11 @@ Escena::Escena(QWidget *parent)
 
     QMenuBar *menuBar = new QMenuBar(parent);
 
-    m_manipularNinguno->setCheckable(true);
-    m_manipularNinguno->setChecked(true);
-    m_manipularCamara->setCheckable(true);
     m_manipularMuebles->setCheckable(true);
+    m_manipularMuebles->setChecked(true);
     m_manipularLampara->setCheckable(true);
     
     QActionGroup *actionGroup = new QActionGroup(this);
-    actionGroup->addAction(m_manipularNinguno);
-    actionGroup->addAction(m_manipularCamara);
     actionGroup->addAction(m_manipularMuebles);
     actionGroup->addAction(m_manipularLampara);
 
@@ -212,6 +206,132 @@ void Escena::keyPressEvent(QKeyEvent *event)
         case Qt::Key_Return:
             m_duplex->enciendeApaga();
             break;
+        case Qt::Key_I:
+            if (m_manipularMuebles->isChecked()) {
+                m_duplex->trasladaMueble(0, 0, 1);
+            } else {
+                m_duplex->trasladaLampara(0, 0, 1);
+            }
+            break;
+        case Qt::Key_K:
+            if (m_manipularMuebles->isChecked()) {
+                m_duplex->trasladaMueble(0, 0, -1);
+            } else {
+                m_duplex->trasladaLampara(0, 0, -1);
+            }
+            break;
+        case Qt::Key_J:
+            if (m_manipularMuebles->isChecked()) {
+                m_duplex->trasladaMueble(-1, 0, 0);
+            } else {
+                m_duplex->trasladaLampara(-1, 0, 0);
+            }
+            break;
+        case Qt::Key_L:
+            if (m_manipularMuebles->isChecked()) {
+                m_duplex->trasladaMueble(1, 0, 0);
+            } else {
+                m_duplex->trasladaLampara(1, 0, 0);
+            }
+            break;
+        case Qt::Key_O:
+            if (m_manipularMuebles->isChecked()) {
+                m_duplex->trasladaMueble(0, -1, 0);
+            } else {
+                m_duplex->trasladaLampara(0, -1, 0);
+            }
+            break;
+        case Qt::Key_P:
+            if (m_manipularMuebles->isChecked()) {
+                m_duplex->trasladaMueble(0, 1, 0);
+            } else {
+                m_duplex->trasladaLampara(0, 1, 0);
+            }
+            break;
+        case Qt::Key_1:
+            if (m_manipularMuebles->isChecked()) {
+                m_duplex->escalaMueble(1, 1, 1.5);
+            } else {
+                m_duplex->escalaLampara(1, 1, 1.5);
+            }
+            break;
+        case Qt::Key_2:
+            if (m_manipularMuebles->isChecked()) {
+                m_duplex->escalaMueble(1, 1, 0.5);
+            } else {
+                m_duplex->escalaLampara(1, 1, 0.5);
+            }
+            break;
+        case Qt::Key_3:
+            if (m_manipularMuebles->isChecked()) {
+                m_duplex->escalaMueble(1.5, 1, 1);
+            } else {
+                m_duplex->escalaLampara(1.5, 1, 1);
+            }
+            break;
+        case Qt::Key_4:
+            if (m_manipularMuebles->isChecked()) {
+                m_duplex->escalaMueble(0.5, 1, 1);
+            } else {
+                m_duplex->escalaLampara(0.5, 1, 1);
+            }
+            break;
+        case Qt::Key_5:
+            if (m_manipularMuebles->isChecked()) {
+                m_duplex->escalaMueble(1, 1.5, 1);
+            } else {
+                m_duplex->escalaLampara(1, 1.5, 1);
+            }
+            break;
+        case Qt::Key_6:
+            if (m_manipularMuebles->isChecked()) {
+                m_duplex->escalaMueble(1, 0.5, 1);
+            } else {
+                m_duplex->escalaLampara(1, 0.5, 1);
+            }
+            break;
+        case Qt::Key_7:
+            if (m_manipularMuebles->isChecked()) {
+                m_duplex->rotaMueble(10, 0, 0, 1);
+            } else {
+                m_duplex->rotaLampara(10, 0, 0, 1);
+            }
+            break;
+        case Qt::Key_8:
+            if (m_manipularMuebles->isChecked()) {
+                m_duplex->rotaMueble(-10, 0, 0, 1);
+            } else {
+                m_duplex->rotaLampara(-10, 0, 0, 1);
+            }
+            break;
+        case Qt::Key_9:
+            if (m_manipularMuebles->isChecked()) {
+                m_duplex->rotaMueble(10, 1, 0, 0);
+            } else {
+                m_duplex->rotaLampara(10, 1, 0, 0);
+            }
+            break;
+        case Qt::Key_0:
+            if (m_manipularMuebles->isChecked()) {
+                m_duplex->rotaMueble(-10, 1, 0, 0);
+            } else {
+                m_duplex->rotaLampara(-10, 1, 0, 0);
+            }
+            break;
+        case Qt::Key_Apostrophe:
+            if (m_manipularMuebles->isChecked()) {
+                m_duplex->rotaMueble(10, 0, 1, 0);
+            } else {
+                m_duplex->rotaLampara(10, 0, 1, 0);
+            }
+            break;
+        case Qt::Key_exclamdown:
+            if (m_manipularMuebles->isChecked()) {
+                m_duplex->rotaMueble(-10, 0, 1, 0);
+            } else {
+                m_duplex->rotaLampara(-10, 0, 1, 0);
+            }
+            break;
         default:
             break;
     }
@@ -254,8 +374,25 @@ void Escena::keyPressEvent(QKeyEvent *event)
                 m_camara->roll(-M_PI / 20.0);
                 break;
             case Qt::Key_Space:
-                break;
             case Qt::Key_Return:
+            case Qt::Key_I:
+            case Qt::Key_K:
+            case Qt::Key_J:
+            case Qt::Key_L:
+            case Qt::Key_O:
+            case Qt::Key_P:
+            case Qt::Key_1:
+            case Qt::Key_2:
+            case Qt::Key_3:
+            case Qt::Key_4:
+            case Qt::Key_5:
+            case Qt::Key_6:
+            case Qt::Key_7:
+            case Qt::Key_8:
+            case Qt::Key_9:
+            case Qt::Key_0:
+            case Qt::Key_Apostrophe:
+            case Qt::Key_exclamdown:
                 break;
             default:
                 QGLWidget::keyPressEvent(event);
