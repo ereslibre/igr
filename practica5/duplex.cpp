@@ -156,7 +156,7 @@ void Duplex::creaEscaleras()
     GLdouble altura = 0;
     GLdouble largo = 8;
     for (int i = 0; i < 10; ++i) {
-        Tablero *escalon = new Tablero(largo, 10, 4.8, 10, altura + 1, 20, Color(1, 1, altura));
+        Tablero *escalon = new Tablero(largo, 10, 4.8, 10, altura + 1, 20, Color(1, 1, 1));
         escalon->matriz().trasladar(-13.8, altura, -5.5);
         m_listaObjetos << escalon;
         altura += 0.46;
