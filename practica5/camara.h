@@ -27,8 +27,8 @@ class Camara
    Camara(PV3f eye, PV3f look, PV3f up, Vista vista);
    virtual ~Camara();
 
-   void recargaCamara();
-   void actualizaCamara();
+   void recargaCamara(Vista vista);
+   void actualizaCamara(Vista vista);
    void desplazar(Sentido sentido);
 
    void setModelViewMatrix();
@@ -36,11 +36,13 @@ class Camara
    void pitch(GLdouble angulo);
    void yaw(GLdouble angulo);
 
+   PV3f getEye() const;
+   PV3f getUp() const;
+   PV3f getLook() const;
+
  private:
    GLdouble m_near;
    GLdouble m_far;
-
-   Vista    m_vista;
 
    GLdouble m_angulo;
    GLdouble m_proporcion;

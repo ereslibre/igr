@@ -3,8 +3,7 @@
 #include <math.h>
 
 Camara::Camara(PV3f eye, PV3f look, PV3f up, Vista vista)
-    : m_vista(vista)
-    , m_angulo(90)
+    : m_angulo(90)
     , m_proporcion(1)
     , m_eye(eye)
     , m_look(look)
@@ -21,14 +20,14 @@ Camara::Camara(PV3f eye, PV3f look, PV3f up, Vista vista)
               m_up.getX()  ,m_up.getY()  ,m_up.getZ());
 
     setModelViewMatrix();
-    actualizaCamara();
+    actualizaCamara(vista);
 }
 
 Camara::~Camara()
 {
 }
 
-void Camara::recargaCamara()
+void Camara::recargaCamara(Vista vista)
 {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -37,10 +36,10 @@ void Camara::recargaCamara()
               m_up.getX()  ,m_up.getY()  ,m_up.getZ());
 
     setModelViewMatrix();
-    actualizaCamara();
+    actualizaCamara(vista);
 }
 
-void Camara::actualizaCamara()
+void Camara::actualizaCamara(Vista vista)
 {
     GLdouble left = Escena::self()->left();
     GLdouble right = Escena::self()->right();
@@ -48,15 +47,15 @@ void Camara::actualizaCamara()
     GLdouble top = Escena::self()->top();
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    if (m_vista == Ortogonal) {
+    if (vista == Ortogonal) {
         glOrtho(left * 5.0, right * 5.0, bottom * 5.0, top * 5.0, 1, 1000);
-    } else if(m_vista == Perspectiva) {
+    } else if(vista == Perspectiva) {
         gluPerspective(m_angulo, m_proporcion, 1, 1000);
     } else {
         glOrtho(left, right, bottom, top, 1, 1000);
         GLdouble matrix[16];
-        matrix[0] = 1; matrix[4] = 0; matrix[8] = 0; /* -X/Z */ matrix[12] = 0; 
-        matrix[1] = 0; matrix[5] = 1; matrix[9] = 0; /* -Y/Z */ matrix[13] = 0;
+        matrix[0] = 1; matrix[4] = 0; matrix[8] = -0.01; /* -X/Z */ matrix[12] = 0; 
+        matrix[1] = 0; matrix[5] = 1; matrix[9] = -0.01; /* -Y/Z */ matrix[13] = 0;
         matrix[2] = 0; matrix[6] = 0; matrix[10]= 1;           matrix[14] = 0;
         matrix[3] = 0; matrix[7] = 0; matrix[11]= 0;            matrix[15] = 1;
         
@@ -137,4 +136,19 @@ void Camara::yaw(GLdouble angulo)
     m_n = m_n * cos(angulo) + m_u * sin(angulo);
     m_u = n * -sin(angulo) + m_u * cos(angulo);
     setModelViewMatrix();
+}
+
+PV3f Camara::getEye() const 
+{
+  return m_eye;
+}
+
+PV3f Camara::getUp() const
+{
+  return m_up;
+}
+
+PV3f Camara::getLook() const
+{
+  return m_look;
 }

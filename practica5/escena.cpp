@@ -25,9 +25,26 @@ Escena::Escena(QWidget *parent)
     , m_camaraFrontal2(new QAction("Frontal", this))
     , m_camaraLateral2(new QAction("Lateral", this))
     , m_camaraCenital2(new QAction("Cenital", this))
+    , m_proyeccion(Camara::Perspectiva)
 {
     s_self = this;
 
+    QAction *proyeccionOrtogonal = new QAction("Ortogonal", this);
+    proyeccionOrtogonal->setCheckable(true);
+    QAction *proyeccionPerspectiva = new QAction("Perspectiva", this);
+    proyeccionPerspectiva->setCheckable(true);
+    proyeccionPerspectiva->setChecked(true);
+    QAction *proyeccionOblicua = new QAction("Oblicua", this);
+    proyeccionOblicua->setCheckable(true);
+
+    QActionGroup *proyeccionGroup = new QActionGroup(this);
+    proyeccionGroup->addAction(proyeccionOrtogonal);
+    proyeccionGroup->addAction(proyeccionPerspectiva);
+    proyeccionGroup->addAction(proyeccionOblicua);
+
+    connect(proyeccionOrtogonal, SIGNAL(triggered()), this, SLOT(proyeccionOrtogonal()));
+    connect(proyeccionPerspectiva, SIGNAL(triggered()), this, SLOT(proyeccionPerspectiva()));
+    connect(proyeccionOblicua, SIGNAL(triggered()), this, SLOT(proyeccionOblicua()));
     connect(m_camaraLibre, SIGNAL(triggered()), this, SLOT(camaraLibre()));
     connect(m_camaraEsquina1, SIGNAL(triggered()), this, SLOT(camaraEsquina1()));
     connect(m_camaraFrontal1, SIGNAL(triggered()), this, SLOT(camaraFrontal1()));
@@ -72,6 +89,11 @@ Escena::Escena(QWidget *parent)
     posicionCamara->addMenu(habitacion1);
     posicionCamara->addMenu(habitacion2);
     menuBar->addMenu(posicionCamara);
+
+    QMenu *proyeccion = new QMenu("Proyeccion", this);
+    proyeccion->addActions(proyeccionGroup->actions());
+
+    menuBar->addMenu(proyeccion);
 
     static_cast<QMainWindow*>(parent)->setMenuBar(menuBar);
 }
@@ -145,7 +167,7 @@ void Escena::initializeGL()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    m_camara = new Camara(PV3f(10.0, 10.0, 10.0), PV3f(0, 0, 0), PV3f(0, 1, 0, PV3f::Vector), Camara::Perspectiva);
+    m_camara = new Camara(PV3f(10.0, 10.0, 10.0), PV3f(0, 0, 0), PV3f(0, 1, 0, PV3f::Vector), m_proyeccion);
     m_duplex = new Duplex();
 }
 
@@ -193,7 +215,7 @@ void Escena::resizeGL(int width, int height)
     glClear(GL_COLOR_BUFFER_BIT);
     glViewport(0, 0, width, height);
 
-    m_camara->actualizaCamara();
+    m_camara->actualizaCamara(m_proyeccion);
 }
 
 void Escena::keyPressEvent(QKeyEvent *event)
@@ -405,6 +427,30 @@ void Escena::keyPressEvent(QKeyEvent *event)
     }
 }
 
+void Escena::proyeccionOrtogonal()
+{
+    m_proyeccion = Camara::Ortogonal;
+    Camara *ant = m_camara;
+    m_camara = new Camara(ant->getEye(), ant->getLook(), ant->getUp(), m_proyeccion);
+    delete ant;
+}
+
+void Escena::proyeccionOblicua()
+{
+    m_proyeccion = Camara::Oblicua;
+    Camara *ant = m_camara;
+    m_camara = new Camara(ant->getEye(), ant->getLook(), ant->getUp(), m_proyeccion);
+    delete ant;
+}
+
+void Escena::proyeccionPerspectiva()
+{
+    m_proyeccion = Camara::Perspectiva;
+    Camara *ant = m_camara;
+    m_camara = new Camara(ant->getEye(), ant->getLook(), ant->getUp(), m_proyeccion);
+    delete ant;
+}
+
 void Escena::camaraLibre()
 {
     if (m_camara2) {
@@ -412,7 +458,7 @@ void Escena::camaraLibre()
         delete m_camara;
         m_camara = m_camara2;
         m_camara2 = 0;
-        m_camara->recargaCamara();
+        m_camara->recargaCamara(m_proyeccion);
     }
 }
 
@@ -422,7 +468,7 @@ void Escena::camaraEsquina1()
     if (!m_camara2) {
         m_camara2 = m_camara;
     }
-    m_camara = new Camara(PV3f(14.0, 8.0, 5.0), PV3f(-14.0, 0, -5), PV3f(0, 1, 0, PV3f::Vector), Camara::Perspectiva);
+    m_camara = new Camara(PV3f(14.0, 8.0, 5.0), PV3f(-14.0, 0, -5), PV3f(0, 1, 0, PV3f::Vector), m_proyeccion);
 }
 
 void Escena::camaraFrontal1()
@@ -431,7 +477,7 @@ void Escena::camaraFrontal1()
     if (!m_camara2) {
         m_camara2 = m_camara;
     }
-    m_camara = new Camara(PV3f(0, 5.0, 18.0), PV3f(0, 5, 0), PV3f(0, 1, 0, PV3f::Vector), Camara::Perspectiva);
+    m_camara = new Camara(PV3f(0, 5.0, 18.0), PV3f(0, 5, 0), PV3f(0, 1, 0, PV3f::Vector), m_proyeccion);
 }
 
 void Escena::camaraLateral1()
@@ -440,7 +486,7 @@ void Escena::camaraLateral1()
     if (!m_camara2) {
         m_camara2 = m_camara;
     }
-    m_camara = new Camara(PV3f(22, 5.0, 0), PV3f(0, 5, 0), PV3f(0, 1, 0, PV3f::Vector), Camara::Perspectiva);
+    m_camara = new Camara(PV3f(22, 5.0, 0), PV3f(0, 5, 0), PV3f(0, 1, 0, PV3f::Vector), m_proyeccion);
 }
 
 void Escena::camaraCenital1()
@@ -449,7 +495,7 @@ void Escena::camaraCenital1()
     if (!m_camara2) {
         m_camara2 = m_camara;
     }
-    m_camara = new Camara(PV3f(0, 9.0, 0), PV3f(0, 0, 0), PV3f(1, 0, 0, PV3f::Vector), Camara::Perspectiva);
+    m_camara = new Camara(PV3f(0, 9.0, 0), PV3f(0, 0, 0), PV3f(1, 0, 0, PV3f::Vector), m_proyeccion);
 }
 
 void Escena::camaraEsquina2()
@@ -458,7 +504,7 @@ void Escena::camaraEsquina2()
     if (!m_camara2) {
         m_camara2 = m_camara;
     }
-    m_camara = new Camara(PV3f(14.0, 22.0, 5.0), PV3f(-14.0, 12, -5), PV3f(0, 1, 0, PV3f::Vector), Camara::Perspectiva);
+    m_camara = new Camara(PV3f(14.0, 22.0, 5.0), PV3f(-14.0, 12, -5), PV3f(0, 1, 0, PV3f::Vector), m_proyeccion);
 }
 
 void Escena::camaraFrontal2()
@@ -467,7 +513,7 @@ void Escena::camaraFrontal2()
     if (!m_camara2) {
         m_camara2 = m_camara;
     }
-    m_camara = new Camara(PV3f(0, 16.0, 18.0), PV3f(0, 16, 0), PV3f(0, 1, 0, PV3f::Vector), Camara::Perspectiva);
+    m_camara = new Camara(PV3f(0, 16.0, 18.0), PV3f(0, 16, 0), PV3f(0, 1, 0, PV3f::Vector), m_proyeccion);
 }
 
 void Escena::camaraLateral2()
@@ -476,7 +522,7 @@ void Escena::camaraLateral2()
     if (!m_camara2) {
         m_camara2 = m_camara;
     }
-    m_camara = new Camara(PV3f(22, 16.0, 0), PV3f(0, 16, 0), PV3f(0, 1, 0, PV3f::Vector), Camara::Perspectiva);
+    m_camara = new Camara(PV3f(22, 16.0, 0), PV3f(0, 16, 0), PV3f(0, 1, 0, PV3f::Vector), m_proyeccion);
 }
 
 void Escena::camaraCenital2()
@@ -489,7 +535,7 @@ void Escena::camaraCenital2()
     if (!m_camara2) {
         m_camara2 = m_camara;
     }
-    m_camara = new Camara(PV3f(0, 25, 0), PV3f(0, 0, 0), PV3f(1, 0, 0, PV3f::Vector), Camara::Perspectiva);
+    m_camara = new Camara(PV3f(0, 25, 0), PV3f(0, 0, 0), PV3f(1, 0, 0, PV3f::Vector), m_proyeccion);
 }
 
 #include "escena.moc"

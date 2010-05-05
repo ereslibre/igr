@@ -1,11 +1,11 @@
 #ifndef ESCENA_H
 #define ESCENA_H
 
+#include "camara.h"
+
 #include <QtOpenGL/QGLWidget>
 
 class QAction;
-
-class Camara;
 class Duplex;
 
 class Escena
@@ -32,6 +32,9 @@ protected:
     virtual void keyPressEvent(QKeyEvent *event);
 
 private Q_SLOTS:
+    void proyeccionOrtogonal();
+    void proyeccionOblicua();
+    void proyeccionPerspectiva();
     void camaraLibre();
     void camaraEsquina1();
     void camaraFrontal1();
@@ -45,6 +48,7 @@ private Q_SLOTS:
 private:
     static Escena *s_self;
 
+    Camara::Vista m_proyeccion;
     GLfloat   m_posicionLuz0[4];
     Camara   *m_camara;
     Camara   *m_camara2;
