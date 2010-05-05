@@ -4,7 +4,6 @@
 #include "malla.h"
 #include "pv3f.h"
 #include "cara.h"
-#include "coche.h"
 
 #include <QtCore/QList>
 
