@@ -178,9 +178,9 @@ void Escena::paintGL()
         glLightModelfv(GL_LIGHT_MODEL_AMBIENT, global_ambient);
         glDisable(GL_LIGHT0);
     } else {
-        glEnable(GL_LIGHT0);
-        GLfloat global_ambient[] = { 0.8f, 0.8f, 0.8f, 1.0f };
+        GLfloat global_ambient[] = { 0.3f, 0.3f, 0.3f, 1.0f };
         glLightModelfv(GL_LIGHT_MODEL_AMBIENT, global_ambient);
+        glEnable(GL_LIGHT0);
     }
 
     glLightfv(GL_LIGHT0,GL_POSITION,m_posicionLuz0);
