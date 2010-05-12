@@ -58,6 +58,7 @@ private:
     GLdouble  m_bottom;
     GLdouble  m_top;
     bool      m_esCamaraLibre;
+    bool      m_oscuras;
 
     QAction  *m_manipularMuebles;
     QAction  *m_manipularLampara;

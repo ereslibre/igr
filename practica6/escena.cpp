@@ -26,6 +26,7 @@ Escena::Escena(QWidget *parent)
     , m_camaraLateral2(new QAction("Lateral", this))
     , m_camaraCenital2(new QAction("Cenital", this))
     , m_proyeccion(Camara::Perspectiva)
+    , m_oscuras(true)
 {
     s_self = this;
 
@@ -143,12 +144,18 @@ QSize Escena::sizeHint() const
 void Escena::initializeGL()
 {
     glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+    const GLfloat luzDifusa[] = {1.0, 1.0, 1.0, 1.0};
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, luzDifusa);
 
-    // Gestiona el color del ambiente
-    GLfloat global_ambient[] = { 0, 0, 0, 1.0f };
-    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, global_ambient);
+    m_posicionLuz0[0] = 25.0;
+    m_posicionLuz0[1] = 25.0;
+    m_posicionLuz0[2] = 0.0;
+    m_posicionLuz0[3] = 1.0;
+    glLightfv(GL_LIGHT0, GL_POSITION, m_posicionLuz0);
 
     glEnable(GL_COLOR_MATERIAL);
+    glMaterialf(GL_FRONT, GL_SHININESS, 0.1);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_NORMALIZE);
     glShadeModel(GL_SMOOTH);
@@ -164,6 +171,18 @@ void Escena::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glClearColor(0.5f, 0.6f, 0.7f, 1.0f);
+
+    // Gestiona el color del ambiente
+    if (m_oscuras) {
+        GLfloat global_ambient[] = { 0, 0, 0, 1.0f };
+        glLightModelfv(GL_LIGHT_MODEL_AMBIENT, global_ambient);
+        glDisable(GL_LIGHT0);
+    } else {
+        glEnable(GL_LIGHT0);
+        GLfloat global_ambient[] = { 0.8f, 0.8f, 0.8f, 1.0f };
+        glLightModelfv(GL_LIGHT_MODEL_AMBIENT, global_ambient);
+    }
+
     glLightfv(GL_LIGHT0,GL_POSITION,m_posicionLuz0);
     glMatrixMode(GL_MODELVIEW);
 
@@ -214,6 +233,7 @@ void Escena::keyPressEvent(QKeyEvent *event)
     switch (event->key()) {
         case Qt::Key_Space:
             m_duplex->abreCierra();
+            m_oscuras = !m_oscuras;
             break;
         case Qt::Key_Return:
             m_duplex->enciendeApaga();
