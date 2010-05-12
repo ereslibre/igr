@@ -20,4 +20,4 @@ def configure(conf):
     conf.check_cfg(package = 'glu', args = '--cflags --libs')
 
 def build(bld):
-	bld.add_subdirs('esqueleto esqueleto3d practica1 practica2 practica3 practica4 practica5');
+	bld.add_subdirs('esqueleto esqueleto3d practica1 practica2 practica3 practica4 practica5 practica6');
