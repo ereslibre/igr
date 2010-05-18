@@ -145,6 +145,7 @@ void Escena::initializeGL()
 {
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
+    glEnable(GL_LIGHT1);
     const GLfloat luzDifusa[] = {1.0, 1.0, 1.0, 1.0};
     glLightfv(GL_LIGHT0, GL_DIFFUSE, luzDifusa);
 
