@@ -59,7 +59,6 @@ private:
     GLdouble  m_bottom;
     GLdouble  m_top;
     bool      m_esCamaraLibre;
-    bool      m_oscuras;
 
     QAction  *m_manipularMuebles;
     QAction  *m_manipularLampara;
@@ -79,6 +78,7 @@ private:
     QAction  *m_ambiente;
     QAction  *m_lampara;
     QAction  *m_remota;
+    QAction  *m_niebla;
 
     void cargaTexturas();
 };

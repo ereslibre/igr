@@ -31,8 +31,8 @@ Escena::Escena(QWidget *parent)
     , m_ambiente(new QAction("Ambiente", this))
     , m_lampara(new QAction("Lampara", this))
     , m_remota(new QAction("Remota", this))
+    , m_niebla(new QAction("Niebla", this))
     , m_proyeccion(Camara::Perspectiva)
-    , m_oscuras(true)
 {
     s_self = this;
 
@@ -52,6 +52,7 @@ Escena::Escena(QWidget *parent)
     m_ambiente->setCheckable(true);
     m_lampara->setCheckable(true);
     m_remota->setCheckable(true);
+    m_niebla->setCheckable(true);
 
     connect(proyeccionOrtogonal, SIGNAL(triggered()), this, SLOT(proyeccionOrtogonal()));
     connect(proyeccionPerspectiva, SIGNAL(triggered()), this, SLOT(proyeccionPerspectiva()));
@@ -68,6 +69,7 @@ Escena::Escena(QWidget *parent)
     connect(m_ambiente, SIGNAL(triggered()), this, SLOT(recargaLuces()));
     connect(m_lampara, SIGNAL(triggered()), this, SLOT(recargaLuces()));
     connect(m_remota, SIGNAL(triggered()), this, SLOT(recargaLuces()));
+    connect(m_niebla, SIGNAL(triggered()), this, SLOT(recargaLuces()));
 
     setFocusPolicy(Qt::StrongFocus);
     setMouseTracking(true);
@@ -112,6 +114,7 @@ Escena::Escena(QWidget *parent)
     iluminacion->addAction(m_ambiente);
     iluminacion->addAction(m_lampara);
     iluminacion->addAction(m_remota);
+    iluminacion->addAction(m_niebla);
     menuBar->addMenu(iluminacion);
 
     static_cast<QMainWindow*>(parent)->setMenuBar(menuBar);
@@ -162,8 +165,6 @@ QSize Escena::sizeHint() const
 void Escena::initializeGL()
 {
     glEnable(GL_LIGHTING);
-    glEnable(GL_LIGHT0);
-    glEnable(GL_LIGHT1);
     const GLfloat luzDifusa[] = {1.0, 1.0, 1.0, 1.0};
     glLightfv(GL_LIGHT0, GL_DIFFUSE, luzDifusa);
     
@@ -186,12 +187,10 @@ void Escena::initializeGL()
     // Niebla
     GLfloat colorNiebla[4] = {0.5, 0.5, 0.5, 1.0};
     GLfloat densNiebla = 0.1;
-    glEnable(GL_FOG);
     glFogi(GL_FOG_MODE, GL_EXP2);
     glFogf(GL_FOG_DENSITY, densNiebla);
     glFogfv(GL_FOG_COLOR, colorNiebla);
  
-
     glEnable(GL_COLOR_MATERIAL);
     glMaterialf(GL_FRONT, GL_SHININESS, 0.1);
     glEnable(GL_DEPTH_TEST);
@@ -210,15 +209,12 @@ void Escena::paintGL()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glClearColor(0.5f, 0.6f, 0.7f, 1.0f);
 
-    // Gestiona el color del ambiente
-    if (m_oscuras) {
+    if (!m_ambiente->isChecked()) {
         GLfloat global_ambient[] = { 0, 0, 0, 1.0f };
         glLightModelfv(GL_LIGHT_MODEL_AMBIENT, global_ambient);
-        glDisable(GL_LIGHT0);
     } else {
         GLfloat global_ambient[] = { 0.3f, 0.3f, 0.3f, 1.0f };
         glLightModelfv(GL_LIGHT_MODEL_AMBIENT, global_ambient);
-        glEnable(GL_LIGHT0);
     }
 
     glLightfv(GL_LIGHT0,GL_POSITION,m_posicionLuz0);
@@ -271,7 +267,6 @@ void Escena::keyPressEvent(QKeyEvent *event)
     switch (event->key()) {
         case Qt::Key_Space:
             m_duplex->abreCierra();
-            m_oscuras = !m_oscuras;
             break;
         case Qt::Key_Return:
             m_duplex->enciendeApaga();
@@ -588,6 +583,26 @@ void Escena::camaraCenital2()
 
 void Escena::recargaLuces()
 {
+    if (!m_ambiente->isChecked()) {
+        glDisable(GL_LIGHT0);
+    } else {
+        glEnable(GL_LIGHT0);
+    }
+    if (m_lampara->isChecked()) {
+        glEnable(GL_LIGHT1);
+    } else {
+        glDisable(GL_LIGHT1);
+    }
+    if (m_remota->isChecked()) {
+        glEnable(GL_LIGHT2);
+    } else {
+        glDisable(GL_LIGHT2);
+    }
+    if (m_niebla->isChecked()) {
+        glEnable(GL_FOG);
+    } else {
+        glDisable(GL_FOG);
+    }
 }
 
 void Escena::cargaTexturas()
