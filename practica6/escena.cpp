@@ -610,18 +610,18 @@ void Escena::cargaTexturas()
     QImage t;
     QImage b;
 
-    if(!b.load("rutabmp"))
-    {
-      // error
+    if (!b.load("rutabmp")) {
+        return;
     }
+
     // Convertimos el bmp al formato de openGL
     t = QGLWidget::convertToGLFormat(b);
     GLuint texture[1];
-    glGenTextures( 1, &texture[0] );
-    glBindTexture( GL_TEXTURE_2D, texture[0] );
-    glTexImage2D( GL_TEXTURE_2D, 0, 3, t.width(), t.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, t.bits());
-    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
-    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+    glGenTextures(1, &texture[0]);
+    glBindTexture(GL_TEXTURE_2D, texture[0]);
+    glTexImage2D(GL_TEXTURE_2D, 0, 3, t.width(), t.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, t.bits());
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 }
 
