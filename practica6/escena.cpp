@@ -7,6 +7,9 @@
 #include <QtGui/QKeyEvent>
 #include <QtGui/QMenuBar>
 
+#include <qimage.h>
+#include <QGLWidget>
+
 Escena *Escena::s_self = 0;
 
 Escena::Escena(QWidget *parent)
@@ -148,6 +151,8 @@ void Escena::initializeGL()
     glEnable(GL_LIGHT1);
     const GLfloat luzDifusa[] = {1.0, 1.0, 1.0, 1.0};
     glLightfv(GL_LIGHT0, GL_DIFFUSE, luzDifusa);
+    
+    // Luz lampara
     GLfloat luz[] = { 0, 0, 0, 1 };
     GLfloat luz2[] = { 1, 1, 1, 1 };
     glLightfv(GL_LIGHT1, GL_AMBIENT, luz);
@@ -156,11 +161,21 @@ void Escena::initializeGL()
     glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 40);
     glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, 3);
 
+    // Luz ambiente
     m_posicionLuz0[0] = 25.0;
     m_posicionLuz0[1] = 25.0;
     m_posicionLuz0[2] = 0.0;
     m_posicionLuz0[3] = 1.0;
     glLightfv(GL_LIGHT0, GL_POSITION, m_posicionLuz0);
+
+    // Niebla
+    GLfloat colorNiebla[4] = {0.5, 0.5, 0.5, 1.0};
+    GLfloat densNiebla = 0.1;
+    glEnable(GL_FOG);
+    glFogi(GL_FOG_MODE, GL_EXP2);
+    glFogf(GL_FOG_DENSITY, densNiebla);
+    glFogfv(GL_FOG_COLOR, colorNiebla);
+ 
 
     glEnable(GL_COLOR_MATERIAL);
     glMaterialf(GL_FRONT, GL_SHININESS, 0.1);
@@ -554,6 +569,26 @@ void Escena::camaraCenital2()
         m_camara2 = m_camara;
     }
     m_camara = new Camara(PV3f(0, 25, 0), PV3f(0, 0, 0), PV3f(1, 0, 0, PV3f::Vector), m_proyeccion);
+}
+
+void Escena::cargaTexturas()
+{
+    QImage t;
+    QImage b;
+
+    if(!b.load("rutabmp"))
+    {
+      // error
+    }
+    // Convertimos el bmp al formato de openGL
+    t = QGLWidget::convertToGLFormat(b);
+    GLuint texture[1];
+    glGenTextures( 1, &texture[0] );
+    glBindTexture( GL_TEXTURE_2D, texture[0] );
+    glTexImage2D( GL_TEXTURE_2D, 0, 3, t.width(), t.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, t.bits());
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+
 }
 
 #include "escena.moc"

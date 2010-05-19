@@ -74,6 +74,8 @@ private:
     QAction  *m_camaraFrontal2;
     QAction  *m_camaraLateral2;
     QAction  *m_camaraCenital2;
+
+    void cargaTexturas();
 };
 
 #endif
