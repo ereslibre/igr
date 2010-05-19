@@ -24,16 +24,9 @@ void Lampara::dibuja(Modo modo)
   glMultMatrixd(m_matriz.getMatrizAfin());
   m_tulipa->dibuja(modo);
   m_soporte->dibuja(modo);
-  GLfloat luz[] = { 0, 0, 0, 1 };
-  GLfloat luz2[] = { 1, 1, 1, 1 };
   GLfloat luzPos[] = { 0, 0, 0, 1 };
-  GLfloat luzDir[] = { 0, -1, 0, 0 };
-  glLightfv(GL_LIGHT1, GL_AMBIENT, luz);
-  glLightfv(GL_LIGHT1, GL_DIFFUSE, luz2);
-  glLightfv(GL_LIGHT1, GL_SPECULAR, luz2);
-  glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 40);
-  glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, 3);
   glLightfv(GL_LIGHT1, GL_POSITION, luzPos);
+  GLfloat luzDir[] = { 0, -1, 0, 0 };
   glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, luzDir);
   glPopMatrix();
 }

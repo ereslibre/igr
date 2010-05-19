@@ -148,6 +148,13 @@ void Escena::initializeGL()
     glEnable(GL_LIGHT1);
     const GLfloat luzDifusa[] = {1.0, 1.0, 1.0, 1.0};
     glLightfv(GL_LIGHT0, GL_DIFFUSE, luzDifusa);
+    GLfloat luz[] = { 0, 0, 0, 1 };
+    GLfloat luz2[] = { 1, 1, 1, 1 };
+    glLightfv(GL_LIGHT1, GL_AMBIENT, luz);
+    glLightfv(GL_LIGHT1, GL_DIFFUSE, luz2);
+    glLightfv(GL_LIGHT1, GL_SPECULAR, luz2);
+    glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 40);
+    glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, 3);
 
     m_posicionLuz0[0] = 25.0;
     m_posicionLuz0[1] = 25.0;
