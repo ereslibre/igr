@@ -129,6 +129,7 @@ void Duplex::escalaMueble(GLdouble x, GLdouble y, GLdouble z)
 void Duplex::escalaLampara(GLdouble x, GLdouble y, GLdouble z)
 {
     m_lampara->matriz().escalar(x, y, z);
+    ((Lampara*) m_lampara)->calculaAngulo(y);
 }
 
 void Duplex::rotaMueble(GLdouble angulo, GLdouble x, GLdouble y, GLdouble z)

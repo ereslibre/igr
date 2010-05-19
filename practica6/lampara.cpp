@@ -3,6 +3,7 @@
 #include "disco.h"
 
 Lampara::Lampara()
+  : m_act(1)
 {
   // Cilindro que forma la tulipa de la lampara
   m_tulipa = new Cilindro(1, 2, 1, 50, 50, Color(0.2, 1, 0.2));
@@ -16,6 +17,12 @@ Lampara::~Lampara()
 {
   delete m_tulipa;
   delete m_soporte;
+}
+
+void Lampara::calculaAngulo(GLdouble escaladoY)
+{
+  m_act *= escaladoY;
+  glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 40.0 * (1.0 / m_act));
 }
 
 void Lampara::dibuja(Modo modo)
