@@ -28,6 +28,9 @@ Escena::Escena(QWidget *parent)
     , m_camaraFrontal2(new QAction("Frontal", this))
     , m_camaraLateral2(new QAction("Lateral", this))
     , m_camaraCenital2(new QAction("Cenital", this))
+    , m_ambiente(new QAction("Ambiente", this))
+    , m_lampara(new QAction("Lampara", this))
+    , m_remota(new QAction("Remota", this))
     , m_proyeccion(Camara::Perspectiva)
     , m_oscuras(true)
 {
@@ -46,6 +49,10 @@ Escena::Escena(QWidget *parent)
     proyeccionGroup->addAction(proyeccionPerspectiva);
     proyeccionGroup->addAction(proyeccionOblicua);
 
+    m_ambiente->setCheckable(true);
+    m_lampara->setCheckable(true);
+    m_remota->setCheckable(true);
+
     connect(proyeccionOrtogonal, SIGNAL(triggered()), this, SLOT(proyeccionOrtogonal()));
     connect(proyeccionPerspectiva, SIGNAL(triggered()), this, SLOT(proyeccionPerspectiva()));
     connect(proyeccionOblicua, SIGNAL(triggered()), this, SLOT(proyeccionOblicua()));
@@ -58,6 +65,9 @@ Escena::Escena(QWidget *parent)
     connect(m_camaraFrontal2, SIGNAL(triggered()), this, SLOT(camaraFrontal2()));
     connect(m_camaraLateral2, SIGNAL(triggered()), this, SLOT(camaraLateral2()));
     connect(m_camaraCenital2, SIGNAL(triggered()), this, SLOT(camaraCenital2()));
+    connect(m_ambiente, SIGNAL(triggered()), this, SLOT(recargaLuces()));
+    connect(m_lampara, SIGNAL(triggered()), this, SLOT(recargaLuces()));
+    connect(m_remota, SIGNAL(triggered()), this, SLOT(recargaLuces()));
 
     setFocusPolicy(Qt::StrongFocus);
     setMouseTracking(true);
@@ -96,8 +106,13 @@ Escena::Escena(QWidget *parent)
 
     QMenu *proyeccion = new QMenu("Proyeccion", this);
     proyeccion->addActions(proyeccionGroup->actions());
-
     menuBar->addMenu(proyeccion);
+
+    QMenu *iluminacion = new QMenu("Iluminacion", this);
+    iluminacion->addAction(m_ambiente);
+    iluminacion->addAction(m_lampara);
+    iluminacion->addAction(m_remota);
+    menuBar->addMenu(iluminacion);
 
     static_cast<QMainWindow*>(parent)->setMenuBar(menuBar);
 }
@@ -569,6 +584,10 @@ void Escena::camaraCenital2()
         m_camara2 = m_camara;
     }
     m_camara = new Camara(PV3f(0, 25, 0), PV3f(0, 0, 0), PV3f(1, 0, 0, PV3f::Vector), m_proyeccion);
+}
+
+void Escena::recargaLuces()
+{
 }
 
 void Escena::cargaTexturas()

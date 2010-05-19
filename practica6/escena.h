@@ -44,6 +44,7 @@ private Q_SLOTS:
     void camaraFrontal2();
     void camaraLateral2();
     void camaraCenital2();
+    void recargaLuces();
 
 private:
     static Escena *s_self;
@@ -74,6 +75,10 @@ private:
     QAction  *m_camaraFrontal2;
     QAction  *m_camaraLateral2;
     QAction  *m_camaraCenital2;
+
+    QAction  *m_ambiente;
+    QAction  *m_lampara;
+    QAction  *m_remota;
 
     void cargaTexturas();
 };
