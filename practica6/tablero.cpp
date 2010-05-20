@@ -16,6 +16,7 @@ Tablero::Tablero(double largo, int numPartesLargo,
     const GLdouble tamAncho = ancho / (GLdouble) numPartesAncho;
     const GLdouble tamGrueso = grueso / (GLdouble) numPartesGrueso;
     setColor(color);
+
     // Cara inferior
     for (int i = 0; i < numPartesLargo; ++i) {
         for (int j = 0; j < numPartesAncho; ++j) {

@@ -12,8 +12,8 @@ Television::Television()
     m_listaObjetos << m_borde;
 
     // Tablero que forma la pantalla de la television
-    m_pantalla = new Tablero(2, 20, 0.2, 20, 1.2, 20, Color(0.5, 0.5, 0.5));
-    m_pantalla->matriz().trasladar(0.1, 0.5, -1);
+    m_pantalla = new Tablero(2, 1, 0.2, 1, 1.2, 1, Color(1, 1, 1), 8, Tablero::Derecha);
+    m_pantalla->matriz().trasladar(0.001, 0.5, -1);
     m_listaObjetos << m_pantalla;
 }
 
@@ -25,16 +25,16 @@ Television::~Television()
 
 void Television::interactua()
 {
-    Color color;
+    int nuevaTextura;
     if (!m_encendida) {
-        color = Color(0.3, 0.3, 1);
+        nuevaTextura = 8;
     } else {
-        color = Color(0.5, 0.5, 0.5);
+        nuevaTextura = 9;
     }
     m_encendida = !m_encendida;
     Objeto3D *pantalla = m_listaObjetos[1];
-    m_listaObjetos[1] = new Tablero(2, 20, 0.2, 20, 1.2, 20, color);
-    m_listaObjetos[1]->matriz().trasladar(0.1, 0.5, -1);
+    m_listaObjetos[1] = new Tablero(2, 20, 0.2, 20, 1.2, 20, Color(1, 1, 1), nuevaTextura, Tablero::Derecha);
+    m_listaObjetos[1]->matriz().trasladar(0.001, 0.5, -1);
     m_pantalla = m_listaObjetos[1];
     delete pantalla;
 }

@@ -23,7 +23,7 @@ void Cara::dibuja(DrawType drawType) const
         glBegin(GL_QUADS);
     }
     int x = 0;
-    GLdouble a[] = { 0, 1.0, 1.0, 0 };
+    GLdouble a[] = { 1.0, 0, 0, 1.0 };
     GLdouble b[] = { 0, 0, 1.0, 1.0 };
     foreach (const PV3f &p, m_vertices) {
         glNormal3d(m_normal.getX(), m_normal.getY(), m_normal.getZ());
