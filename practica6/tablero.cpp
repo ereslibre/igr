@@ -3,7 +3,7 @@
 Tablero::Tablero(double largo, int numPartesLargo,
                  double ancho, int numPartesAncho,
                  double grueso, int numPartesGrueso,
-                 Color color, int textura = -1, TableroCara caras)
+                 Color color, int textura, TableroCara caras)
     : Malla()
     , m_largo(largo)
     , m_numPartesLargo(numPartesLargo)
