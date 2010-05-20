@@ -51,15 +51,15 @@ Duplex::Duplex()
     m_listaObjetos << m_sofa;
 
     // Definimos el suelo
-    m_suelo = new Tablero(10, 20, 28, 20, 0.5, 20, Color(0.98, 0.34, 0.15));
+    m_suelo = new Tablero(10, 20, 28, 20, 0.5, 20, Color(1, 1, 1), 3, Tablero::Superior);
     m_suelo->matriz().trasladar(-14, -0.5, -6);
     m_listaObjetos << m_suelo;
 
     // Definimos el techo de la habitacion 1
-    m_techoH1 = new Tablero(9.5, 20, 23, 20, 0.5, 20, Color(0.98, 0.34, 0.15));
+    m_techoH1 = new Tablero(9.5, 20, 23, 40, 0.5, 20, Color(1, 1, 1), 4, Tablero::Superior);
     m_techoH1->matriz().trasladar(-9, 9, -5.5);
     m_listaObjetos << m_techoH1;
-    m_techoH2 = new Tablero(4, 20, 20, 5, 0.5, 20, Color(0.98, 0.34, 0.15));
+    m_techoH2 = new Tablero(4, 8, 4.8, 9, 0.5, 20, Color(1, 1, 1), 4, Tablero::Superior);
     m_techoH2->matriz().trasladar(-13.8, 9, 0);
     m_listaObjetos << m_techoH2;
 
@@ -78,27 +78,27 @@ Duplex::Duplex()
     m_listaObjetos << m_paredF4;
 
     // Definimos la pared derecha
-    m_paredD1 = new Tablero(2, 10, 0.2, 10, 9, 10, Color(1, 1, 1));
+    m_paredD1 = new Tablero(2, 10, 0.2, 10, 9, 10, Color(1, 1, 1), 2, Tablero::Izquierda);
     m_paredD1->matriz().trasladar(13.8, 0, 2);
     m_listaObjetos << m_paredD1;
-    m_paredD2 = new Tablero(6, 10, 0.2, 10, 9, 10, Color(1, 1, 1));
+    m_paredD2 = new Tablero(6, 10, 0.2, 10, 9, 10, Color(1, 1, 1), 2, Tablero::Izquierda);
     m_paredD2->matriz().trasladar(13.8, 0, -6);
     m_listaObjetos << m_paredD2;
-    m_paredD3 = new Tablero(2, 10, 0.2, 10, 3, 10, Color(1, 1, 1));
+    m_paredD3 = new Tablero(2, 10, 0.2, 10, 3, 10, Color(1, 1, 1), 2, Tablero::Izquierda);
     m_paredD3->matriz().trasladar(13.8, 6, 0);
     m_listaObjetos << m_paredD3;
 
     // Definimos la pared izquierda
-    m_paredI1 = new Tablero(3, 10, 0.2, 10, 18, 10, Color(1, 1, 1));
+    m_paredI1 = new Tablero(3, 10, 0.2, 10, 18, 10, Color(1, 1, 1), 2, Tablero::Derecha);
     m_paredI1->matriz().trasladar(-14, 0, 1);
     m_listaObjetos << m_paredI1;
-    m_paredI2 = new Tablero(3, 10, 0.2, 10, 18, 10, Color(1, 1, 1));
+    m_paredI2 = new Tablero(3, 10, 0.2, 10, 18, 10, Color(1, 1, 1), 2, Tablero::Derecha);
     m_paredI2->matriz().trasladar(-14, 0, -6);
     m_listaObjetos << m_paredI2;
-    m_paredI3 = new Tablero(4, 10, 0.2, 10, 12, 10, Color(1, 1, 1));
+    m_paredI3 = new Tablero(4, 10, 0.2, 10, 12, 10, Color(1, 1, 1), 2, Tablero::Derecha);
     m_paredI3->matriz().trasladar(-14, 0, -3);
     m_listaObjetos << m_paredI3;
-    m_paredI4 = new Tablero(4, 10, 0.2, 10, 2, 10, Color(1, 1, 1));
+    m_paredI4 = new Tablero(4, 10, 0.2, 10, 2, 10, Color(1, 1, 1), 2, Tablero::Derecha);
     m_paredI4->matriz().trasladar(-14, 16, -3);
     m_listaObjetos << m_paredI4;
     creaEscaleras();
