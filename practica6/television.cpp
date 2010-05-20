@@ -26,14 +26,14 @@ Television::~Television()
 void Television::interactua()
 {
     int nuevaTextura;
-    if (!m_encendida) {
+    if (m_encendida) {
         nuevaTextura = 8;
     } else {
         nuevaTextura = 9;
     }
     m_encendida = !m_encendida;
     Objeto3D *pantalla = m_listaObjetos[1];
-    m_listaObjetos[1] = new Tablero(2, 20, 0.2, 20, 1.2, 20, Color(1, 1, 1), nuevaTextura, Tablero::Derecha);
+    m_listaObjetos[1] = new Tablero(2, 1, 0.2, 1, 1.2, 1, Color(1, 1, 1), nuevaTextura, Tablero::Derecha);
     m_listaObjetos[1]->matriz().trasladar(0.001, 0.5, -1);
     m_pantalla = m_listaObjetos[1];
     delete pantalla;
