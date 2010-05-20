@@ -13,7 +13,7 @@ public:
         Solid
     };
 
-    Cara(const QList<PV3f> &vertices);
+    Cara(const QList<PV3f> &vertices, int textura = -1);
     virtual ~Cara();
 
     void dibuja(DrawType drawType) const;
@@ -27,6 +27,7 @@ private:
 private:
     QList<PV3f> m_vertices;
     PV3f        m_normal;
+    int         m_textura;
 };
 
 #endif

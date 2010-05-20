@@ -6,9 +6,8 @@
 #include <QtGui/QMainWindow>
 #include <QtGui/QKeyEvent>
 #include <QtGui/QMenuBar>
-
-#include <qimage.h>
-#include <QGLWidget>
+#include <QtGui/QImage>
+#include <QtOpenGL/QGLWidget>
 
 Escena *Escena::s_self = 0;
 
@@ -50,6 +49,7 @@ Escena::Escena(QWidget *parent)
     proyeccionGroup->addAction(proyeccionOblicua);
 
     m_ambiente->setCheckable(true);
+    m_ambiente->setChecked(true);
     m_lampara->setCheckable(true);
     m_remota->setCheckable(true);
     m_niebla->setCheckable(true);
@@ -167,6 +167,7 @@ void Escena::initializeGL()
     glEnable(GL_LIGHTING);
     const GLfloat luzDifusa[] = {1.0, 1.0, 1.0, 1.0};
     glLightfv(GL_LIGHT0, GL_DIFFUSE, luzDifusa);
+    glEnable(GL_LIGHT0);
     
     // Luz lampara
     GLfloat luz[] = { 0, 0, 0, 1 };
@@ -199,6 +200,8 @@ void Escena::initializeGL()
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    cargaTexturas();
 
     m_camara = new Camara(PV3f(10.0, 10.0, 10.0), PV3f(0, 0, 0), PV3f(0, 1, 0, PV3f::Vector), m_proyeccion);
     m_duplex = new Duplex();
@@ -610,7 +613,7 @@ void Escena::cargaTexturas()
     QImage t;
     QImage b;
 
-    if (!b.load("rutabmp")) {
+    if (!b.load("/home/ereslibre/facultad/igr/practica6/texturas/parquet.bmp")) {
         return;
     }
 

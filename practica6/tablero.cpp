@@ -3,7 +3,7 @@
 Tablero::Tablero(double largo, int numPartesLargo,
                  double ancho, int numPartesAncho,
                  double grueso, int numPartesGrueso,
-		 Color color)
+                 Color color, int textura = -1, TableroCara caras)
     : Malla()
     , m_largo(largo)
     , m_numPartesLargo(numPartesLargo)
@@ -27,9 +27,9 @@ Tablero::Tablero(double largo, int numPartesLargo,
             anadeVertice(VerticeNormal(PV3f(j * tamAncho + tamAncho, 0, i * tamLargo), PV3f(0, -1, 0)));     
             vertices << PV3f(j * tamAncho + tamAncho, 0, i * tamLargo + tamLargo);
             anadeVertice(VerticeNormal(PV3f(j * tamAncho + tamAncho, 0, i * tamLargo + tamLargo), PV3f(0, -1, 0)));
-	    vertices << PV3f(j * tamAncho, 0, i * tamLargo + tamLargo);
+            vertices << PV3f(j * tamAncho, 0, i * tamLargo + tamLargo);
             anadeVertice(VerticeNormal(PV3f(j * tamAncho, 0, i * tamLargo + tamLargo), PV3f(0, -1, 0)));
-	    anadeCara(Cara(vertices));
+            anadeCara(Cara(vertices));
         }
     }
 

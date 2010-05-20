@@ -1,7 +1,8 @@
 #include "cara.h"
 
-Cara::Cara(const QList<PV3f> &vertices)
+Cara::Cara(const QList<PV3f> &vertices, int textura)
     : m_vertices(vertices)
+    , m_textura(textura)
 {
     newell();
 }
