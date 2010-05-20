@@ -64,16 +64,16 @@ Duplex::Duplex()
     m_listaObjetos << m_techoH2;
 
     // Definimos la pared del fondo
-    m_paredF1 = new Tablero(0.5, 10, 28, 10, 4, 10, Color(1, 1, 1));
+    m_paredF1 = new Tablero(0.5, 10, 28, 10, 4, 10, Color(1, 1, 1), 2, Tablero::Frontal);
     m_paredF1->matriz().trasladar(-14, 0, -6);
     m_listaObjetos << m_paredF1;
-    m_paredF2 = new Tablero(0.5, 10, 28, 10, 10, 10, Color(1, 1, 1));
+    m_paredF2 = new Tablero(0.5, 10, 28, 10, 10, 10, Color(1, 1, 1), 2, Tablero::Frontal);
     m_paredF2->matriz().trasladar(-14, 8, -6);
     m_listaObjetos << m_paredF2;
-    m_paredF3 = new Tablero(0.5, 10, 11.5, 10, 18, 10, Color(1, 1, 1));
+    m_paredF3 = new Tablero(0.5, 10, 11.5, 10, 18, 10, Color(1, 1, 1), 2, Tablero::Frontal);
     m_paredF3->matriz().trasladar(2.5, 0, -6);
     m_listaObjetos << m_paredF3;
-    m_paredF4 = new Tablero(0.5, 10, 11.5, 10, 18, 10, Color(1, 1, 1));
+    m_paredF4 = new Tablero(0.5, 10, 11.5, 10, 18, 10, Color(1, 1, 1), 2, Tablero::Frontal);
     m_paredF4->matriz().trasladar(-14, 0, -6);
     m_listaObjetos << m_paredF4;
 

@@ -16,7 +16,6 @@ Tablero::Tablero(double largo, int numPartesLargo,
     const GLdouble tamAncho = ancho / (GLdouble) numPartesAncho;
     const GLdouble tamGrueso = grueso / (GLdouble) numPartesGrueso;
     setColor(color);
-
     // Cara inferior
     for (int i = 0; i < numPartesLargo; ++i) {
         for (int j = 0; j < numPartesAncho; ++j) {
@@ -29,7 +28,11 @@ Tablero::Tablero(double largo, int numPartesLargo,
             anadeVertice(VerticeNormal(PV3f(j * tamAncho + tamAncho, 0, i * tamLargo + tamLargo), PV3f(0, -1, 0)));
             vertices << PV3f(j * tamAncho, 0, i * tamLargo + tamLargo);
             anadeVertice(VerticeNormal(PV3f(j * tamAncho, 0, i * tamLargo + tamLargo), PV3f(0, -1, 0)));
-            anadeCara(Cara(vertices, textura));
+            if (caras & Inferior) {
+                anadeCara(Cara(vertices, textura));
+            } else {
+                anadeCara(Cara(vertices));
+            }
         }
     }
 
@@ -45,7 +48,11 @@ Tablero::Tablero(double largo, int numPartesLargo,
             anadeVertice(VerticeNormal(PV3f(j * tamAncho + tamAncho, grueso, i * tamLargo + tamLargo), PV3f(0, 1, 0)));
             vertices << PV3f(j * tamAncho + tamAncho, grueso, i * tamLargo);
             anadeVertice(VerticeNormal(PV3f(j * tamAncho + tamAncho, grueso, i * tamLargo), PV3f(0, 1, 0)));
-            anadeCara(Cara(vertices, textura));
+            if (caras & Superior) {
+                anadeCara(Cara(vertices, textura));
+            } else {
+                anadeCara(Cara(vertices));
+            }
         }
     }
 
@@ -61,7 +68,11 @@ Tablero::Tablero(double largo, int numPartesLargo,
             anadeVertice(VerticeNormal(PV3f(0, i * tamGrueso + tamGrueso, j * tamLargo + tamLargo), PV3f(-1, 0, 0)));
             vertices << PV3f(0, i * tamGrueso + tamGrueso, j * tamLargo);
             anadeVertice(VerticeNormal(PV3f(0, i * tamGrueso + tamGrueso, j * tamLargo), PV3f(-1, 0, 0)));
-            anadeCara(Cara(vertices, textura));
+            if (caras & Izquierda) {
+                anadeCara(Cara(vertices, textura));
+            } else {
+                anadeCara(Cara(vertices));
+            }
         }
     }
     
@@ -77,7 +88,11 @@ Tablero::Tablero(double largo, int numPartesLargo,
             anadeVertice(VerticeNormal(PV3f(ancho, i * tamGrueso + tamGrueso, j * tamLargo + tamLargo), PV3f(1, 0, 0)));
             vertices << PV3f(ancho, i * tamGrueso + tamGrueso, j * tamLargo);
             anadeVertice(VerticeNormal(PV3f(ancho, i * tamGrueso + tamGrueso, j * tamLargo), PV3f(1, 0, 0)));
-            anadeCara(Cara(vertices, textura));
+            if (caras & Derecha) {
+                anadeCara(Cara(vertices, textura));
+            } else {
+                anadeCara(Cara(vertices));
+            }
         }
     }
     
@@ -93,7 +108,11 @@ Tablero::Tablero(double largo, int numPartesLargo,
             anadeVertice(VerticeNormal(PV3f(j * tamAncho + tamAncho, i * tamGrueso + tamGrueso, 0), PV3f(0, 0, -1)));
             vertices << PV3f(j * tamAncho + tamAncho, i * tamGrueso, 0);
             anadeVertice(VerticeNormal(PV3f(j * tamAncho + tamAncho, i * tamGrueso, 0), PV3f(0, 0, -1)));
-            anadeCara(Cara(vertices, textura));
+            if (caras & Trasera) {
+                anadeCara(Cara(vertices, textura));
+            } else {
+                anadeCara(Cara(vertices));
+            }
         }
     }
     
@@ -109,7 +128,11 @@ Tablero::Tablero(double largo, int numPartesLargo,
             anadeVertice(VerticeNormal(PV3f(j * tamAncho + tamAncho, i * tamGrueso + tamGrueso, largo), PV3f(0, 0, 1)));
             vertices << PV3f(j * tamAncho, i * tamGrueso + tamGrueso, largo);
             anadeVertice(VerticeNormal(PV3f(j * tamAncho, i * tamGrueso + tamGrueso, largo), PV3f(0, 0, 1)));
-            anadeCara(Cara(vertices, textura));
+            if (caras & Frontal) {
+                anadeCara(Cara(vertices, textura));
+            } else {
+                anadeCara(Cara(vertices));
+            }
         }
     } 
 }

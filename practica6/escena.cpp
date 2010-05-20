@@ -611,22 +611,28 @@ void Escena::recargaLuces()
 
 void Escena::cargaTexturas()
 {
-    QImage t;
     QImage b;
 
-    if (!b.load("/home/ereslibre/facultad/igr/practica6/texturas/parquet.bmp")) {
-        return;
+    QStringList texturas;
+    texturas << "/home/ereslibre/facultad/igr/practica6/texturas/parquet.bmp";
+    texturas << "/home/ereslibre/facultad/igr/practica6/texturas/textura1-pared.jpg";
+
+    GLuint texturas_[2];
+    glGenTextures(2, &texturas_[0]);
+
+    int i = 0;
+    foreach (const QString &textura, texturas) {
+        if (!b.load(textura)) {
+            return;
+        }
+        // Convertimos el bmp al formato de openGL
+        const QImage t = QGLWidget::convertToGLFormat(b);
+        glBindTexture(GL_TEXTURE_2D, texturas_[i]);
+        glTexImage2D(GL_TEXTURE_2D, 0, 3, t.width(), t.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, t.bits());
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        ++i;
     }
-
-    // Convertimos el bmp al formato de openGL
-    t = QGLWidget::convertToGLFormat(b);
-    GLuint texture[1];
-    glGenTextures(1, &texture[0]);
-    glBindTexture(GL_TEXTURE_2D, texture[0]);
-    glTexImage2D(GL_TEXTURE_2D, 0, 3, t.width(), t.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, t.bits());
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
 }
 
 #include "escena.moc"

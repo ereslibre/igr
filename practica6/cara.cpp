@@ -18,9 +18,9 @@ void Cara::dibuja(DrawType drawType) const
     } else {
         if (m_textura != -1) {
             glEnable(GL_TEXTURE_2D);
+            glBindTexture(GL_TEXTURE_2D, m_textura);
         }
         glBegin(GL_QUADS);
-        glBindTexture(GL_TEXTURE_2D, m_textura);
     }
     int x = 0;
     GLdouble a[] = { 0, 1.0, 1.0, 0 };
