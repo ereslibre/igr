@@ -192,6 +192,7 @@ void Escena::initializeGL()
     glFogf(GL_FOG_DENSITY, densNiebla);
     glFogfv(GL_FOG_COLOR, colorNiebla);
  
+    glEnable(GL_TEXTURE_2D);
     glEnable(GL_COLOR_MATERIAL);
     glMaterialf(GL_FRONT, GL_SHININESS, 0.1);
     glEnable(GL_DEPTH_TEST);

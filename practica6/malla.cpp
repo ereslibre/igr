@@ -16,10 +16,10 @@ void Malla::dibuja(Modo modo)
     foreach (const Cara &c, m_caras) {
       glColor3f(m_color.r, m_color.g, m_color.b);
         if (modo == Solido){
-	  c.dibuja(Cara::Solid);
-	} else {
-	  c.dibuja(Cara::Wireframe);
-	}
+            c.dibuja(Cara::Solid);
+        } else {
+            c.dibuja(Cara::Wireframe);
+        }
     }
     glPopMatrix();
 }

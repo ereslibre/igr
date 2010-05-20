@@ -17,13 +17,19 @@ void Cara::dibuja(DrawType drawType) const
         glBegin(GL_LINE_STRIP);
     } else {
         glBegin(GL_QUADS);
+        glBindTexture(GL_TEXTURE_2D, m_textura);
     }
+    int x = 0;
+    GLdouble a[] = { 0, 1.0, 1.0, 0 };
+    GLdouble b[] = { 0, 0, 1.0, 1.0 };
     foreach (const PV3f &p, m_vertices) {
         glNormal3d(m_normal.getX(), m_normal.getY(), m_normal.getZ());
         if (drawType == Wireframe) {
             glVertex3d(p.getX() * 1.01, p.getY() * 1.01, p.getZ() * 1.01);
         } else {
+            glTexCoord2f(a[x], b[x]);
             glVertex3d(p.getX(), p.getY(), p.getZ());
+            ++x;
         }
     }
     glEnd();

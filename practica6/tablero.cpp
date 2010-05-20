@@ -29,7 +29,7 @@ Tablero::Tablero(double largo, int numPartesLargo,
             anadeVertice(VerticeNormal(PV3f(j * tamAncho + tamAncho, 0, i * tamLargo + tamLargo), PV3f(0, -1, 0)));
             vertices << PV3f(j * tamAncho, 0, i * tamLargo + tamLargo);
             anadeVertice(VerticeNormal(PV3f(j * tamAncho, 0, i * tamLargo + tamLargo), PV3f(0, -1, 0)));
-            anadeCara(Cara(vertices));
+            anadeCara(Cara(vertices, textura));
         }
     }
 
@@ -45,7 +45,7 @@ Tablero::Tablero(double largo, int numPartesLargo,
             anadeVertice(VerticeNormal(PV3f(j * tamAncho + tamAncho, grueso, i * tamLargo + tamLargo), PV3f(0, 1, 0)));
             vertices << PV3f(j * tamAncho + tamAncho, grueso, i * tamLargo);
             anadeVertice(VerticeNormal(PV3f(j * tamAncho + tamAncho, grueso, i * tamLargo), PV3f(0, 1, 0)));
-            anadeCara(Cara(vertices));
+            anadeCara(Cara(vertices, textura));
         }
     }
 
@@ -61,7 +61,7 @@ Tablero::Tablero(double largo, int numPartesLargo,
             anadeVertice(VerticeNormal(PV3f(0, i * tamGrueso + tamGrueso, j * tamLargo + tamLargo), PV3f(-1, 0, 0)));
             vertices << PV3f(0, i * tamGrueso + tamGrueso, j * tamLargo);
             anadeVertice(VerticeNormal(PV3f(0, i * tamGrueso + tamGrueso, j * tamLargo), PV3f(-1, 0, 0)));
-            anadeCara(Cara(vertices));
+            anadeCara(Cara(vertices, textura));
         }
     }
     
@@ -77,7 +77,7 @@ Tablero::Tablero(double largo, int numPartesLargo,
             anadeVertice(VerticeNormal(PV3f(ancho, i * tamGrueso + tamGrueso, j * tamLargo + tamLargo), PV3f(1, 0, 0)));
             vertices << PV3f(ancho, i * tamGrueso + tamGrueso, j * tamLargo);
             anadeVertice(VerticeNormal(PV3f(ancho, i * tamGrueso + tamGrueso, j * tamLargo), PV3f(1, 0, 0)));
-            anadeCara(Cara(vertices));
+            anadeCara(Cara(vertices, textura));
         }
     }
     
@@ -91,9 +91,9 @@ Tablero::Tablero(double largo, int numPartesLargo,
             anadeVertice(VerticeNormal(PV3f(j * tamAncho, i * tamGrueso + tamGrueso, 0), PV3f(0, 0, -1)));           
             vertices << PV3f(j * tamAncho + tamAncho, i * tamGrueso + tamGrueso, 0);
             anadeVertice(VerticeNormal(PV3f(j * tamAncho + tamAncho, i * tamGrueso + tamGrueso, 0), PV3f(0, 0, -1)));
-	    vertices << PV3f(j * tamAncho + tamAncho, i * tamGrueso, 0);
+            vertices << PV3f(j * tamAncho + tamAncho, i * tamGrueso, 0);
             anadeVertice(VerticeNormal(PV3f(j * tamAncho + tamAncho, i * tamGrueso, 0), PV3f(0, 0, -1)));
-            anadeCara(vertices);
+            anadeCara(Cara(vertices, textura));
         }
     }
     
@@ -109,7 +109,7 @@ Tablero::Tablero(double largo, int numPartesLargo,
             anadeVertice(VerticeNormal(PV3f(j * tamAncho + tamAncho, i * tamGrueso + tamGrueso, largo), PV3f(0, 0, 1)));
             vertices << PV3f(j * tamAncho, i * tamGrueso + tamGrueso, largo);
             anadeVertice(VerticeNormal(PV3f(j * tamAncho, i * tamGrueso + tamGrueso, largo), PV3f(0, 0, 1)));
-            anadeCara(vertices);
+            anadeCara(Cara(vertices, textura));
         }
     } 
 }
