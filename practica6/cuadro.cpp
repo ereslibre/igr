@@ -8,8 +8,8 @@ Cuadro::Cuadro()
   m_marco->matriz().trasladar(0, 0, -0.75);
   m_listaObjetos << m_marco;
   // Definimos el lienzo
-  m_lienzo = new Tablero(1, 20, 0.1, 20, 0.6, 20, Color(0.9, 0.9, 0.9));
-  m_lienzo->matriz().trasladar(0.05, 0.25, -0.5);
+  m_lienzo = new Tablero(1, 1, 0.1, 1, 0.6, 1, Color(1, 1, 1), 7, Tablero::Derecha);
+  m_lienzo->matriz().trasladar(0.01, 0.25, -0.5);
   m_listaObjetos << m_lienzo;
 }
 
