@@ -621,11 +621,12 @@ void Escena::cargaTexturas()
     texturas << "/home/ereslibre/facultad/igr/practica6/texturas/textura5-puerta.jpg";
     texturas << "/home/ereslibre/facultad/igr/practica6/texturas/textura6-mesa.jpg";
     texturas << "/home/ereslibre/facultad/igr/practica6/texturas/textura7-cuadro.jpg";
-    texturas << "/home/ereslibre/facultad/igr/practica6/texturas/textura8-teleapagada.png";
-    texturas << "/home/ereslibre/facultad/igr/practica6/texturas/textura9-teleencendida.jpg";
+    texturas << "/home/ereslibre/facultad/igr/practica6/texturas/textura8-imagen1.png";
+    texturas << "/home/ereslibre/facultad/igr/practica6/texturas/textura9-imagen2.png";
+    texturas << "/home/ereslibre/facultad/igr/practica6/texturas/textura10-imagen3.png";
 
-    GLuint texturas_[9];
-    glGenTextures(9, &texturas_[0]);
+    GLuint texturas_[10];
+    glGenTextures(10, &texturas_[0]);
 
     int i = 0;
     foreach (const QString &textura, texturas) {

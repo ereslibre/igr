@@ -16,7 +16,7 @@ class Television
  private:
     Objeto3D *m_borde;
     Objeto3D *m_pantalla;
-    bool m_encendida;
+    int       m_estado;
 };
 
 #endif // TELEVISION_H

@@ -4,7 +4,7 @@
 Television::Television()
     : ObjetoCompuesto3D()
 {
-    m_encendida = false;
+    m_estado = 0;
 
     // Tablero que forma el borde de la television
     m_borde = new Tablero(3, 20, 0.2, 20, 2, 20, Color(0.2, 0.2, 0.2));
@@ -26,12 +26,20 @@ Television::~Television()
 void Television::interactua()
 {
     int nuevaTextura;
-    if (m_encendida) {
-        nuevaTextura = 8;
-    } else {
-        nuevaTextura = 9;
+    switch (m_estado) {
+        case 0:
+            nuevaTextura = 9;
+        break;
+        case 1:
+            nuevaTextura = 10;
+        break;
+        case 2:
+            nuevaTextura = 8;
+            break;
+        default:
+            break;
     }
-    m_encendida = !m_encendida;
+    m_estado = (m_estado + 1) % 3;
     Objeto3D *pantalla = m_listaObjetos[1];
     m_listaObjetos[1] = new Tablero(2, 1, 0.2, 1, 1.2, 1, Color(1, 1, 1), nuevaTextura, Tablero::Derecha);
     m_listaObjetos[1]->matriz().trasladar(0.001, 0.5, -1);
