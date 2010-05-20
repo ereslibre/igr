@@ -16,6 +16,9 @@ void Cara::dibuja(DrawType drawType) const
     if (drawType == Wireframe) {
         glBegin(GL_LINE_STRIP);
     } else {
+        if (m_textura != -1) {
+            glEnable(GL_TEXTURE_2D);
+        }
         glBegin(GL_QUADS);
         glBindTexture(GL_TEXTURE_2D, m_textura);
     }
@@ -33,6 +36,9 @@ void Cara::dibuja(DrawType drawType) const
         }
     }
     glEnd();
+    if (drawType == Solid && m_textura != -1) {
+        glDisable(GL_TEXTURE_2D);
+    }
 }
 
 QList<PV3f> Cara::vertices() const
