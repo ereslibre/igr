@@ -185,6 +185,15 @@ void Escena::initializeGL()
     m_posicionLuz0[3] = 1.0;
     glLightfv(GL_LIGHT0, GL_POSITION, m_posicionLuz0);
 
+    // Luz remota
+    GLfloat posR[] = { -18, 18, 0 };
+    GLfloat dir[] = { 1, -1, 0 };
+    glLightfv(GL_LIGHT2, GL_AMBIENT, luz);
+    glLightfv(GL_LIGHT2, GL_DIFFUSE, luz2);
+    glLightfv(GL_LIGHT2, GL_SPECULAR, luz2);
+    glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, dir);
+    glLightfv(GL_LIGHT2, GL_POSITION, posR);
+
     // Niebla
     GLfloat colorNiebla[4] = {0.5, 0.5, 0.5, 1.0};
     GLfloat densNiebla = 0.1;
