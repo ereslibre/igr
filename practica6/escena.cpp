@@ -633,8 +633,8 @@ void Escena::cargaTexturas()
     texturas << "/home/ereslibre/facultad/igr/practica6/texturas/textura9-imagen2.png";
     texturas << "/home/ereslibre/facultad/igr/practica6/texturas/textura10-imagen3.png";
 
-    GLuint texturas_[10];
-    glGenTextures(10, &texturas_[0]);
+    GLuint *texturas_ = new GLuint[texturas.size()];
+    glGenTextures(texturas.size(), &texturas_[0]);
 
     int i = 0;
     foreach (const QString &textura, texturas) {
@@ -647,6 +647,8 @@ void Escena::cargaTexturas()
         glTexImage2D(GL_TEXTURE_2D, 0, 3, t.width(), t.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, t.bits());
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
         ++i;
     }
 }
